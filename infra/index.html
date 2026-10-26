@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vistigo Infra - know your hardware before it fails</title>
+<meta name="description" content="Vistigo Infra monitors switches, servers and power: port throughput and errors, optic levels, PSU status, fan speeds, temperatures, UPS and PDU - with alerts into Slack.">
+<meta name="theme-color" content="#0A141C">
+<meta property="og:title" content="Vistigo Infra by 444Video">
+<meta property="og:description" content="Know your hardware before it fails - switch, server and power monitoring.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%230A141C'/%3E%3Crect x='0' y='2' width='2' height='2' fill='%231200FE'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2300FEC8'/%3E%3Crect x='4' y='2' width='2' height='2' fill='%23FEA300'/%3E%3Crect x='6' y='2' width='2' height='2' fill='%23FE0000'/%3E%3Crect x='0' y='4' width='2' height='2' fill='%23B500FE'/%3E%3Crect x='2' y='4' width='2' height='2' fill='%2300FE05'/%3E%3Crect x='4' y='4' width='2' height='2' fill='%23FBFE00'/%3E%3Crect x='6' y='4' width='2' height='2' fill='%23FE009C'/%3E%3C/svg%3E">
+<link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="p-infra">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <nav class="nav wrap" aria-label="Main">
+    <a class="brand" href="../" aria-label="Vistigo home">
+      <svg class="mark" viewBox="0 0 8 4" aria-hidden="true"><rect x="0" y="0" width="2" height="2" fill="#1200FE"/><rect x="2" y="0" width="2" height="2" fill="#00FEC8"/><rect x="4" y="0" width="2" height="2" fill="#FEA300"/><rect x="6" y="0" width="2" height="2" fill="#FE0000"/><rect x="0" y="2" width="2" height="2" fill="#B500FE"/><rect x="2" y="2" width="2" height="2" fill="#00FE05"/><rect x="4" y="2" width="2" height="2" fill="#FBFE00"/><rect x="6" y="2" width="2" height="2" fill="#FE009C"/><path d="M2 0V4M4 0V4M6 0V4M0 2H8" stroke="#0A141C" stroke-width="0.3"/></svg>
+      <span class="brand-name">Vistigo</span>
+      <span class="brand-by">by 444Video</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="../maritime/">Maritime</a></li>
+      <li><a href="../broadcast/">Broadcast</a></li>
+      <li><a href="./" aria-current="page">Infra</a></li>
+      <li><a class="nav-cta" href="#contact">Get in touch</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="wrap split">
+      <div>
+        <span class="label">Vistigo Infra</span>
+        <h1>Know your hardware <em>before it fails.</em></h1>
+        <p class="lede">Switches, servers and power in one view. Catch the failing fan, the lost PSU and the saturated uplink while there's still time to fix them on your terms.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#contact">Tell us what you can't see</a>
+          <a class="btn btn-ghost" href="#watch">What we monitor</a>
+        </div>
+      </div>
+
+      <figure class="dash" style="margin:0" aria-label="Illustrative infrastructure health dashboard with sample data">
+        <div class="dash-top">
+          <span class="dash-title">Rack health - core room</span>
+          <span class="dash-note">illustrative - sample data</span>
+        </div>
+        <div class="dash-body">
+          <div class="stats">
+            <div class="stat"><div class="k">Hosts up</div><div class="v ok">142<small>/142</small></div></div>
+            <div class="stat"><div class="k">PSU redundancy</div><div class="v warn">1 lost</div></div>
+            <div class="stat"><div class="k">Max inlet</div><div class="v">31<small> &deg;C</small></div></div>
+            <div class="stat"><div class="k">Uplink peak</div><div class="v">78<small>%</small></div></div>
+          </div>
+          <div class="panel">
+            <div class="panel-h">
+              <span>Core uplink, last 24 h</span>
+              <span class="legend"><span><i style="background:#5A4DFF"></i>Out</span><span><i style="background:#FEA300"></i>In</span></span>
+            </div>
+            <svg class="chart" viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0 27.5H300M0 55H300M0 82.5H300" stroke="rgba(232,238,242,0.08)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+              <polygon fill="rgba(18,0,254,0.35)" points="0,110 0,92 25,94 50,90 75,80 100,62 125,50 150,46 175,40 200,44 225,58 250,74 275,86 300,90 300,110"/>
+              <polyline fill="none" stroke="#5A4DFF" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0,92 25,94 50,90 75,80 100,62 125,50 150,46 175,40 200,44 225,58 250,74 275,86 300,90"/>
+              <polyline fill="none" stroke="#FEA300" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0,98 25,99 50,97 75,90 100,78 125,70 150,64 175,25 200,62 225,72 250,84 275,94 300,96"/>
+            </svg>
+          </div>
+          <div class="panel">
+            <div class="panel-h"><span>Fan speed - server 07</span><span>RPM</span></div>
+            <div class="bar-row"><span>Fan 1</span><span class="track"><span class="fill" style="width:62%"></span></span><span class="n">8,400</span></div>
+            <div class="bar-row"><span>Fan 2</span><span class="track"><span class="fill" style="width:61%"></span></span><span class="n">8,280</span></div>
+            <div class="bar-row"><span>Fan 3</span><span class="track"><span class="fill" style="width:88%;background:var(--warn)"></span></span><span class="n">11,950</span></div>
+            <div class="bar-row"><span>Fan 4</span><span class="track"><span class="fill" style="width:0%"></span></span><span class="n" style="color:var(--crit)">0</span></div>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section-alt" id="watch">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">What we monitor</span>
+        <h2>The kit underneath everything else.</h2>
+        <p>Vistigo Infra polls your network, servers and power the way your NOC would if it never had to sleep, and turns the readings into trends you can act on.</p>
+      </div>
+      <div class="groups">
+        <div class="group">
+          <h3>Switches</h3>
+          <p>Every port, every uplink, read over SNMP.</p>
+          <ul class="chips"><li>throughput</li><li>errors</li><li>discards</li><li>optic Rx / Tx</li><li>PoE</li><li>link flaps</li></ul>
+        </div>
+        <div class="group">
+          <h3>Servers</h3>
+          <p>Hardware health from the management controller, not just the operating system.</p>
+          <ul class="chips"><li>PSU status</li><li>PSU redundancy</li><li>fan RPM</li><li>inlet temp</li><li>CPU temp</li><li>disk health</li></ul>
+        </div>
+        <div class="group">
+          <h3>Power</h3>
+          <p>Know how long you have if the mains goes.</p>
+          <ul class="chips"><li>UPS load</li><li>UPS runtime</li><li>battery health</li><li>PDU per outlet</li></ul>
+        </div>
+        <div class="group">
+          <h3>Hosts and VMs</h3>
+          <p>The everyday resources, kept for long enough to spot a trend.</p>
+          <ul class="chips"><li>CPU</li><li>memory</li><li>disk space</li><li>network</li><li>services up</li></ul>
+        </div>
+        <div class="group">
+          <h3>Housekeeping</h3>
+          <p>The quiet things that cause loud outages.</p>
+          <ul class="chips"><li>certificate expiry</li><li>NTP drift</li><li>backup age</li><li>disk fill rate</li></ul>
+        </div>
+        <div class="group">
+          <h3>Alerts</h3>
+          <p>Straight into Slack, email or your NOC tooling, with clear severity so the right person gets woken up.</p>
+          <ul class="chips"><li>Slack</li><li>email</li><li>webhook</li><li>escalation</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap split">
+      <div>
+        <span class="label">How it works</span>
+        <h2>Proven open tools, set up properly.</h2>
+        <p class="muted">Zabbix and Prometheus are trusted everywhere because they work. What usually goes wrong is the setup - templates nobody tuned, alerts nobody reads. That's the part we do for you.</p>
+      </div>
+      <ol class="steps">
+        <li><div><h3>Discover</h3><p>Zabbix polls switches, servers, UPS and PDU over SNMP and IPMI. Prometheus exporters cover hosts and services.</p></div></li>
+        <li><div><h3>Tune</h3><p>Templates and thresholds tuned to your kit, so an alert means something.</p></div></li>
+        <li><div><h3>Store</h3><p>VictoriaMetrics keeps the long-term history for capacity planning and post-incident review.</p></div></li>
+        <li><div><h3>See and act</h3><p>Grafana dashboards per room, rack or customer, and alerts to Slack with the context attached.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-alt" id="who">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Who it's for</span>
+        <h2>Teams who look after racks they can't always stand in front of.</h2>
+      </div>
+      <ul class="audience">
+        <li><strong>NOC and IT operations teams</strong><span>A single view across rooms and sites, with alerts you can trust.</span></li>
+        <li><strong>Broadcast engineering</strong><span>The servers and switches behind playout and contribution, on the same platform as the streams.</span></li>
+        <li><strong>Managed service providers</strong><span>Per-customer dashboards and alert routing from one platform.</span></li>
+        <li><strong>Edge and remote sites</strong><span>Unattended racks, flyaway kits and portable systems, watched from anywhere.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="proof">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">We run it ourselves</span>
+        <h2>Our own kit runs on Vistigo.</h2>
+        <p>Our portable monitoring lab puts every piece of kit - power, connectivity, network and compute - into a single Grafana view. It's the same stack we deploy for customers.</p>
+      </div>
+      <div class="proof">
+        <div class="proof-item"><div class="big">10 racks &rarr; 3</div><p>Infrastructure consolidated for a UK multiplex operator, with remote, proactive monitoring.</p></div>
+        <div class="proof-item"><div class="big">~70%</div><p>Smaller infrastructure footprint on the same project.</p></div>
+        <div class="proof-item"><div class="big">One view</div><p>Power, network and compute together, so cause and effect sit side by side.</p></div>
+      </div>
+      <p class="source">Rack and footprint figures from the 444Video case study for a UK multiplex operator.</p>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="section-head"><span class="label">Same platform</span><h2>Add another pillar.</h2></div>
+      <div class="others">
+        <a class="pillar maritime" href="../maritime/"><span class="label">Vistigo Maritime</span><h3>Every vessel, always connected.</h3><span class="more">Explore Maritime &rarr;</span></a>
+        <a class="pillar broadcast" href="../broadcast/"><span class="label">Vistigo Broadcast</span><h3>Catch the error before the viewer does.</h3><span class="more">Explore Broadcast &rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="wrap">
+      <span class="label">Get in touch</span>
+      <h2>Tell us what you can't see.</h2>
+      <p>Tell us what's in your racks and where they are. We'll show you what Vistigo would put on screen.</p>
+      <div class="actions"><a class="btn btn-primary" href="mailto:info@444.video?subject=Vistigo%20Infra">info@444.video</a></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <p><strong style="color: var(--text)">Vistigo</strong> is a 444Video product.<br>The name comes from <em>vista</em> - the view.</p>
+        <p class="slogan">The Full Picture</p>
+      </div>
+      <div>
+        <h4>Pillars</h4>
+        <ul>
+          <li><a href="../maritime/">Vistigo Maritime</a></li>
+          <li><a href="../broadcast/">Vistigo Broadcast</a></li>
+          <li><a href="./">Vistigo Infra</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>444Video</h4>
+        <ul>
+          <li><a href="https://444video.com">444video.com</a></li>
+          <li><a href="mailto:info@444.video">info@444.video</a></li>
+          <li><a href="https://www.linkedin.com/company/444video">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">&copy; 2026 444Video. Grafana is a trademark of Grafana Labs. Zabbix, Prometheus and VictoriaMetrics are trademarks of their respective owners. Dashboards shown on this site are illustrative and use sample data.</p>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
