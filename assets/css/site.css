@@ -286,3 +286,170 @@ p{max-width:68ch}
 /* 16px side gutter on phones, matching the 444Video site */
 .container-xl{--tblr-gutter-x:2rem}
 .flow .badge{font-size:.72rem;padding:.2rem .45rem}
+
+/* ============================================================
+   BROADCAST - a gallery multiviewer.
+   Screens sit on black bezels with an under-monitor display
+   (UMD) and tally lamps; protocol tags are router-panel keys;
+   SMPTE bars mark the section breaks. Square corners throughout.
+   ============================================================ */
+.p-broadcast{--tblr-border-radius:0;--tblr-border-radius-lg:0;--bezel:#050404;--umd:#FFC247;--pvw:#2BD45B}
+.p-broadcast .card{border-radius:0;border-color:#2E2420;background:#15100E}
+
+/* monitor tiles: black bezel, no browser chrome, UMD underneath */
+.p-broadcast .browser{border-radius:0;background:var(--bezel);padding:6px;box-shadow:0 0 0 1px #2E2420,0 18px 50px -20px rgba(0,0,0,.9)}
+.p-broadcast .browser-header{display:none}
+.p-broadcast .shot-note{
+  display:flex;align-items:center;gap:.75rem;margin-top:0;padding:.45rem .75rem;
+  background:var(--bezel);border:1px solid #2E2420;border-top:0;
+  font-family:"Archivo";font-stretch:85%;font-weight:600;font-size:.82rem;color:var(--umd);letter-spacing:.02em;
+}
+.p-broadcast .shot-note .badge{
+  flex:none;margin:0;width:.85rem;height:.85rem;padding:0;border-radius:0;font-size:0;overflow:hidden;
+  background:var(--tally)!important;box-shadow:0 0 8px var(--tally);
+}
+.p-broadcast figure:has(.bg-secondary-lt) .shot-note .badge{background:#555!important;box-shadow:none}
+.p-broadcast .shot-note::after{content:"";flex:none;margin-left:auto;width:.85rem;height:.85rem;background:var(--pvw);box-shadow:0 0 8px var(--pvw)}
+
+/* the hero sits on a quad-split, like the wall it came from */
+.p-broadcast .hero::before{
+  background:
+    linear-gradient(90deg, transparent calc(50% - 1px), rgba(255,194,71,.06) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(transparent calc(50% - 1px), rgba(255,194,71,.06) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px),
+    radial-gradient(70% 80% at 85% 30%, rgba(255,90,20,.10), transparent 70%);
+}
+
+/* section breaks are a strip of 75% bars */
+.p-broadcast .section + .section{border-top:0}
+.p-broadcast .section + .section::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:4px;
+  background:linear-gradient(90deg,#C0C0C0 0 14.28%,#C0C000 0 28.57%,#00C0C0 0 42.85%,#00C000 0 57.14%,#C000C0 0 71.42%,#C00000 0 85.71%,#0000C0 0);
+  opacity:.55;
+}
+
+/* diagram: each box is a tile with a UMD title bar */
+.p-broadcast .flow .card{background:#120D0C;border-color:#2E2420}
+.p-broadcast .flow .card-body{padding:0}
+.p-broadcast .flow .card strong{
+  display:block;padding:.45rem .8rem;background:var(--bezel);border-bottom:1px solid #2E2420;
+  font-family:"Archivo";font-stretch:85%;font-weight:700;font-size:.95rem;color:var(--umd);
+}
+.p-broadcast .flow .card p{padding:.55rem .8rem .75rem;margin:0}
+.p-broadcast .flow-kit{border-left:0;box-shadow:inset 3px 0 0 var(--tally)!important}
+.p-broadcast .flow-store strong{border-bottom:0;background:transparent;color:var(--tblr-body-color)}
+.p-broadcast .flow-store .card-body{padding:.6rem .2rem}
+.p-broadcast .flow-via .card-body{display:flex;flex-direction:column}
+.p-broadcast .flow-via .badge{order:2;align-self:flex-start;margin:.6rem .8rem 0}
+.p-broadcast .flow-via strong{order:1}
+.p-broadcast .flow-via p{order:3}
+/* router-panel keys */
+.p-broadcast .flow .badge{
+  border-radius:2px;background:linear-gradient(#2A201B,#1A1411)!important;color:var(--umd)!important;
+  border:1px solid #4A382E;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 6px rgba(255,180,60,.15);
+}
+.p-broadcast .flow-out .card{background:var(--bezel)}
+.p-broadcast .flow-out .card-status-top{background:var(--tally)!important}
+
+/* dashboard cards and audience: tiles with a tally lamp in the corner */
+.p-broadcast .dash-card,.p-broadcast .audience .card,.p-broadcast .pillar-card,.p-broadcast .figure-card{position:relative}
+.p-broadcast .dash-card::after,.p-broadcast .audience .card::after{
+  content:"";position:absolute;right:.8rem;top:.9rem;width:.55rem;height:.55rem;background:var(--pvw);box-shadow:0 0 6px var(--pvw);
+}
+.p-broadcast .dash-card:first-child::after,.p-broadcast .row > .col-12:first-child .dash-card::after{background:var(--tally);box-shadow:0 0 8px var(--tally)}
+.p-broadcast .audience .card{border-left:0;border-top:3px solid #2E2420}
+.p-broadcast .figure-card{background:var(--bezel)}
+.p-broadcast .figure-card .display{color:var(--umd);font-stretch:70%}
+.p-broadcast .btn{border-radius:0}
+.p-broadcast .btn-primary{font-family:"Archivo";font-stretch:85%;font-weight:700}
+
+/* ============================================================
+   INFRA - a rack elevation.
+   Cards are 1U faceplates with screw holes, protocols are
+   printed asset-label tape, the diagram is patched with
+   coloured cables, and a rack rail runs down the page edge.
+   ============================================================ */
+.p-infra{--rail:#1A231E;--plate1:#18211C;--plate2:#111814;--tape:#EDEDE4;--cable-a:#3B82F6;--cable-b:#EAB308}
+.p-infra .card{
+  border-radius:2px;border-color:#2C3B33;
+  background:linear-gradient(180deg,var(--plate1),var(--plate2));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 1px 0 rgba(0,0,0,.5);
+}
+/* screw holes in the four corners of every plate, drawn on the card body */
+.p-infra .card-body{
+  background:
+    radial-gradient(circle,#050806 2.2px,#3A4A41 2.8px,transparent 3.4px) left 6px top 6px/8px 8px no-repeat,
+    radial-gradient(circle,#050806 2.2px,#3A4A41 2.8px,transparent 3.4px) right 6px top 6px/8px 8px no-repeat,
+    radial-gradient(circle,#050806 2.2px,#3A4A41 2.8px,transparent 3.4px) left 6px bottom 6px/8px 8px no-repeat,
+    radial-gradient(circle,#050806 2.2px,#3A4A41 2.8px,transparent 3.4px) right 6px bottom 6px/8px 8px no-repeat;
+}
+.p-infra .card > *{position:relative;z-index:1}
+.p-infra .card-body{padding-left:1.4rem;padding-right:1.4rem}
+
+/* rack rail with square mounting holes down the left edge of each section */
+.p-infra .section,.p-infra .hero{position:relative}
+.p-infra .section::after{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:22px;pointer-events:none;
+  background:
+    linear-gradient(90deg,transparent 0 6px,rgba(255,255,255,.04) 6px 7px,transparent 7px 15px,rgba(255,255,255,.04) 15px 16px,transparent 16px),
+    linear-gradient(#0A0F0C 0 0) 8px 0/6px 100% no-repeat,
+    repeating-linear-gradient(180deg,transparent 0 7px,#2C3B33 7px 13px,transparent 13px 15px,#2C3B33 15px 21px,transparent 21px 23px,#2C3B33 23px 29px,transparent 29px 44.45px) 8px 0/6px 100% no-repeat,
+    var(--rail);
+  border-right:1px solid #2C3B33;
+}
+@media (max-width:767.98px){.p-infra .section::after{display:none}}
+
+/* asset-label tape */
+.p-infra .flow .badge,.p-infra .shot-note .badge{
+  background:var(--tape)!important;color:#111!important;border-radius:1px;font-family:var(--tblr-font-monospace);font-weight:500;
+  box-shadow:0 1px 0 rgba(0,0,0,.6);letter-spacing:.02em;
+}
+.p-infra .shot-note .badge{font-family:"IBM Plex Sans Condensed"}
+
+/* patch cables between the columns: blue into the collector, yellow into storage */
+.p-infra .flow-via::before,.p-infra .flow-store::before{border-top:3px solid var(--cable-a);opacity:1;border-radius:2px;top:calc(50% - 1px)}
+.p-infra .flow-store::before{border-top-color:var(--cable-b)}
+.p-infra .flow-via::after,.p-infra .flow-store::after{
+  border:0;left:-9px;top:calc(50% - 5px);width:9px;height:11px;border-radius:1px;
+  background:linear-gradient(90deg,#9AA59E,#C9D1CB);box-shadow:inset -2px 0 0 #6C7770;
+}
+@media (max-width:991.98px){
+  .p-infra .flow-via::before,.p-infra .flow-store::before{border-top:0;border-left:3px solid var(--cable-a);left:calc(1.5rem - 1px)}
+  .p-infra .flow-store::before{border-left-color:var(--cable-b)}
+  .p-infra .flow-via::after,.p-infra .flow-store::after{left:calc(1.5rem - 4px);top:-9px;width:11px;height:9px}
+}
+/* each piece of equipment gets a vent grille and a front-panel LED */
+.p-infra .flow-kit{border-left:1px solid #2C3B33}
+.p-infra .flow-kit .card-body{padding-left:2.4rem}
+.p-infra .flow-kit .card-body::before{
+  content:"";position:absolute;left:1.1rem;top:1rem;bottom:1rem;width:.6rem;
+  background:repeating-linear-gradient(180deg,#050806 0 2px,transparent 2px 5px);opacity:.9;
+}
+.p-infra .flow-out .card-status-top{background:var(--led)!important;height:2px}
+.p-infra .flow-store strong{font-family:"IBM Plex Sans Condensed";font-weight:600}
+
+/* dashboard cards read like engraved panel labels */
+.p-infra .dash-card .card-status-top{height:2px}
+.p-infra .dash-card small{
+  display:inline-block;padding:.05rem .4rem;background:var(--tape);color:#111!important;border-radius:1px;
+  font-family:var(--tblr-font-monospace);font-weight:500;font-size:.75rem;
+}
+.p-infra .audience .card{border-left:1px solid #2C3B33}
+.p-infra .figure-card .display{font-family:"IBM Plex Sans Condensed";color:var(--accent)}
+.p-infra .browser{border-radius:2px}
+.p-infra .btn{border-radius:2px}
+
+/* fixes after review */
+.p-broadcast .browser-header{display:none!important}
+.p-broadcast .flow .flow-store .card-body strong{background:transparent;border-bottom:0;color:var(--tblr-body-color)}
+.p-broadcast .flow .flow-out .card-body{padding:1rem 1.1rem}
+.p-broadcast .flow .flow-out h3{font-family:"Archivo";font-stretch:75%;font-weight:800;color:#fff}
+.p-broadcast .flow .flow-out p{padding:0}
+.p-broadcast .flow-out .list-group-item{font-family:"Archivo";font-stretch:90%;font-weight:600}
+.p-infra .flow-kit .card-body::before{top:1.1rem;bottom:1.1rem}
+
+/* maritime: the ship sails along the bottom of the hero */
+.voyage{position:relative;height:clamp(120px,17vw,220px);margin-top:-1rem;overflow:hidden;
+  background:linear-gradient(180deg,transparent,rgba(4,16,30,.6))}
+.voyage svg{position:absolute;inset:0;width:100%;height:100%}
+.p-maritime .hero{padding-bottom:2rem}

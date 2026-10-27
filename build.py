@@ -289,6 +289,60 @@ INFRA_PANEL = f"""<div class="gp">
 COMPASS = ('<svg class="compass" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.2"/>'
            '<path d="M20 4L24 20L20 36L16 20Z" fill="currentColor"/><path d="M4 20L20 17L36 20L20 23Z" fill="currentColor" opacity=".35"/></svg>')
 
+
+def _ship():
+    """An original line drawing of a container ship under way, with its satellite and cellular links."""
+    import random
+    rnd = random.Random(444)
+    hues = ["#1200FE", "#00FEC8", "#FEA300", "#FE0000", "#B500FE", "#00FE05", "#FBFE00", "#FE009C"]
+    boxes = []
+    x = 372
+    while x < 800:
+        h = rnd.choice([2, 3, 3, 4]) if x < 760 else rnd.choice([1, 2])
+        for k in range(h):
+            c = rnd.choice(hues)
+            boxes.append(f'<rect x="{x}" y="{136 - 13 * (k + 1)}" width="36" height="12" fill="{c}" fill-opacity=".42" stroke="#06182A" stroke-width="1"/>')
+        x += 38
+    waves = "".join(
+        f'<path d="M0 {y} ' + " ".join(f"Q{i + 25} {y - a} {i + 50} {y} T{i + 100} {y}" for i in range(0, 1300, 100)) +
+        f'" fill="none" stroke="#6FE6F3" stroke-opacity="{o}" stroke-width="1"/>'
+        for y, a, o in [(176, 4, .5), (190, 3, .3), (204, 2, .18)])
+    return f"""<div class="voyage" role="img" aria-label="Illustration of a container ship at sea, linked to a satellite overhead and a cell mast on the coast.">
+<svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <defs><linearGradient id="hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#123554"/><stop offset="1" stop-color="#081C30"/></linearGradient></defs>
+  <g stroke="#6FE6F3" fill="none" stroke-linecap="round">
+    <path d="M1080 34 l12 -8 l12 8 l-12 8z M1068 34 h12 M1104 34 h12" stroke-width="1.4"/>
+    <path d="M318 52 Q 700 -10 1080 34" stroke-dasharray="3 7" stroke-opacity=".55"/>
+    <path d="M318 52 Q 640 70 1010 120" stroke-dasharray="3 7" stroke-opacity=".35" stroke="#FFB54D"/>
+  </g>
+  <g stroke="#FFB54D" stroke-opacity=".7" fill="none">
+    <path d="M1010 168 L1010 104 M1002 168 L1010 104 L1018 168 M1004 128 h12 M1006 116 h8"/>
+    <path d="M1000 98 a14 14 0 0 1 20 0 M995 92 a22 22 0 0 1 30 0" stroke-opacity=".5"/>
+  </g>
+  <path d="M960 168 L990 150 L1040 146 L1110 158 L1200 150 L1200 172 L940 172Z" fill="#0A2238" stroke="#1A3A58"/>
+  <g>
+    <path d="M246 140 L842 140 L870 118 L870 140 L852 170 L262 170 L246 150Z" fill="url(#hull)" stroke="#6FE6F3" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M262 158 L858 158" stroke="#FE0000" stroke-opacity=".55" stroke-width="2"/>
+    {''.join(boxes)}
+    <rect x="262" y="78" width="74" height="62" fill="#0E2A44" stroke="#6FE6F3" stroke-width="1.2"/>
+    <rect x="252" y="76" width="96" height="6" fill="#0E2A44" stroke="#6FE6F3" stroke-width="1.2"/>
+    <g fill="#C9F6FB" fill-opacity=".85">{''.join(f'<rect x="{268 + i * 10}" y="{88 + r * 14}" width="6" height="4"/>' for r in range(4) for i in range(6))}</g>
+    <rect x="270" y="58" width="18" height="18" fill="#0E2A44" stroke="#6FE6F3" stroke-width="1.2"/>
+    <rect x="270" y="58" width="18" height="4" fill="#1200FE" fill-opacity=".7"/>
+    <path d="M318 76 V44 M306 52 H330" stroke="#6FE6F3" stroke-width="1.3"/>
+    <circle cx="318" cy="40" r="6" fill="#EAF7FA"/>
+    <rect x="328" y="70" width="12" height="3" fill="#EAF7FA" transform="rotate(-12 334 71)"/>
+    <path d="M846 124 V108 M840 112 h12" stroke="#6FE6F3" stroke-width="1.2"/>
+  </g>
+  <path d="M870 170 q 18 2 34 -4 M870 170 q 14 6 30 6" stroke="#C9F6FB" stroke-opacity=".5" fill="none"/>
+  <path d="M0 170 H1200" stroke="#6FE6F3" stroke-opacity=".35"/>
+  {waves}
+</svg>
+</div>"""
+
+
+SHIP = _ship()
+
 TIMECODE = """<script>
 (function(){var el=document.querySelector('[data-timecode]');if(!el)return;
 if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -426,6 +480,7 @@ def maritime():
     </div>
   </div>
 </section>
+{SHIP}
 {readout(f'<div class="d-flex align-items-center gap-2">{COMPASS}<strong class="kicker mb-0">Bridge</strong></div>',
          [("Position", "50°48.2′N 001°05.7′W"), ("Heading", "274°"), ("Speed", "11.2 kn"), ("Live link", "Starlink"), ("Latency", "34 ms"), ("Backup", "5G, 3 bars")])}
 
