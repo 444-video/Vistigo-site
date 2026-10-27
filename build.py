@@ -46,7 +46,7 @@ PILLARS = {
 
 
 # ---------------------------------------------------------------- partials
-def page(*, rel, title, description, glow, current, body):
+def page(*, rel, title, description, glow, current, body, theme=""):
     nav = []
     for href, label in NAV:
         url = href if href.startswith("#") else rel + href
@@ -70,8 +70,9 @@ def page(*, rel, title, description, glow, current, body):
 <link rel="preload" href="{rel}assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{rel}assets/css/444.css">
 <link rel="stylesheet" href="{rel}assets/css/vistigo.css">
+<link rel="stylesheet" href="{rel}assets/css/themes.css">
 </head>
-<body class="glow glow-{glow}">
+<body class="glow glow-{glow}{" theme-" + theme if theme else ""}">
 
 <div class="bars" role="presentation"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
@@ -108,7 +109,7 @@ def page(*, rel, title, description, glow, current, body):
   Grafana is a trademark of Grafana Labs; Zabbix, Prometheus, VictoriaMetrics, Starlink, Peplink, Zixi, TAG Video Systems
   and other names are trademarks of their respective owners.</p>
 </footer>
-
+{TIMECODE if theme == "broadcast" else ""}
 </body>
 </html>
 """
@@ -267,6 +268,45 @@ INFRA_MOCK = f"""<div class="gpanels">
 </div>"""
 
 
+# ------------------------------------------------------------ industry strips
+# Each pillar gets an instrument strip under the hero in its own industry's idiom.
+# The readings are illustrative, like the mock panels.
+def _cells(cells):
+    return "".join(f'<div class="ro"><small>{k}</small><b>{v}</b></div>' for k, v in cells)
+
+STRIP_MARITIME = f"""<div class="strip strip-maritime" aria-label="Illustrative bridge readout">
+  <div class="strip-inner">
+    <div class="ro-lead"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M20 4 L24 20 L20 36 L16 20Z" fill="currentColor" opacity=".9"/><path d="M4 20 L20 17 L36 20 L20 23Z" fill="currentColor" opacity=".35"/></svg><span>Bridge</span></div>
+    {_cells([("Position", "50°48.2′N 001°05.7′W"), ("Heading", "274°"), ("Speed", "11.2 kn"), ("Active link", "Starlink"), ("Ping", "34 ms"), ("Backup", "5G · 3 bars")])}
+  </div>
+</div>"""
+
+STRIP_BROADCAST = f"""<div class="strip strip-broadcast" aria-label="Illustrative on-air readout">
+  <div class="strip-inner">
+    <div class="tally"><i></i>On air</div>
+    <div class="ro"><small>Timecode</small><b class="tc" data-timecode>10:00:00:00</b></div>
+    {_cells([("Programme", "PGM 1 · 1080i50"), ("Bitrate", "25.0 Mb/s"), ("CC errors", "0"), ("Path", "Zixi + SRT")])}
+  </div>
+  <div class="smpte" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</div>"""
+
+STRIP_INFRA = f"""<div class="strip strip-infra" aria-label="Illustrative rack readout">
+  <div class="strip-inner">
+    <div class="leds" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="amber"></i><i class="on"></i><i class="on"></i></div>
+    {_cells([("Rack", "A04 · 42U"), ("PSU A / B", "OK / OK"), ("Inlet", "24 °C"), ("Load", "3.2 kW"), ("Uplink", "78%"), ("Problems", "1 warning")])}
+  </div>
+</div>"""
+
+TIMECODE = """<script>
+// Running timecode for the broadcast strip (25 fps). Stops if the user prefers reduced motion.
+(function(){var el=document.querySelector('[data-timecode]');if(!el)return;
+if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+var p=function(n){return(n<10?'0':'')+n};
+setInterval(function(){var d=new Date(),f=Math.floor(d.getMilliseconds()/40);
+el.textContent=p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds())+':'+p(f);},40);})();
+</script>"""
+
+
 # ---------------------------------------------------------------- pages
 def hub():
     rel = ""
@@ -406,6 +446,7 @@ def maritime():
   {shot('dash-starlink.png', 'Starlink dashboard: alignment status Aligned, sky obstructed 7.18 percent, ping latency 64 ms, with an alignment bullseye and azimuth and elevation gauges.',
         'Starlink: alignment, obstruction, latency and a bullseye that guides the dish to centre.', 'Vistigo Maritime · Starlink', rel)}
 </section>
+{STRIP_MARITIME}
 
 <section class="section-break" id="flow"><div class="block">
   <header class="section-head">
@@ -453,7 +494,7 @@ def maritime():
 {cta("Tell us how many vessels you run and which links they use. We'll show you what your fleet looks like in Vistigo.", "Vistigo%20Maritime")}"""
     return page(rel=rel, title="Vistigo Maritime - every vessel, always connected",
                 description="Starlink, cellular, failover and SIM data use for every vessel, pulled from the dish, the Peplink router and the SIM provider into Grafana.",
-                glow=PILLARS['maritime']['glow'], current="maritime", body=body)
+                glow=PILLARS['maritime']['glow'], current="maritime", body=body, theme="maritime")
 
 
 def broadcast():
@@ -489,6 +530,7 @@ def broadcast():
   {shot('dash-zixi.png', 'Contribution dashboard: source bitrate around 26 Mb/s per stream, packet recovery ARQ around 2.4 thousand packets per second, and broadcaster CPU, RAM and throughput.',
         'Contribution: source bitrate, ARQ recovery and broadcaster load, per stream.', 'Vistigo Broadcast · Contribution', rel)}
 </section>
+{STRIP_BROADCAST}
 
 <section class="section-break" id="flow"><div class="block">
   <header class="section-head">
@@ -532,7 +574,7 @@ def broadcast():
 {cta("Tell us which probes, receivers and contribution paths you run. We'll show you what your services look like in Vistigo.", "Vistigo%20Broadcast")}"""
     return page(rel=rel, title="Vistigo Broadcast - catch the error before the viewer does",
                 description="Transport stream and contribution monitoring: ETR 101 290, CC errors, PCR and PES from probes, Zixi ARQ and SRT stats, all in Grafana.",
-                glow=PILLARS['broadcast']['glow'], current="broadcast", body=body)
+                glow=PILLARS['broadcast']['glow'], current="broadcast", body=body, theme="broadcast")
 
 
 def infra():
@@ -570,6 +612,7 @@ def infra():
   </div>
   {mock(INFRA_MOCK, 'Vistigo Infra · Rack health', 'Sample data. Real screenshots of the infrastructure dashboards to follow.')}
 </section>
+{STRIP_INFRA}
 
 <section class="section-break" id="flow"><div class="block">
   <header class="section-head">
@@ -609,7 +652,7 @@ def infra():
 {cta("Tell us what's in your racks and where they are. We'll show you what Vistigo would put on screen.", "Vistigo%20Infra")}"""
     return page(rel=rel, title="Vistigo Infra - know your hardware before it fails",
                 description="Switch, server and power monitoring: SNMP, iDRAC, sFlow, PDU, UPS and battery data in Zabbix, VictoriaMetrics and Grafana.",
-                glow=PILLARS['infra']['glow'], current="infra", body=body)
+                glow=PILLARS['infra']['glow'], current="infra", body=body, theme="infra")
 
 
 def main():

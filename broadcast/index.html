@@ -15,8 +15,9 @@
 <link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/css/444.css">
 <link rel="stylesheet" href="../assets/css/vistigo.css">
+<link rel="stylesheet" href="../assets/css/themes.css">
 </head>
-<body class="glow glow-3">
+<body class="glow glow-3 theme-broadcast">
 
 <div class="bars" role="presentation"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
@@ -55,6 +56,14 @@
   <figcaption><span class="tag-real">Live dashboard</span>Contribution: source bitrate, ARQ recovery and broadcaster load, per stream.</figcaption>
 </figure>
 </section>
+<div class="strip strip-broadcast" aria-label="Illustrative on-air readout">
+  <div class="strip-inner">
+    <div class="tally"><i></i>On air</div>
+    <div class="ro"><small>Timecode</small><b class="tc" data-timecode>10:00:00:00</b></div>
+    <div class="ro"><small>Programme</small><b>PGM 1 · 1080i50</b></div><div class="ro"><small>Bitrate</small><b>25.0 Mb/s</b></div><div class="ro"><small>CC errors</small><b>0</b></div><div class="ro"><small>Path</small><b>Zixi + SRT</b></div>
+  </div>
+  <div class="smpte" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</div>
 
 <section class="section-break" id="flow"><div class="block">
   <header class="section-head">
@@ -210,6 +219,13 @@
   Grafana is a trademark of Grafana Labs; Zabbix, Prometheus, VictoriaMetrics, Starlink, Peplink, Zixi, TAG Video Systems
   and other names are trademarks of their respective owners.</p>
 </footer>
-
+<script>
+// Running timecode for the broadcast strip (25 fps). Stops if the user prefers reduced motion.
+(function(){var el=document.querySelector('[data-timecode]');if(!el)return;
+if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+var p=function(n){return(n<10?'0':'')+n};
+setInterval(function(){var d=new Date(),f=Math.floor(d.getMilliseconds()/40);
+el.textContent=p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds())+':'+p(f);},40);})();
+</script>
 </body>
 </html>

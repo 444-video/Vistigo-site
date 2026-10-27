@@ -19,6 +19,7 @@ index.html            hub (generated)
 maritime/ broadcast/ infra/   pillar pages (generated)
 assets/css/444.css    the 444video.com design system, copied unchanged
 assets/css/vistigo.css   additions only: flow diagrams, architecture map, dashboard frames
+assets/css/themes.css    one industry theme per pillar: maritime, broadcast, infra
 assets/img/           real Grafana dashboard screenshots
 assets/fonts/         Inter and IBM Plex Mono, self-hosted
 ```
