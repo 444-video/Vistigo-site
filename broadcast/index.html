@@ -1,231 +1,218 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" data-bs-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vistigo Broadcast - catch the error before the viewer does</title>
-<meta name="description" content="Transport stream and contribution monitoring: ETR 101 290, CC errors, PCR and PES from probes, Zixi ARQ and SRT stats, all in Grafana.">
-<meta name="theme-color" content="#0A141C">
-<meta property="og:title" content="Vistigo Broadcast - catch the error before the viewer does">
-<meta property="og:description" content="Transport stream and contribution monitoring: ETR 101 290, CC errors, PCR and PES from probes, Zixi ARQ and SRT stats, all in Grafana.">
+<title>Vistigo Broadcast: transport stream and contribution monitoring</title>
+<meta name="description" content="ETR 101 290, CC errors, PCR and PES from your probes, plus Zixi and SRT link health, on one timeline in Grafana.">
+<meta property="og:title" content="Vistigo Broadcast: transport stream and contribution monitoring">
+<meta property="og:description" content="ETR 101 290, CC errors, PCR and PES from your probes, plus Zixi and SRT link health, on one timeline in Grafana.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Vistigo by 444Video">
 <meta property="og:locale" content="en_GB">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%230A141C'/%3E%3Crect x='0' y='2' width='2' height='2' fill='%231200FE'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2300FEC8'/%3E%3Crect x='4' y='2' width='2' height='2' fill='%23FEA300'/%3E%3Crect x='6' y='2' width='2' height='2' fill='%23FE0000'/%3E%3Crect x='0' y='4' width='2' height='2' fill='%23B500FE'/%3E%3Crect x='2' y='4' width='2' height='2' fill='%2300FE05'/%3E%3Crect x='4' y='4' width='2' height='2' fill='%23FBFE00'/%3E%3Crect x='6' y='4' width='2' height='2' fill='%23FE009C'/%3E%3C/svg%3E">
-<link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/444.css">
-<link rel="stylesheet" href="../assets/css/vistigo.css">
-<link rel="stylesheet" href="../assets/css/themes.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%230B151D'/%3E%3Crect x='0' y='2' width='2' height='2' fill='%231200FE'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2300FEC8'/%3E%3Crect x='4' y='2' width='2' height='2' fill='%23FEA300'/%3E%3Crect x='6' y='2' width='2' height='2' fill='%23FE0000'/%3E%3Crect x='0' y='4' width='2' height='2' fill='%23B500FE'/%3E%3Crect x='2' y='4' width='2' height='2' fill='%2300FE05'/%3E%3Crect x='4' y='4' width='2' height='2' fill='%23FBFE00'/%3E%3Crect x='6' y='4' width='2' height='2' fill='%23FE009C'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/vendor/tabler/tabler.min.css">
+<link rel="stylesheet" href="../assets/vendor/tabler/tabler-marketing.min.css">
+<link rel="stylesheet" href="../assets/css/site.css">
 </head>
-<body class="glow glow-3 theme-broadcast">
-
+<body class="p-broadcast">
 <div class="bars" role="presentation"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-<header class="site-head">
-  <a class="brand" href="../" aria-label="Vistigo home">
-    <svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg>
-    <span class="brand-text"><b>Vistigo</b><i>by 444Video</i></span>
-  </a>
-  <nav class="site-nav" aria-label="Main"><a href="../maritime/">Maritime</a><a href="../broadcast/" aria-current="page">Broadcast</a><a href="../infra/">Infra</a><a href="#how">How it works</a><a href="#contact">Contact</a></nav>
+<header class="navbar navbar-expand-md">
+  <div class="container-xl">
+    <a class="navbar-brand" href="../"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
+<rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
+<rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
+<rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
+<rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/></svg><span>Vistigo<small>by 444Video</small></span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="../maritime/">Maritime</a></li><li class="nav-item"><a class="nav-link active" href="../broadcast/" aria-current="page">Broadcast</a></li><li class="nav-item"><a class="nav-link" href="../infra/">Infra</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
 </header>
 
-<main id="main">
+<main>
 <section class="hero">
-  <div class="hero-text">
-    <p class="eyebrow" style="--eyebrow-colour:#FEA300">Vistigo Broadcast</p>
-    <h1>Catch the error before the viewer does.</h1>
-    <p class="standfirst">Transport stream and contribution health for every service you carry. Spot a CC error burst the
-    moment it starts, then trace it to the link, the probe or the encoder that caused it.</p>
-    <p class="actions"><a class="btn" href="#flow">How we pull the data</a><a class="btn btn-quiet" href="#contact">Tell us what you can't see</a></p>
+  <div class="container-xl">
+    <div class="row align-items-center g-4 g-lg-5">
+      <div class="col-lg-6">
+        <p class="kicker">Vistigo Broadcast</p>
+        <h1 class="hero-title">Find stream errors before your viewers do.</h1>
+        <p class="hero-description mt-4">Vistigo Broadcast collects alarms and statistics from your probes, IP receivers and
+        Zixi or SRT links and lines them up on one timeline. When a CC error burst starts, you can see whether it came from
+        the source, the encoder or the network carrying it.</p>
+        <div class="btn-list"><a class="btn btn-primary btn-lg" href="#data">Where the numbers come from</a>
+        <a class="btn btn-ghost-secondary btn-lg" href="#contact">Talk to us</a></div>
+      </div>
+      <div class="col-lg-6">
+        <figure class="m-0">
+  <div class="browser">
+  <div class="browser-header d-flex align-items-center">
+    <div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
+    <span class="browser-input">noc.444.video/broadcast/contribution</span>
   </div>
-  <figure class="shot">
-  <div class="shot-frame">
-    <div class="shot-bar"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg><span>Vistigo Broadcast · Contribution</span><em>Grafana</em></div>
-    <img src="../assets/img/dash-zixi.png" alt="Contribution dashboard: source bitrate around 26 Mb/s per stream, packet recovery ARQ around 2.4 thousand packets per second, and broadcaster CPU, RAM and throughput." loading="lazy">
-  </div>
-  <figcaption><span class="tag-real">Live dashboard</span>Contribution: source bitrate, ARQ recovery and broadcaster load, per stream.</figcaption>
+  <img src="../assets/img/dash-zixi.png" alt="Contribution dashboard: source bitrate around 26 Mb/s per stream, ARQ packet recovery around 2.4 thousand packets a second, and broadcaster CPU, RAM and throughput." loading="lazy">
+</div>
+  <figcaption class="shot-note"><span class="badge bg-green-lt">Screenshot</span>Zixi contribution: how hard each link is working to keep the picture clean.</figcaption>
 </figure>
+      </div>
+    </div>
+  </div>
 </section>
-<div class="strip strip-broadcast" aria-label="Illustrative on-air readout">
-  <div class="strip-inner">
-    <div class="tally"><i></i>On air</div>
-    <div class="ro"><small>Timecode</small><b class="tc" data-timecode>10:00:00:00</b></div>
-    <div class="ro"><small>Programme</small><b>PGM 1 · 1080i50</b></div><div class="ro"><small>Bitrate</small><b>25.0 Mb/s</b></div><div class="ro"><small>CC errors</small><b>0</b></div><div class="ro"><small>Path</small><b>Zixi + SRT</b></div>
-  </div>
-  <div class="smpte" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="readout" aria-label="Example readout">
+  <div class="container-xl"><span class="tally"><i></i>ON AIR</span><div class="ro"><span>Timecode</span><b class="tc" data-timecode>10:00:00:00</b></div><div class="ro"><span>Programme</span><b>PGM 1, 1080i50</b></div><div class="ro"><span>Bitrate</span><b>25.0 Mb/s</b></div><div class="ro"><span>CC errors</span><b>0</b></div><div class="ro"><span>Path</span><b>Zixi and SRT</b></div><span class="example">Example values</span></div><div class="smpte" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 </div>
 
-<section class="section-break" id="flow"><div class="block">
-  <header class="section-head">
-    <p class="eyebrow" style="--eyebrow-colour:#FEA300">How we pull the data</p>
-    <h2>From the transport stream to the link it rides on.</h2>
-    <p class="lede">Probes, receivers and contribution gateways each report in their own way. Vistigo collects all of them and lines
-    them up on one timeline, so you can tell a source problem from a transport problem in seconds.</p>
-  </header>
-  <div class="flowmap" style="--c:#FEA300;--rows:5" role="list" aria-label="Data flow">
-<div class="fm-head" aria-hidden="true"><span>Equipment</span><span>How we pull it</span><span>Where it lands</span><span>What you see</span></div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>TAG probes and multiviewers</b><span>Channel statistics and events: CC errors, PCR, PES drops, SCTE-35, captions, NTP</span></div>
-  <div class="fm-node fm-via"><em class="proto">Redis → Logstash</em><b>Buffered pipeline</b><span>Every list the probes write is read, so nothing piles up in memory</span></div>
-  <div class="fm-node fm-store db-es"><b>Elasticsearch</b><span>Retention sized to your channel count</span><i class="fm-out"></i></div>
+<section class="section" id="data">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">Where the numbers come from</h2><p class="section-description">Probes, receivers and contribution gateways all report differently. We collect from each one in the way it supports, then put them on the same clock so cause and effect sit side by side.</p></div>
+    <div class="flow" style="--rows:5">
+<div class="flow-head" aria-hidden="true"><span>The equipment</span><span>How we read it</span><span>Where it's kept</span><span>What you open</span></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>TAG probes and multiviewers</strong><p>Channel stats and events: CC errors, PCR, PES drops, SCTE-35, captions, NTP</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">Redis, Logstash</span><strong>Buffered pipeline</strong><p>Reads every list the probes write, so nothing piles up in memory</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-es"></span>Elasticsearch</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>RF and TS probes</b><span>ETR 101 290 alarms, MER, SNR, signal level, active alarm count</span></div>
-  <div class="fm-node fm-via"><em class="proto">XML API · SNMP traps</em><b>Zabbix</b><span>Alarm counts and traps, with the raw alarm table kept for detail</span></div>
-  <div class="fm-node fm-store db-zbx"><b>Zabbix</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>RF and TS probes</strong><p>ETR 101 290 alarms, MER, SNR, signal level, active alarm count</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">XML API, SNMP traps</span><strong>Zabbix</strong><p>Keeps the alarm count and the raw alarm table behind it</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-zbx"></span>Zabbix</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>IP receivers and gateways</b><span>Input lock, RTP sequence and CC errors, effective bitrate, device logs</span></div>
-  <div class="fm-node fm-via"><em class="proto">SNMP · logs</em><b>Zabbix</b><span>Lock state per input, log lines tinted by device</span></div>
-  <div class="fm-node fm-store db-zbx"><b>Zabbix</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>IP receivers</strong><p>Input lock per IP feed, RTP sequence and CC errors, effective bitrate, device logs</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">SNMP, logs</span><strong>Zabbix</strong><p>Lock state for every input, and log lines tinted by device</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-zbx"></span>Zabbix</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>Zixi broadcasters</b><span>Source bitrate, ARQ and FEC recovery, RTT, broadcaster CPU, RAM and throughput</span></div>
-  <div class="fm-node fm-via"><em class="proto">REST API</em><b>Zixi bridge</b><span>Every stream and every broadcaster, on one timeline</span></div>
-  <div class="fm-node fm-store db-vm"><b>VictoriaMetrics</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>Zixi broadcasters</strong><p>Source bitrate, ARQ and FEC recovery, round-trip time, and the broadcaster's own CPU, RAM and throughput</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">REST API</span><strong>Zixi collector</strong><p>Every stream and every broadcaster on one timeline</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-vm"></span>VictoriaMetrics</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>SRT gateways and encoders</b><span>Bitrate, RTT, retransmits, packet loss, video quality</span></div>
-  <div class="fm-node fm-via"><em class="proto">SRT stats · exporters</em><b>Telegraf / Prometheus</b><span>Per-session statistics from the gateway itself</span></div>
-  <div class="fm-node fm-store db-vm"><b>VictoriaMetrics</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>SRT gateways and encoders</strong><p>Bitrate, round-trip time, retransmits, packet loss, picture quality</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">SRT stats, exporters</span><strong>Telegraf, Prometheus</strong><p>Per-session numbers from the gateway itself</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-vm"></span>VictoriaMetrics</strong></div></div>
 </div>
-<div class="fm-sink">
-  <p class="eyebrow" style="--eyebrow-colour:#FEA300">Grafana</p>
-  <h3>Every service on one wall</h3>
-  <ul><li>Transmission wall</li><li>Stream PCR and PES</li><li>Contribution (Zixi / SRT)</li><li>Device logs</li><li>Per-site view</li></ul>
-  <p class="fm-alert"><b>Alerts:</b> priority 1 errors at once; detail reports for your team, or the manufacturer when the fault is theirs.</p>
+<div class="flow-out"><div class="card">
+  <div class="card-status-top bg-primary"></div>
+  <div class="card-body d-flex flex-column">
+    <h3 class="mb-1">Every service you carry</h3>
+    <p class="text-secondary small mb-2">Grafana, in 444Video's house style</p>
+    <ul class="list-group list-group-flush mb-3"><li class="list-group-item">Transmission wall</li><li class="list-group-item">PCR and PES by stream</li><li class="list-group-item">Zixi and SRT contribution</li><li class="list-group-item">Device logs</li><li class="list-group-item">One site at a time</li></ul>
+    <p class="small text-secondary mt-auto mb-0"><strong class="text-reset">Alerts:</strong> priority 1 errors straight away, plus detailed reports for your team, or for the manufacturer when it's their fault.</p>
+  </div>
+</div></div>
 </div>
-</div>
-</div></section>
+  </div>
+</section>
 
-<section class="section-break"><div class="block">
-  <header class="section-head">
-    <p class="eyebrow" style="--eyebrow-colour:#FEA300">What you see</p>
-    <h2>A status wall first, then the detail behind every tile.</h2>
-  </header>
-  <div class="dcards" style="--dc:#FEA300">
-<div class="dcard start"><small>Start here</small><b>Transmission wall</b><p>Every site and service at a glance: bitrate gauges, input locks and probe alarms, purple when a feed goes quiet.</p></div>
-<div class="dcard" style="--dc:#FBFE00"><small>Streams</small><b>PCR and PES</b><p>PCR accuracy and audio and video PES drops per stream, from the probes.</p></div>
-<div class="dcard" style="--dc:#00FEC8"><small>Contribution</small><b>Zixi and SRT</b><p>Bitrate, ARQ recovery, RTT and loss per stream and per broadcaster.</p></div>
-<div class="dcard" style="--dc:#FE009C"><small>Logs</small><b>Device logs</b><p>Every device's log lines in one list, newest first, each device in its own tint.</p></div>
-</div>
-  <div class="gallery">
-    <figure class="shot wide">
-  <div class="shot-frame">
-    <div class="shot-bar"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg><span>Vistigo Broadcast · Contribution</span><em>Grafana</em></div>
-    <img src="../assets/img/dash-zixi.png" alt="Contribution dashboard with source bitrate and packet recovery." loading="lazy">
+<section class="section section-alt">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">What your team opens</h2><p class="section-description">A status wall first, then the detail behind every tile.</p></div>
+    <div class="row g-3 mb-4"><div class="col-12"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#FFB54D"></div>
+  <div class="card-body"><small style="color:#FFB54D">Start here</small><h3>Transmission wall</h3><p>Every site and service on one screen: bitrate gauges, input locks and probe alarms. A tile that stops reporting turns purple, never green.</p></div>
+</div></div><div class="col-md-4"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#FBFE00"></div>
+  <div class="card-body"><small style="color:#FBFE00">Streams</small><h3>PCR and PES</h3><p>PCR accuracy and audio and video PES drops per stream, from the probes.</p></div>
+</div></div><div class="col-md-4"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#6FE6F3"></div>
+  <div class="card-body"><small style="color:#6FE6F3">Contribution</small><h3>Zixi and SRT</h3><p>Bitrate, ARQ recovery, round-trip time and loss per stream and per broadcaster.</p></div>
+</div></div><div class="col-md-4"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#FF6FB5"></div>
+  <div class="card-body"><small style="color:#FF6FB5">Logs</small><h3>Device logs</h3><p>Every device's log lines in one list, newest first, each device in its own tint.</p></div>
+</div></div></div><div class="row g-4"><div class="col-12"><figure class="m-0">
+  <div class="browser">
+    <div class="browser-header d-flex align-items-center">
+      <div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
+      <span class="browser-input">noc.444.video/broadcast/ts-health</span>
+    </div>
+    <div class="gp">
+  <div class="gp-stats">
+    <div class="gp-stat ok"><div class="k">TS sync</div><div class="v">Locked</div></div>
+    <div class="gp-stat warn"><div class="k">CC errors, last hour</div><div class="v">3</div></div>
+    <div class="gp-stat"><div class="k">PCR accuracy</div><div class="v">OK</div></div>
+    <div class="gp-stat" style="background:linear-gradient(120deg,#6a1fb8,#8f3bb8)"><div class="k" style="color:#fff">Probe 07</div><div class="v">No data</div></div>
   </div>
-  <figcaption><span class="tag-real">Live dashboard</span>Contribution, from the live 444Video stack.</figcaption>
-</figure>
-    <figure class="shot wide">
-  <div class="shot-frame">
-    <div class="shot-bar"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg><span>Vistigo Broadcast · Transport stream health</span><em>Grafana</em></div>
-    <div class="gpanels">
-  <div class="gstats">
-    <div class="gstat ok"><div class="k">TS sync</div><div class="v">Locked</div></div>
-    <div class="gstat warn"><div class="k">CC errors (1 h)</div><div class="v">3</div></div>
-    <div class="gstat"><div class="k">PCR accuracy</div><div class="v">OK</div></div>
-    <div class="gstat nodata"><div class="k">Probe 07</div><div class="v">No data</div></div>
-  </div>
-  <div class="gpanel">
-    <div class="gpanel-h"><span>CC errors against IP packet loss</span><i>last 6 h</i></div>
-    <svg class="gchart" viewBox="0 0 300 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24H300M0 48H300M0 72H300" stroke="#2c3235" stroke-width="1" vector-effect="non-scaling-stroke"/>
-      <g fill="#FF9830"><rect x="148" y="60" width="4" height="36"/><rect x="154" y="38" width="4" height="58"/><rect x="160" y="70" width="4" height="26"/><rect x="232" y="82" width="4" height="14"/></g>
-      <polyline fill="none" stroke="#73BF69" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.0,92.0 13.0,93.0 26.1,92.0 39.1,93.0 52.2,91.0 65.2,92.0 78.3,93.0 91.3,92.0 104.3,90.0 117.4,66.0 130.4,52.0 143.5,68.0 156.5,91.0 169.6,92.0 182.6,93.0 195.7,92.0 208.7,93.0 221.7,92.0 234.8,84.0 247.8,93.0 260.9,92.0 273.9,93.0 287.0,92.0 300.0,93.0"/>
-    </svg>
-  </div>
-  <div class="gpanel gscroll">
-    <table class="gtable"><thead><tr><th>Service</th><th>Bitrate</th><th>CC</th><th>Path</th><th>State</th></tr></thead><tbody>
-      <tr><td>Service 101</td><td>6.2 Mb/s</td><td>0</td><td>SRT</td><td><span class="pill ok">OK</span></td></tr>
-      <tr><td>Service 214</td><td>4.1 Mb/s</td><td>3</td><td>Zixi</td><td><span class="pill warn">CC</span></td></tr>
-      <tr><td>Service 330</td><td>12.0 Mb/s</td><td>0</td><td>Sat RX</td><td><span class="pill ok">OK</span></td></tr>
-      <tr><td>Service 412</td><td>-</td><td>-</td><td>Probe 07</td><td><span class="pill nodata">NO DATA</span></td></tr>
-    </tbody></table>
-  </div>
+  <div class="gp-panel"><div class="gp-h"><span>CC errors and IP packet loss</span><i>last 6 h</i></div>
+    <svg class="gp-chart" viewBox="0 0 300 92" preserveAspectRatio="none" aria-hidden="true"><path d="M0 23H300M0 46H300M0 69H300" stroke="#2c3235" stroke-width="1" vector-effect="non-scaling-stroke"/>
+      <g fill="#FF9830"><rect x="148" y="56" width="4" height="36"/><rect x="154" y="34" width="4" height="58"/><rect x="160" y="66" width="4" height="26"/><rect x="232" y="78" width="4" height="14"/></g>
+      <polyline fill="none" stroke="#73BF69" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.0,88.0 13.0,89.0 26.1,88.0 39.1,89.0 52.2,87.0 65.2,88.0 78.3,89.0 91.3,88.0 104.3,86.0 117.4,62.0 130.4,48.0 143.5,64.0 156.5,87.0 169.6,88.0 182.6,89.0 195.7,88.0 208.7,89.0 221.7,88.0 234.8,80.0 247.8,89.0 260.9,88.0 273.9,89.0 287.0,88.0 300.0,89.0"/></svg></div>
+  <div class="gp-panel gp-scroll"><table><thead><tr><th>Service</th><th>Bitrate</th><th>CC</th><th>Path</th><th>State</th></tr></thead><tbody>
+    <tr><td>Service 101</td><td>6.2 Mb/s</td><td>0</td><td>SRT</td><td><span class="pill ok">OK</span></td></tr>
+    <tr><td>Service 214</td><td>4.1 Mb/s</td><td>3</td><td>Zixi</td><td><span class="pill warn">CC</span></td></tr>
+    <tr><td>Service 330</td><td>12.0 Mb/s</td><td>0</td><td>Satellite</td><td><span class="pill ok">OK</span></td></tr>
+    <tr><td>Service 412</td><td>-</td><td>-</td><td>Probe 07</td><td><span class="pill nodata">NO DATA</span></td></tr>
+  </tbody></table></div>
 </div>
   </div>
-  <figcaption><span class="tag-mock">Illustrative</span>Sample data. Real screenshots of the transport stream wall to follow.</figcaption>
-</figure>
+  <figcaption class="shot-note"><span class="badge bg-secondary-lt">Mock-up</span>Drawn with sample data. A screenshot of the transport stream wall will replace it.</figcaption>
+</figure></div></div>
   </div>
-</div></section>
+</section>
 
-<section class="section-break"><div class="block">
-  <header class="section-head"><p class="eyebrow" style="--eyebrow-colour:#FEA300">Who it's for</p>
-  <h2>Anyone responsible for what goes to air.</h2></header>
-  <ul class="audience"><li style="border-left-color:#FEA300"><b>Broadcasters and multiplex operators</b><span>Every service on one wall, with priority 1 errors flagged before the phones ring.</span></li><li style="border-left-color:#FEA300"><b>Playout and distribution teams</b><span>See whether a glitch came from the source, the encoder or the network.</span></li><li style="border-left-color:#FEA300"><b>Remote production and OB</b><span>Contribution health from the field, alongside the bonded link it travels over.</span></li><li style="border-left-color:#FEA300"><b>Broadcast manufacturers</b><span>Evidence-first reporting for product validation and standards compliance.</span></li></ul>
-  <div class="figures"><div class="figure-tile"><b>Zero</b><span>live broadcast disruption during the migration</span></div><div class="figure-tile"><b>10 racks → 3</b><span>~70% smaller infrastructure footprint</span></div><div class="figure-tile"><b>3 months</b><span>end to end, for a project of that complexity</span></div></div><p class="attribution">Figures from the 444Video case study for a UK multiplex operator.</p>
-</div></section>
+<section class="section">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">Who uses it</h2></div>
+    <div class="row g-3 audience"><div class="col-md-6"><div class="card"><div class="card-body"><h3>Broadcasters and multiplex operators</h3><p>Every service on one wall, with priority 1 errors flagged before the phones ring.</p></div></div></div><div class="col-md-6"><div class="card"><div class="card-body"><h3>Playout and distribution</h3><p>Tell a source fault from an encoder fault from a network fault.</p></div></div></div><div class="col-md-6"><div class="card"><div class="card-body"><h3>Remote production and OB</h3><p>Contribution health from the field, next to the bonded link it's travelling over.</p></div></div></div><div class="col-md-6"><div class="card"><div class="card-body"><h3>Broadcast manufacturers</h3><p>Evidence for product testing and standards compliance, not anecdotes.</p></div></div></div></div><div class="mt-4"><div class="row g-3"><div class="col-md-4"><div class="card figure-card h-100"><div class="card-body"><div class="display">Nothing off air</div><p>during a UK multiplex operator's full infrastructure migration</p></div></div></div><div class="col-md-4"><div class="card figure-card h-100"><div class="card-body"><div class="display">10 racks to 3</div><p>about 70% less kit to power and maintain</p></div></div></div><div class="col-md-4"><div class="card figure-card h-100"><div class="card-body"><div class="display">3 months</div><p>start to finish</p></div></div></div></div><p class="source">Figures from the 444Video case study for a UK multiplex operator.</p></div>
+  </div>
+</section>
 
-<section class="section-break"><div class="block">
-  <header class="section-head"><p class="eyebrow">Same platform</p><h2>Add another pillar.</h2>
-  <p class="lede">Every pillar lands in the same databases and the same Grafana, so a fault on one timeline sits next to its cause on another.</p></header>
-  <div class="others"><a class="other" href="../maritime/" style="--oc:#00FEC8">
-  <p class="eyebrow">Vistigo Maritime</p><b>Every vessel, always connected.</b><span class="more">Explore Maritime</span></a><a class="other" href="../infra/" style="--oc:#00FE05">
-  <p class="eyebrow">Vistigo Infra</p><b>Know your hardware before it fails.</b><span class="more">Explore Infra</span></a></div>
-</div></section>
-<section class="cta" id="contact">
-  <div class="cta-inner">
-    <p class="eyebrow">Get in touch</p>
-    <h2>Tell us what you can't see.</h2>
-    <p>Tell us which probes, receivers and contribution paths you run. We'll show you what your services look like in Vistigo.</p>
-    <p class="actions"><a class="btn" href="mailto:info@444.video?subject=Vistigo%20Broadcast">info@444.video</a></p>
+<section class="section section-alt">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">It all runs on the same system</h2><p class="section-description">Add another product whenever you like. The data lands in the same place, so a dropped stream and the satellite link it was on show up on the same timeline.</p></div>
+    <div class="row g-3"><div class="col-md-6"><a class="card card-link pillar-card" href="../maritime/" style="--pc:#6FE6F3">
+  <div class="card-status-start"></div>
+  <div class="card-body"><span class="who">For fleets</span><h3 class="f-maritime">Vistigo Maritime</h3><p class="text-secondary mb-0">Know which ship is on which link, right now.</p></div>
+</a></div><div class="col-md-6"><a class="card card-link pillar-card" href="../infra/" style="--pc:#6BEB8A">
+  <div class="card-status-start"></div>
+  <div class="card-body"><span class="who">For the racks behind it all</span><h3 class="f-infra">Vistigo Infra</h3><p class="text-secondary mb-0">Find the failing fan before the server does.</p></div>
+</a></div></div>
+  </div>
+</section>
+<section class="section contact-band" id="contact">
+  <div class="container-xl">
+    <div class="row align-items-end g-4">
+      <div class="col-lg-7"><h2 class="section-title mb-3">Tell us what you can't see.</h2>
+        <p class="section-description mb-0">Tell us which probes, receivers and contribution links you use. We'll show you your services in Vistigo.</p></div>
+      <div class="col-lg-5 text-lg-end"><a class="btn btn-primary btn-lg" href="mailto:info@444.video?subject=Vistigo%20Broadcast">Email info@444.video</a></div>
+    </div>
   </div>
 </section>
 </main>
 
-<footer class="site-foot">
-  <div class="foot-inner">
-    <div class="foot-brand">
-      <svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg>
-      <span class="brand-text"><b>Vistigo</b><i>by 444Video</i></span>
-    </div>
-    <div class="foot-links">
-      <h4>Pillars</h4>
-      <a href="../maritime/">Vistigo Maritime</a><a href="../broadcast/">Vistigo Broadcast</a><a href="../infra/">Vistigo Infra</a>
-    </div>
-    <div class="foot-links">
-      <h4>444Video</h4>
-      <a href="https://444video.com">444video.com</a>
-      <a href="mailto:info@444.video">info@444.video</a>
-      <a href="https://www.linkedin.com/company/444video">LinkedIn</a>
+<footer class="footer py-5">
+  <div class="container-xl">
+    <div class="row g-4">
+      <div class="col-md-5">
+        <p class="mb-2">Vistigo is a monitoring product from <a href="https://444video.com">444Video</a>,
+        a broadcast engineering company in the UK. The name comes from <em>vista</em>, a view.</p>
+        <p class="mb-0"><a href="mailto:info@444.video">info@444.video</a> &nbsp; <a href="https://www.linkedin.com/company/444video">LinkedIn</a></p>
+      </div>
+      <div class="col-md-3">
+        <ul class="list-unstyled mb-0">
+          <li><a href="../maritime/">Vistigo Maritime</a></li><li><a href="../broadcast/">Vistigo Broadcast</a></li><li><a href="../infra/">Vistigo Infra</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <p class="legal">&copy; 2026 444Video. Built with the Tabler UI kit. Grafana is a trademark of Grafana Labs.
+        Zabbix, Prometheus, VictoriaMetrics, Starlink, Peplink, Zixi, TAG Video Systems and Dell iDRAC belong to their owners.
+        We use and integrate with them; we aren't endorsed by them.</p>
+      </div>
     </div>
   </div>
-  <p class="foot-legal">&copy; 2026 444Video. The Full Picture. Vistigo, from <i>vista</i> - the view.
-  Grafana is a trademark of Grafana Labs; Zabbix, Prometheus, VictoriaMetrics, Starlink, Peplink, Zixi, TAG Video Systems
-  and other names are trademarks of their respective owners.</p>
 </footer>
+<script src="../assets/vendor/tabler/tabler.min.js" defer></script>
 <script>
-// Running timecode for the broadcast strip (25 fps). Stops if the user prefers reduced motion.
 (function(){var el=document.querySelector('[data-timecode]');if(!el)return;
 if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-var p=function(n){return(n<10?'0':'')+n};
-setInterval(function(){var d=new Date(),f=Math.floor(d.getMilliseconds()/40);
-el.textContent=p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds())+':'+p(f);},40);})();
+function p(n){return(n<10?'0':'')+n}
+setInterval(function(){var d=new Date();el.textContent=p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds())+':'+p(Math.floor(d.getMilliseconds()/40));},40);})();
 </script>
 </body>
 </html>

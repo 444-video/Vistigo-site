@@ -1,0 +1,288 @@
+/* ============================================================
+   Vistigo by 444Video
+   Built on the Tabler UI kit (assets/vendor/tabler, MIT) in its
+   dark theme. This file only sets the type, the per-industry
+   palettes and the few components Tabler doesn't have:
+   the 444Video colour bars, the data-flow diagram and the
+   instrument strips.
+
+   Type
+     Body      IBM Plex Sans        - one text face everywhere
+     Hub       Barlow Semi Condensed - instrument and signage feel
+     Maritime  Barlow Semi Condensed
+     Broadcast Archivo, condensed   - lower-third / caption feel
+     Infra     IBM Plex Sans Condensed - engraved rack-label feel
+     Data      IBM Plex Mono         - real readouts only
+   ============================================================ */
+
+@font-face{font-family:"IBM Plex Sans";font-weight:400;font-style:normal;font-display:swap;src:url("../fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans";font-weight:400;font-style:italic;font-display:swap;src:url("../fonts/ibm-plex-sans-latin-400-italic.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans";font-weight:500;font-style:normal;font-display:swap;src:url("../fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans";font-weight:600;font-style:normal;font-display:swap;src:url("../fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans Condensed";font-weight:500;font-display:swap;src:url("../fonts/ibm-plex-sans-condensed-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans Condensed";font-weight:600;font-display:swap;src:url("../fonts/ibm-plex-sans-condensed-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"Barlow Semi Condensed";font-weight:500;font-display:swap;src:url("../fonts/barlow-semi-condensed-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:"Barlow Semi Condensed";font-weight:600;font-display:swap;src:url("../fonts/barlow-semi-condensed-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"Barlow Semi Condensed";font-weight:700;font-display:swap;src:url("../fonts/barlow-semi-condensed-latin-700-normal.woff2") format("woff2")}
+@font-face{font-family:"Archivo";font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url("../fonts/archivo-latin-wdth-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-display:swap;src:url("../fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-display:swap;src:url("../fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2")}
+
+/* ---------- tokens (hub) ---------- */
+:root,[data-bs-theme=dark]{
+  --tblr-font-sans-serif:"IBM Plex Sans",system-ui,sans-serif;
+  --tblr-font-monospace:"IBM Plex Mono",ui-monospace,monospace;
+  --tblr-body-font-size:1.0625rem;
+  --tblr-body-line-height:1.6;
+  --display:"Barlow Semi Condensed","IBM Plex Sans",sans-serif;
+  --display-weight:600;
+  --display-stretch:normal;
+  --display-track:-.01em;
+
+  /* hub: the 444Video ground, slate-navy */
+  --tblr-body-bg:#0B151D;
+  --tblr-bg-surface:#111E28;
+  --tblr-bg-surface-secondary:#0E1922;
+  --tblr-bg-surface-tertiary:#16252F;
+  --tblr-border-color:#22384A;
+  --tblr-border-color-translucent:rgba(120,160,190,.16);
+  --tblr-body-color:#DCE6EC;
+  --tblr-secondary:#93A7B4;
+  --tblr-primary:#00D9AC;
+  --tblr-primary-rgb:0,217,172;
+  --tblr-link-color:#3FF0C8;
+  --tblr-link-hover-color:#9FFBE6;
+  --accent:#3FF0C8;
+  --tblr-border-radius:4px;
+  --tblr-border-radius-lg:6px;
+}
+body{font-feature-settings:"ss02" 0;text-rendering:optimizeLegibility}
+
+/* ---------- industry palettes ---------- */
+body.p-maritime{
+  --tblr-body-bg:#06182A;--tblr-bg-surface:#0A2238;--tblr-bg-surface-secondary:#081C30;--tblr-bg-surface-tertiary:#0E2A44;
+  --tblr-border-color:#1A3A58;--tblr-body-color:#DDEBF5;--tblr-secondary:#8FB0C8;
+  --tblr-primary:#47D6E8;--tblr-primary-rgb:71,214,232;--tblr-link-color:#6FE6F3;--tblr-link-hover-color:#C2F7FC;
+  --accent:#6FE6F3;
+}
+body.p-broadcast{
+  --tblr-body-bg:#0E0B0A;--tblr-bg-surface:#1A1412;--tblr-bg-surface-secondary:#141010;--tblr-bg-surface-tertiary:#231B17;
+  --tblr-border-color:#3A2C25;--tblr-body-color:#F1E8E1;--tblr-secondary:#B3A296;
+  --tblr-primary:#FF9F1C;--tblr-primary-rgb:255,159,28;--tblr-link-color:#FFB54D;--tblr-link-hover-color:#FFD9A3;
+  --accent:#FFB54D;--tally:#FF3B30;
+  --display:"Archivo","IBM Plex Sans",sans-serif;--display-weight:800;--display-stretch:72%;--display-track:-.005em;
+}
+body.p-infra{
+  --tblr-body-bg:#0A100D;--tblr-bg-surface:#111A15;--tblr-bg-surface-secondary:#0D1511;--tblr-bg-surface-tertiary:#16221C;
+  --tblr-border-color:#26372E;--tblr-body-color:#E1EAE4;--tblr-secondary:#98AA9F;
+  --tblr-primary:#4ADE6E;--tblr-primary-rgb:74,222,110;--tblr-link-color:#6BEB8A;--tblr-link-hover-color:#C3F7D0;
+  --accent:#6BEB8A;--led:#3DFF6E;
+  --display:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;--display-weight:600;--display-track:-.015em;
+}
+.btn-primary{--tblr-btn-color:#071014;--tblr-btn-hover-color:#071014;--tblr-btn-active-color:#071014;font-weight:600}
+
+/* ---------- type ---------- */
+h1,h2,h3,.h1,.h2,.h3,.hero-title,.section-title,.navbar-brand{
+  font-family:var(--display);font-weight:var(--display-weight);font-stretch:var(--display-stretch);letter-spacing:var(--display-track);
+}
+.hero-title{font-size:clamp(2.5rem,6.2vw,4.75rem);line-height:.98;letter-spacing:var(--display-track);max-width:14ch;text-wrap:balance}
+.section-title{font-size:clamp(1.75rem,3.4vw,2.6rem);line-height:1.05;text-wrap:balance}
+h3,.h3{font-size:1.4rem;line-height:1.15}
+.hero-description,.section-description{color:var(--tblr-secondary);text-wrap:pretty}
+.hero-description{font-size:1.25rem;line-height:1.55;max-width:38rem;margin:0}
+.section-description{font-size:1.125rem;max-width:42rem}
+p{max-width:68ch}
+.text-secondary{color:var(--tblr-secondary)!important}
+.kicker{font-family:var(--display);font-weight:600;font-size:1.05rem;color:var(--accent);margin-bottom:.6rem;letter-spacing:0}
+
+/* ---------- 444Video colour bars and mark ---------- */
+.bars{display:flex;height:5px}
+.bars i{flex:1}
+.bars i:nth-child(1){background:#1200FE}.bars i:nth-child(2){background:#00FEC8}.bars i:nth-child(3){background:#FEA300}.bars i:nth-child(4){background:#FE0000}
+.bars i:nth-child(5){background:#B500FE}.bars i:nth-child(6){background:#00FE05}.bars i:nth-child(7){background:#FBFE00}.bars i:nth-child(8){background:#FE009C}
+.logo-mark{width:46px;height:auto;flex:none}
+.navbar{background:transparent;border-bottom:1px solid var(--tblr-border-color)}
+.navbar-brand{display:flex;align-items:center;gap:.75rem;font-size:1.5rem;color:var(--tblr-body-color)}
+.navbar-brand small{display:block;font-family:"IBM Plex Sans";font-weight:400;font-style:italic;font-size:.78rem;color:var(--tblr-secondary);letter-spacing:0;margin-top:-.15rem}
+.navbar .nav-link{font-weight:500;color:var(--tblr-secondary)}
+.navbar .nav-link:hover,.navbar .nav-link.active{color:var(--tblr-body-color)}
+.navbar .nav-link.active{box-shadow:inset 0 -2px 0 var(--accent)}
+
+/* ---------- hero ---------- */
+.hero{text-align:left;padding:4.5rem 0 4rem;position:relative;overflow:hidden}
+.hero .container-xl{position:relative;z-index:1}
+.hero .btn-list{margin-top:2rem}
+
+/* screenshots sit in Tabler's browser frame, addressed to the real prototype */
+.browser{box-shadow:0 0 0 1px var(--tblr-border-color),0 24px 60px -24px rgba(0,0,0,.7)}
+.browser img{display:block;width:100%}
+.browser-input{font-family:var(--tblr-font-monospace);font-size:.75rem}
+.shot-note{font-size:.8125rem;color:var(--tblr-secondary);margin-top:.6rem}
+.shot-note .badge{margin-right:.4rem;vertical-align:1px}
+
+/* ---------- sections ---------- */
+.section{padding:4.5rem 0}
+.section-header{text-align:left;margin:0 0 2.5rem;max-width:44rem}
+.section + .section{border-top:1px solid var(--tblr-border-color)}
+.section-alt{background:var(--tblr-bg-surface-secondary)}
+
+/* ---------- data-flow diagram: equipment -> how we read it -> where it's kept -> dashboards ---------- */
+.flow{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.15fr) minmax(0,.8fr) minmax(0,.95fr);column-gap:2.25rem;row-gap:.75rem}
+.flow-head{display:contents}
+.flow-head span{font-size:.875rem;font-weight:500;color:var(--tblr-secondary);padding-bottom:.4rem;border-bottom:1px solid var(--tblr-border-color)}
+.flow-row{display:contents}
+.flow .card{margin:0;position:relative;box-shadow:none}
+.flow .card-body{padding:.9rem 1rem}
+.flow-kit{border-left:3px solid var(--tblr-primary)}
+.flow .card strong{display:block;font-weight:600;line-height:1.3}
+.flow .card p{font-size:.875rem;line-height:1.45;color:var(--tblr-secondary);margin:.3rem 0 0}
+.flow .badge{font-family:var(--tblr-font-monospace);font-weight:500;margin-bottom:.45rem;text-transform:none}
+.flow-store{justify-content:center}
+.flow-via::before,.flow-store::before{content:"";position:absolute;left:-2.25rem;top:50%;width:calc(2.25rem - 6px);border-top:1px dashed var(--tblr-primary);opacity:.8}
+.flow-via::after,.flow-store::after{content:"";position:absolute;left:-7px;top:calc(50% - 4px);border:4px solid transparent;border-left:6px solid var(--tblr-primary)}
+.flow-out{grid-column:4;grid-row:2 / span var(--rows);align-self:stretch}
+.flow-out .card{height:100%}
+.flow-out .list-group-item{background:transparent;padding:.55rem 0;border-color:var(--tblr-border-color)}
+.db{display:inline-block;width:.6rem;height:.6rem;margin-right:.5rem;border-radius:2px;vertical-align:.05rem}
+.db-vm{background:#00FEC8}.db-zbx{background:#FE3B3B}.db-es{background:#FBFE00}.db-influx{background:#B500FE}
+@media (max-width:991.98px){
+  .flow{grid-template-columns:1fr;row-gap:0}
+  .flow-head{display:none}
+  .flow-row{display:grid;row-gap:1.4rem;padding-bottom:1.6rem;margin-bottom:1.6rem;border-bottom:1px solid var(--tblr-border-color)}
+  .flow-via::before,.flow-store::before{left:1.5rem;top:-1.4rem;width:0;height:calc(1.4rem - 6px);border-top:0;border-left:1px dashed var(--tblr-primary)}
+  .flow-via::after,.flow-store::after{left:calc(1.5rem - 4px);top:-7px;border:4px solid transparent;border-top:6px solid var(--tblr-primary);border-bottom:0}
+  .flow-out{grid-column:1;grid-row:auto}
+}
+
+/* hub pipeline: Tabler steps above a row of cards */
+.steps{--tblr-steps-color:var(--tblr-primary);margin-bottom:1.5rem}
+.stage .card{height:100%}
+.stage ul{margin:0;padding-left:1.1rem;color:var(--tblr-secondary);font-size:.9375rem}
+.stage li{margin-bottom:.35rem}
+.stage li strong{color:var(--tblr-body-color);font-weight:500}
+
+/* dashboard cards: mirrors the card home page in the real Grafana build */
+.dash-card .card-status-top{height:3px}
+.dash-card small{display:block;font-weight:600;font-size:.8125rem;margin-bottom:.25rem}
+.dash-card h3{margin-bottom:.4rem}
+.dash-card p{color:var(--tblr-secondary);margin:0;font-size:.9375rem}
+
+/* pillar cards on the hub */
+.pillar-card{text-decoration:none;color:inherit;height:100%}
+.pillar-card:hover{border-color:var(--pc)}
+.pillar-card .card-status-start{background:var(--pc);width:3px}
+.pillar-card h3{font-size:1.75rem;margin:.25rem 0 .75rem}
+.pillar-card .who{font-weight:600;color:var(--pc)}
+.pillar-card .go{color:var(--pc);font-weight:600}
+.pillar-card .browser{margin:-.25rem 0 1.25rem}
+.f-maritime{font-family:"Barlow Semi Condensed";font-weight:700}
+.f-broadcast{font-family:"Archivo";font-weight:800;font-stretch:72%}
+.f-infra{font-family:"IBM Plex Sans Condensed";font-weight:600}
+
+/* figures */
+.figure-card .display{font-family:var(--display);font-weight:700;font-stretch:var(--display-stretch);font-size:2.6rem;line-height:1;letter-spacing:-.01em;color:var(--tblr-body-color)}
+.figure-card p{margin:.6rem 0 0;color:var(--tblr-secondary);font-size:.9375rem}
+.source{font-size:.8125rem;color:var(--tblr-secondary);margin-top:1rem}
+
+/* who it's for */
+.audience .card{height:100%;border-left:3px solid var(--tblr-primary)}
+.audience h3{font-family:"IBM Plex Sans";font-weight:600;font-size:1.0625rem;letter-spacing:0;margin-bottom:.35rem}
+.audience p{margin:0;color:var(--tblr-secondary);font-size:.9375rem}
+
+/* contact */
+.contact-band{background:var(--tblr-bg-surface)}
+.contact-band .section-title{max-width:18ch}
+
+/* footer */
+.footer{background:transparent;border-top:1px solid var(--tblr-border-color);font-size:.875rem;color:var(--tblr-secondary)}
+.footer a{color:var(--tblr-secondary)}
+.footer a:hover{color:var(--tblr-body-color)}
+.footer .legal{font-size:.75rem;max-width:none;margin:0}
+
+/* ---------- illustrative Grafana panels (drawn, not screenshots) ---------- */
+.gp{background:#111217;padding:10px;display:grid;gap:8px;color:#ccccdc;font-family:Inter,"IBM Plex Sans",sans-serif}
+.gp-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.gp-stat{background:#181b1f;border:1px solid #2c3235;border-radius:2px;padding:8px 10px}
+.gp-stat .k{font-size:11.5px;font-weight:500}
+.gp-stat .v{font-size:24px;font-weight:500;line-height:1.25;color:#fff}
+.gp-stat .v small{font-size:12px;color:#ccccdc}
+.gp-stat.ok{background:linear-gradient(120deg,#2d8f3b,#56a64b)}
+.gp-stat.warn{background:linear-gradient(120deg,#c98a00,#ff9830)}
+.gp-stat.crit{background:linear-gradient(120deg,#d10e1c,#f2495c)}
+.gp-stat.ok .k,.gp-stat.warn .k,.gp-stat.crit .k{color:#fff}
+.gp-panel{background:#181b1f;border:1px solid #2c3235;border-radius:2px;padding:8px 10px}
+.gp-h{display:flex;justify-content:space-between;font-size:11.5px;font-weight:500;margin-bottom:6px}
+.gp-h i{font-style:normal;color:#8e8e9e}
+.gp-chart{display:block;width:100%;height:92px}
+.gp table{width:100%;border-collapse:collapse;font-size:12px}
+.gp th{text-align:left;font-weight:500;color:#8e8e9e;padding:5px 6px;border-bottom:1px solid #2c3235}
+.gp td{padding:6px;border-bottom:1px solid #22252b;white-space:nowrap}
+.gp tr:last-child td{border-bottom:0}
+.pill{display:inline-block;padding:0 6px;font-size:11px;font-weight:600;color:#fff;border-radius:2px}
+.pill.ok{background:#56a64b}.pill.warn{background:#ff9830}.pill.crit{background:#f2495c}.pill.nodata{background:#8f3bb8}
+.gp-scroll{overflow-x:auto}
+@media (max-width:575.98px){.gp-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.gp-stat .v{font-size:20px}}
+
+/* ============================================================
+   One memorable thing per industry, under each pillar's hero.
+   ============================================================ */
+.readout{border-top:1px solid var(--tblr-border-color);border-bottom:1px solid var(--tblr-border-color);background:var(--tblr-bg-surface-secondary)}
+.readout .container-xl{display:flex;align-items:center;flex-wrap:wrap;gap:.75rem 2rem;padding-top:1rem;padding-bottom:1rem}
+.ro span{display:block;font-size:.75rem;color:var(--tblr-secondary)}
+.ro b{display:block;font-family:var(--tblr-font-monospace);font-weight:500;font-size:.98rem;white-space:nowrap}
+.readout .example{margin-left:auto;font-size:.75rem;color:var(--tblr-secondary);font-style:italic}
+
+/* maritime: a chart plotter - graticule, a range ring and a compass */
+.p-maritime .hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 82% 38%, transparent 0 150px, rgba(111,230,243,.10) 151px 152px, transparent 153px 250px,
+      rgba(111,230,243,.08) 251px 252px, transparent 253px 350px, rgba(111,230,243,.06) 351px 352px, transparent 353px),
+    linear-gradient(rgba(111,230,243,.05) 1px, transparent 1px) 0 0/96px 96px,
+    linear-gradient(90deg, rgba(111,230,243,.05) 1px, transparent 1px) 0 0/96px 96px;
+}
+.compass{width:34px;height:34px;color:var(--accent)}
+.p-maritime .ro b{color:#C9F6FB}
+
+/* broadcast: a tally light and running timecode, with SMPTE bars under the strip */
+.tally{display:inline-flex;align-items:center;gap:.6rem;padding:.4rem .9rem;border:1px solid var(--tally);border-radius:3px;
+  font-family:"Archivo";font-stretch:80%;font-weight:800;font-size:1rem;color:#fff;background:rgba(255,59,48,.18);
+  box-shadow:0 0 22px rgba(255,59,48,.35)}
+.tally i{width:.6rem;height:.6rem;border-radius:50%;background:var(--tally);box-shadow:0 0 8px var(--tally)}
+.tc{color:#FFD08A!important;font-size:1.15rem!important;letter-spacing:.03em}
+.smpte{display:flex;height:6px}
+.smpte i{flex:1}
+.smpte i:nth-child(1){background:#C0C0C0}.smpte i:nth-child(2){background:#C0C000}.smpte i:nth-child(3){background:#00C0C0}.smpte i:nth-child(4){background:#00C000}
+.smpte i:nth-child(5){background:#C000C0}.smpte i:nth-child(6){background:#C00000}.smpte i:nth-child(7){background:#0000C0}
+.p-broadcast .hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px),
+    radial-gradient(70% 80% at 85% 30%, rgba(255,90,20,.10), transparent 70%);
+}
+
+/* infra: a 42U rack drawn at the hero's edge, and front-panel LEDs */
+.p-infra .hero::before{
+  content:"";position:absolute;right:max(1rem,calc(50% - 680px));top:2rem;bottom:2rem;width:150px;pointer-events:none;opacity:.35;
+  background:
+    radial-gradient(circle, var(--led) 0 2px, transparent 3px) 128px 9px/12px 18px repeat-y,
+    repeating-linear-gradient(180deg, rgba(107,235,138,.45) 0 1px, transparent 1px 18px),
+    linear-gradient(90deg, rgba(107,235,138,.6) 0 2px, transparent 2px calc(100% - 2px), rgba(107,235,138,.6) calc(100% - 2px));
+  -webkit-mask:linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);mask:linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+}
+.leds{display:flex;gap:6px;padding:.5rem .6rem;border:1px solid var(--tblr-border-color);border-radius:3px;background:#050906}
+.leds i{width:8px;height:8px;border-radius:50%;background:var(--led);box-shadow:0 0 6px var(--led)}
+.leds i.amber{background:#FFB13D;box-shadow:0 0 6px #FFB13D}
+.p-infra .flow-kit::after{content:"";position:absolute;right:.75rem;top:.8rem;width:6px;height:6px;border-radius:50%;background:var(--led);box-shadow:0 0 5px var(--led)}
+
+@media (max-width:991.98px){
+  .p-infra .hero::before{display:none}
+  .hero{padding:3rem 0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* hub product cards: every preview the same shape, cropped from the top */
+.pillar-card .browser img,.pillar-card .preview-drawn{aspect-ratio:16/10;object-fit:cover;object-position:top left;overflow:hidden}
+.pillar-card .preview-drawn .gp{transform-origin:top left}
+/* 16px side gutter on phones, matching the 444Video site */
+.container-xl{--tblr-gutter-x:2rem}
+.flow .badge{font-size:.72rem;padding:.2rem .45rem}

@@ -1,229 +1,223 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" data-bs-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vistigo Maritime - every vessel, always connected</title>
-<meta name="description" content="Starlink, cellular, failover and SIM data use for every vessel, pulled from the dish, the Peplink router and the SIM provider into Grafana.">
-<meta name="theme-color" content="#0A141C">
-<meta property="og:title" content="Vistigo Maritime - every vessel, always connected">
-<meta property="og:description" content="Starlink, cellular, failover and SIM data use for every vessel, pulled from the dish, the Peplink router and the SIM provider into Grafana.">
+<title>Vistigo Maritime: fleet connectivity monitoring</title>
+<meta name="description" content="Starlink, 4G/5G, failover and SIM spend for every vessel, read from the dish, the Peplink router and the SIM provider.">
+<meta property="og:title" content="Vistigo Maritime: fleet connectivity monitoring">
+<meta property="og:description" content="Starlink, 4G/5G, failover and SIM spend for every vessel, read from the dish, the Peplink router and the SIM provider.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Vistigo by 444Video">
 <meta property="og:locale" content="en_GB">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%230A141C'/%3E%3Crect x='0' y='2' width='2' height='2' fill='%231200FE'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2300FEC8'/%3E%3Crect x='4' y='2' width='2' height='2' fill='%23FEA300'/%3E%3Crect x='6' y='2' width='2' height='2' fill='%23FE0000'/%3E%3Crect x='0' y='4' width='2' height='2' fill='%23B500FE'/%3E%3Crect x='2' y='4' width='2' height='2' fill='%2300FE05'/%3E%3Crect x='4' y='4' width='2' height='2' fill='%23FBFE00'/%3E%3Crect x='6' y='4' width='2' height='2' fill='%23FE009C'/%3E%3C/svg%3E">
-<link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/444.css">
-<link rel="stylesheet" href="../assets/css/vistigo.css">
-<link rel="stylesheet" href="../assets/css/themes.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%230B151D'/%3E%3Crect x='0' y='2' width='2' height='2' fill='%231200FE'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2300FEC8'/%3E%3Crect x='4' y='2' width='2' height='2' fill='%23FEA300'/%3E%3Crect x='6' y='2' width='2' height='2' fill='%23FE0000'/%3E%3Crect x='0' y='4' width='2' height='2' fill='%23B500FE'/%3E%3Crect x='2' y='4' width='2' height='2' fill='%2300FE05'/%3E%3Crect x='4' y='4' width='2' height='2' fill='%23FBFE00'/%3E%3Crect x='6' y='4' width='2' height='2' fill='%23FE009C'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/vendor/tabler/tabler.min.css">
+<link rel="stylesheet" href="../assets/vendor/tabler/tabler-marketing.min.css">
+<link rel="stylesheet" href="../assets/css/site.css">
 </head>
-<body class="glow glow-4 theme-maritime">
-
+<body class="p-maritime">
 <div class="bars" role="presentation"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-<header class="site-head">
-  <a class="brand" href="../" aria-label="Vistigo home">
-    <svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg>
-    <span class="brand-text"><b>Vistigo</b><i>by 444Video</i></span>
-  </a>
-  <nav class="site-nav" aria-label="Main"><a href="../maritime/" aria-current="page">Maritime</a><a href="../broadcast/">Broadcast</a><a href="../infra/">Infra</a><a href="#how">How it works</a><a href="#contact">Contact</a></nav>
+<header class="navbar navbar-expand-md">
+  <div class="container-xl">
+    <a class="navbar-brand" href="../"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
+<rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
+<rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
+<rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
+<rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/></svg><span>Vistigo<small>by 444Video</small></span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="../maritime/" aria-current="page">Maritime</a></li><li class="nav-item"><a class="nav-link" href="../broadcast/">Broadcast</a></li><li class="nav-item"><a class="nav-link" href="../infra/">Infra</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
 </header>
 
-<main id="main">
+<main>
 <section class="hero">
-  <div class="hero-text">
-    <p class="eyebrow" style="--eyebrow-colour:#00FEC8">Vistigo Maritime</p>
-    <h1>Every vessel, always connected.</h1>
-    <p class="standfirst">See which ships are online, which link they're on and how well it's performing - Starlink, cellular,
-    failover and SIM spend across the whole fleet, on one screen.</p>
-    <p class="actions"><a class="btn" href="#flow">How we pull the data</a><a class="btn btn-quiet" href="#contact">Tell us what you can't see</a></p>
+  <div class="container-xl">
+    <div class="row align-items-center g-4 g-lg-5">
+      <div class="col-lg-6">
+        <p class="kicker">Vistigo Maritime</p>
+        <h1 class="hero-title">Know which ship is on which link, right now.</h1>
+        <p class="hero-description mt-4">Vistigo Maritime reads the Starlink dish, the Peplink router and the SIM account
+        on every vessel, every 15 to 60 seconds, and puts the whole fleet on one screen. No more logging into routers one
+        at a time to find out who's offline.</p>
+        <div class="btn-list"><a class="btn btn-primary btn-lg" href="#data">Where the numbers come from</a>
+        <a class="btn btn-ghost-secondary btn-lg" href="#contact">Talk to us</a></div>
+      </div>
+      <div class="col-lg-6">
+        <figure class="m-0">
+  <div class="browser">
+  <div class="browser-header d-flex align-items-center">
+    <div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
+    <span class="browser-input">noc.444.video/maritime/starlink</span>
   </div>
-  <figure class="shot">
-  <div class="shot-frame">
-    <div class="shot-bar"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg><span>Vistigo Maritime · Starlink</span><em>Grafana</em></div>
-    <img src="../assets/img/dash-starlink.png" alt="Starlink dashboard: alignment status Aligned, sky obstructed 7.18 percent, ping latency 64 ms, with an alignment bullseye and azimuth and elevation gauges." loading="lazy">
-  </div>
-  <figcaption><span class="tag-real">Live dashboard</span>Starlink: alignment, obstruction, latency and a bullseye that guides the dish to centre.</figcaption>
+  <img src="../assets/img/dash-starlink.png" alt="Starlink dashboard: aligned, 7.18 percent of sky obstructed, 64 ms latency, an alignment bullseye and azimuth and elevation gauges." loading="lazy">
+</div>
+  <figcaption class="shot-note"><span class="badge bg-green-lt">Screenshot</span>Our Starlink dashboard. The bullseye shows which way to nudge the dish.</figcaption>
 </figure>
+      </div>
+    </div>
+  </div>
 </section>
-<div class="strip strip-maritime" aria-label="Illustrative bridge readout">
-  <div class="strip-inner">
-    <div class="ro-lead"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M20 4 L24 20 L20 36 L16 20Z" fill="currentColor" opacity=".9"/><path d="M4 20 L20 17 L36 20 L20 23Z" fill="currentColor" opacity=".35"/></svg><span>Bridge</span></div>
-    <div class="ro"><small>Position</small><b>50°48.2′N 001°05.7′W</b></div><div class="ro"><small>Heading</small><b>274°</b></div><div class="ro"><small>Speed</small><b>11.2 kn</b></div><div class="ro"><small>Active link</small><b>Starlink</b></div><div class="ro"><small>Ping</small><b>34 ms</b></div><div class="ro"><small>Backup</small><b>5G · 3 bars</b></div>
-  </div>
+<div class="readout" aria-label="Example readout">
+  <div class="container-xl"><div class="d-flex align-items-center gap-2"><svg class="compass" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M20 4L24 20L20 36L16 20Z" fill="currentColor"/><path d="M4 20L20 17L36 20L20 23Z" fill="currentColor" opacity=".35"/></svg><strong class="kicker mb-0">Bridge</strong></div><div class="ro"><span>Position</span><b>50°48.2′N 001°05.7′W</b></div><div class="ro"><span>Heading</span><b>274°</b></div><div class="ro"><span>Speed</span><b>11.2 kn</b></div><div class="ro"><span>Live link</span><b>Starlink</b></div><div class="ro"><span>Latency</span><b>34 ms</b></div><div class="ro"><span>Backup</span><b>5G, 3 bars</b></div><span class="example">Example values</span></div>
 </div>
 
-<section class="section-break" id="flow"><div class="block">
-  <header class="section-head">
-    <p class="eyebrow" style="--eyebrow-colour:#00FEC8">How we pull the data</p>
-    <h2>From the dish and the router to your screen.</h2>
-    <p class="lede">Each piece of kit is read the way it prefers to be read. The Starlink dish is asked directly on board;
-    the router, modems and SIMs come through their cloud APIs. Everything lands in one place, tagged with the vessel it came from.</p>
-  </header>
-  <div class="flowmap" style="--c:#00FEC8;--rows:6" role="list" aria-label="Data flow">
-<div class="fm-head" aria-hidden="true"><span>Equipment</span><span>How we pull it</span><span>Where it lands</span><span>What you see</span></div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>Starlink dish</b><span>Throughput, PoP latency, obstruction, GPS, pointing, dish alerts</span></div>
-  <div class="fm-node fm-via"><em class="proto">gRPC · every 60 s</em><b>On-board collector</b><span>Reads the dish directly on the ship's LAN, pushes out over HTTPS</span></div>
-  <div class="fm-node fm-store db-vm"><b>VictoriaMetrics</b><span>Tagged by vessel and dish</span><i class="fm-out"></i></div>
+<section class="section" id="data">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">Where the numbers come from</h2><p class="section-description">We read each device the way it prefers. The dish only answers on the ship's own network, so a small collector on board asks it directly. The router, modems and SIMs already report to their makers' cloud services, so we collect from there. Everything is tagged with the vessel it came from.</p></div>
+    <div class="flow" style="--rows:6">
+<div class="flow-head" aria-hidden="true"><span>The equipment</span><span>How we read it</span><span>Where it's kept</span><span>What you open</span></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>Starlink dish</strong><p>Throughput, latency to the ground station, how much sky is blocked, GPS, where it's pointing, its own alerts</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">gRPC, every 60 s</span><strong>Collector on board</strong><p>Sits behind the dish on the ship's network and pushes out over HTTPS</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-vm"></span>VictoriaMetrics</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>Peplink router</b><span>WAN status, which link is live, CPU and memory, multiple dishes per router</span></div>
-  <div class="fm-node fm-via"><em class="proto">REST API</em><b>InControl2 bridge</b><span>One request per router, split into system, WAN and Starlink series</span></div>
-  <div class="fm-node fm-store db-vm"><b>VictoriaMetrics</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>Peplink router</strong><p>Which WAN is live, CPU and memory, and every dish if there's more than one</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">REST API</span><strong>InControl2</strong><p>One call per router, split into system, WAN and Starlink figures</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-vm"></span>VictoriaMetrics</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>Cellular modems</b><span>RSRP, RSRQ, SINR, RSSI, signal bars, band, operator</span></div>
-  <div class="fm-node fm-via"><em class="proto">REST API</em><b>InControl2 bridge</b><span>Read from the same router status block, per modem</span></div>
-  <div class="fm-node fm-store db-vm"><b>VictoriaMetrics</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>4G and 5G modems</strong><p>RSRP, RSRQ, SINR, RSSI, signal bars, band and operator</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">REST API</span><strong>InControl2</strong><p>Read from the same router status as above, one line per modem</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-vm"></span>VictoriaMetrics</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>Every WAN link</b><span>Live upload and download per link - Starlink, 4G/5G, Wi-Fi</span></div>
-  <div class="fm-node fm-via"><em class="proto">REST · every 15 s</em><b>Throughput collector</b><span>Realtime bandwidth per WAN, kept as its own service</span></div>
-  <div class="fm-node fm-store db-vm"><b>VictoriaMetrics</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>Each WAN link</strong><p>Live upload and download on Starlink, cellular and Wi-Fi</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">REST, every 15 s</span><strong>Throughput collector</strong><p>Runs as its own service, so a fault here can't stop the rest</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-vm"></span>VictoriaMetrics</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>SIM cards</b><span>Data used, cost and subscribers per SIM and per company</span></div>
-  <div class="fm-node fm-via"><em class="proto">REST API</em><b>Geniox bridge</b><span>Polls the SIM provider, so roaming spend is never a surprise</span></div>
-  <div class="fm-node fm-store db-vm"><b>VictoriaMetrics</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>SIM cards</strong><p>Data used, cost and subscribers, per SIM and for the company</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">REST API</span><strong>Geniox</strong><p>Straight from the SIM provider's account, not estimated</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-vm"></span>VictoriaMetrics</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>Router reachability</b><span>Up, down and how long for</span></div>
-  <div class="fm-node fm-via"><em class="proto">SNMP · ICMP</em><b>Zabbix</b><span>Triggers fire when a vessel goes dark or drops to backup</span></div>
-  <div class="fm-node fm-store db-zbx"><b>Zabbix</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>Is the router there at all?</strong><p>Up or down, and for how long</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">ICMP, SNMP</span><strong>Zabbix</strong><p>Raises the alarm when a vessel goes dark or drops to its backup link</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-zbx"></span>Zabbix</strong></div></div>
 </div>
-<div class="fm-sink">
-  <p class="eyebrow" style="--eyebrow-colour:#00FEC8">Grafana</p>
-  <h3>Your fleet, one home page</h3>
-  <ul><li>Peplink Overview</li><li>Cellular</li><li>Router Health</li><li>Starlink</li><li>SIM Card Monitoring</li></ul>
-  <p class="fm-alert"><b>Alerts:</b> vessel offline, on backup link, obstruction rising, SIM spend - into Slack or email.</p>
+<div class="flow-out"><div class="card">
+  <div class="card-status-top bg-primary"></div>
+  <div class="card-body d-flex flex-column">
+    <h3 class="mb-1">Your fleet</h3>
+    <p class="text-secondary small mb-2">Grafana, in 444Video's house style</p>
+    <ul class="list-group list-group-flush mb-3"><li class="list-group-item">Peplink Overview</li><li class="list-group-item">Cellular</li><li class="list-group-item">Router Health</li><li class="list-group-item">Starlink</li><li class="list-group-item">SIM Card Monitoring</li></ul>
+    <p class="small text-secondary mt-auto mb-0"><strong class="text-reset">Alerts:</strong> vessel offline, running on backup, obstruction climbing, SIM spend over budget.</p>
+  </div>
+</div></div>
 </div>
-</div>
-</div></section>
+  </div>
+</section>
 
-<section class="section-break"><div class="block">
-  <header class="section-head">
-    <p class="eyebrow" style="--eyebrow-colour:#00FEC8">What you see</p>
-    <h2>A home page for the fleet, then a dashboard per job.</h2>
-  </header>
-  <div class="dcards" style="--dc:#00FEC8">
-<div class="dcard start"><small>Start here</small><b>Peplink Overview</b><p>Every WAN interface, headline health, cellular signal and Starlink status on one screen.</p></div>
-<div class="dcard" style="--dc:#FBFE00"><small>Signal</small><b>Cellular</b><p>RSRP, RSRQ, SINR, RSSI and signal bars, with trends and stability over time.</p></div>
-<div class="dcard" style="--dc:#00FE05"><small>System</small><b>Router Health</b><p>CPU load, memory, 24-hour peaks and stress detection for each router.</p></div>
-<div class="dcard" style="--dc:#5794F2"><small>Uplink</small><b>Starlink</b><p>Alignment bullseye, obstruction, throughput up and down, latency and pointing.</p></div>
+<section class="section section-alt">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">What your team opens in the morning</h2><p class="section-description">A home page for the fleet, with a card for each job. Click through for the detail.</p></div>
+    <div class="row g-3 mb-4"><div class="col-12"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#6FE6F3"></div>
+  <div class="card-body"><small style="color:#6FE6F3">Start here</small><h3>Peplink Overview</h3><p>Every WAN, the headline health figures, cellular signal and Starlink status on one screen.</p></div>
+</div></div><div class="col-md-4"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#FBFE00"></div>
+  <div class="card-body"><small style="color:#FBFE00">Signal</small><h3>Cellular</h3><p>RSRP, RSRQ, SINR, RSSI and bars, with the last 24 hours to show how stable it's been.</p></div>
+</div></div><div class="col-md-4"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#4ADE6E"></div>
+  <div class="card-body"><small style="color:#4ADE6E">System</small><h3>Router Health</h3><p>CPU, memory and daily peaks, so you spot a router that's struggling.</p></div>
+</div></div><div class="col-md-4"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#5794F2"></div>
+  <div class="card-body"><small style="color:#5794F2">Uplink</small><h3>Starlink</h3><p>Alignment, obstruction, throughput, latency and pointing.</p></div>
+</div></div></div><div class="row g-4">
+  <div class="col-lg-6"><figure class="m-0">
+  <div class="browser">
+  <div class="browser-header d-flex align-items-center">
+    <div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
+    <span class="browser-input">noc.444.video/maritime/sims</span>
+  </div>
+  <img src="../assets/img/dash-sim-usage.png" alt="SIM Card Monitoring: 2.0 GB used, 4.08 euros, 4 SIMs, with data used per SIM." loading="lazy">
 </div>
-  <div class="gallery">
-    <figure class="shot">
-  <div class="shot-frame">
-    <div class="shot-bar"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg><span>Vistigo Maritime · Home</span><em>Grafana</em></div>
-    <img src="../assets/img/dash-maritime-home.png" alt="The Maritime home dashboard with cards for each view." loading="lazy">
+  <figcaption class="shot-note"><span class="badge bg-green-lt">Screenshot</span>SIM spend per card, straight from the provider.</figcaption>
+</figure></div>
+  <div class="col-lg-6"><figure class="m-0">
+  <div class="browser">
+  <div class="browser-header d-flex align-items-center">
+    <div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
+    <span class="browser-input">noc.444.video/maritime/cellular</span>
   </div>
-  <figcaption><span class="tag-real">Live dashboard</span>The home page your team opens first.</figcaption>
-</figure>
-    <figure class="shot">
-  <div class="shot-frame">
-    <div class="shot-bar"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg><span>Vistigo Maritime · SIM cards</span><em>Grafana</em></div>
-    <img src="../assets/img/dash-sim-usage.png" alt="SIM Card Monitoring dashboard showing company data used 2.0 GB, cost 4.08 euros, 4 SIMs, and a table of data used per SIM." loading="lazy">
+  <img src="../assets/img/dash-cellular-cost.png" alt="Cellular dashboard: signal bars, RSRP and SINR gauges, data used today and the projected cost for the next day and month." loading="lazy">
+</div>
+  <figcaption class="shot-note"><span class="badge bg-green-lt">Screenshot</span>What today's data use will cost you this month.</figcaption>
+</figure></div>
+  <div class="col-12"><figure class="m-0">
+  <div class="browser">
+  <div class="browser-header d-flex align-items-center">
+    <div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
+    <span class="browser-input">noc.444.video/maritime/cellular</span>
   </div>
-  <figcaption><span class="tag-real">Live dashboard</span>SIM Card Monitoring: data and cost per SIM, straight from the SIM provider.</figcaption>
-</figure>
-    <figure class="shot wide">
-  <div class="shot-frame">
-    <div class="shot-bar"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg><span>Vistigo Maritime · Cellular</span><em>Grafana</em></div>
-    <img src="../assets/img/dash-cellular-cost.png" alt="Cellular dashboard with signal bars, RSRP and SINR gauges, data used in the last 24 hours, projected cost for the next 24 hours and 30 days, and cost per hour and per WAN." loading="lazy">
+  <img src="../assets/img/dash-cellular-history.png" alt="Throughput per WAN and 24 hours of signal strength and quality." loading="lazy">
+</div>
+  <figcaption class="shot-note"><span class="badge bg-green-lt">Screenshot</span>Throughput per link and a day of signal history. You can see exactly when the vessel moved out of 5G coverage.</figcaption>
+</figure></div>
+</div>
   </div>
-  <figcaption><span class="tag-real">Live dashboard</span>Cellular: live signal, then data used and what it will cost you this month, per WAN.</figcaption>
-</figure>
-    <figure class="shot wide">
-  <div class="shot-frame">
-    <div class="shot-bar"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg><span>Vistigo Maritime · Cellular</span><em>Grafana</em></div>
-    <img src="../assets/img/dash-cellular-history.png" alt="Cellular dashboard history: throughput now and 24-hour peaks, throughput per WAN, and 24 hours of RSRP, RSSI, RSRQ and SINR." loading="lazy">
-  </div>
-  <figcaption><span class="tag-real">Live dashboard</span>Cellular history: throughput per WAN, and 24 hours of signal strength and quality.</figcaption>
-</figure>
-  </div>
-</div></section>
+</section>
 
-<section class="section-break"><div class="block">
-  <header class="section-head"><p class="eyebrow" style="--eyebrow-colour:#00FEC8">Who it's for</p>
-  <h2>Anyone who has to keep a moving network online.</h2></header>
-  <ul class="audience"><li style="border-left-color:#00FEC8"><b>Ship operators and fleet managers</b><span>One view of every vessel, without logging into each router.</span></li><li style="border-left-color:#00FEC8"><b>Maritime IT and managed service providers</b><span>A view per customer you can hand over, with alerts into your NOC.</span></li><li style="border-left-color:#00FEC8"><b>Survey, offshore and research vessels</b><span>Proof of when the link was up, and how well, for crews and clients.</span></li><li style="border-left-color:#00FEC8"><b>Broadcast and events on the water</b><span>Pair with Vistigo Broadcast: the stream and the link on one timeline.</span></li></ul>
-  <div class="figures"><div class="figure-tile"><b>60 s</b><span>Starlink read straight from the dish</span></div><div class="figure-tile"><b>15 s</b><span>per-WAN throughput, every link</span></div><div class="figure-tile"><b>1,400 miles</b><span>Belgium field test, bonded links measured on the road</span></div></div>
-</div></section>
+<section class="section">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">Who uses it</h2></div>
+    <div class="row g-3 audience"><div class="col-md-6"><div class="card"><div class="card-body"><h3>Ship operators and fleet managers</h3><p>One screen for every vessel, instead of a login per router.</p></div></div></div><div class="col-md-6"><div class="card"><div class="card-body"><h3>Maritime IT and managed service providers</h3><p>A view for each customer, with alerts going to your own NOC.</p></div></div></div><div class="col-md-6"><div class="card"><div class="card-body"><h3>Survey, offshore and research vessels</h3><p>A record of when the link was up and how good it was, for crew and clients.</p></div></div></div><div class="col-md-6"><div class="card"><div class="card-body"><h3>Broadcasting from the water</h3><p>Add Vistigo Broadcast and see the stream next to the link carrying it.</p></div></div></div></div>
+  </div>
+</section>
 
-<section class="section-break"><div class="block">
-  <header class="section-head"><p class="eyebrow">Same platform</p><h2>Add another pillar.</h2>
-  <p class="lede">Every pillar lands in the same databases and the same Grafana, so a fault on one timeline sits next to its cause on another.</p></header>
-  <div class="others"><a class="other" href="../broadcast/" style="--oc:#FEA300">
-  <p class="eyebrow">Vistigo Broadcast</p><b>Catch the error before the viewer does.</b><span class="more">Explore Broadcast</span></a><a class="other" href="../infra/" style="--oc:#00FE05">
-  <p class="eyebrow">Vistigo Infra</p><b>Know your hardware before it fails.</b><span class="more">Explore Infra</span></a></div>
-</div></section>
-<section class="cta" id="contact">
-  <div class="cta-inner">
-    <p class="eyebrow">Get in touch</p>
-    <h2>Tell us what you can't see.</h2>
-    <p>Tell us how many vessels you run and which links they use. We'll show you what your fleet looks like in Vistigo.</p>
-    <p class="actions"><a class="btn" href="mailto:info@444.video?subject=Vistigo%20Maritime">info@444.video</a></p>
+<section class="section section-alt">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">It all runs on the same system</h2><p class="section-description">Add another product whenever you like. The data lands in the same place, so a dropped stream and the satellite link it was on show up on the same timeline.</p></div>
+    <div class="row g-3"><div class="col-md-6"><a class="card card-link pillar-card" href="../broadcast/" style="--pc:#FFB54D">
+  <div class="card-status-start"></div>
+  <div class="card-body"><span class="who">For broadcasters</span><h3 class="f-broadcast">Vistigo Broadcast</h3><p class="text-secondary mb-0">Find stream errors before your viewers do.</p></div>
+</a></div><div class="col-md-6"><a class="card card-link pillar-card" href="../infra/" style="--pc:#6BEB8A">
+  <div class="card-status-start"></div>
+  <div class="card-body"><span class="who">For the racks behind it all</span><h3 class="f-infra">Vistigo Infra</h3><p class="text-secondary mb-0">Find the failing fan before the server does.</p></div>
+</a></div></div>
+  </div>
+</section>
+<section class="section contact-band" id="contact">
+  <div class="container-xl">
+    <div class="row align-items-end g-4">
+      <div class="col-lg-7"><h2 class="section-title mb-3">Tell us what you can't see.</h2>
+        <p class="section-description mb-0">Tell us how many vessels you run and what's on board. We'll show you your fleet in Vistigo.</p></div>
+      <div class="col-lg-5 text-lg-end"><a class="btn btn-primary btn-lg" href="mailto:info@444.video?subject=Vistigo%20Maritime">Email info@444.video</a></div>
+    </div>
   </div>
 </section>
 </main>
 
-<footer class="site-foot">
-  <div class="foot-inner">
-    <div class="foot-brand">
-      <svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg>
-      <span class="brand-text"><b>Vistigo</b><i>by 444Video</i></span>
-    </div>
-    <div class="foot-links">
-      <h4>Pillars</h4>
-      <a href="../maritime/">Vistigo Maritime</a><a href="../broadcast/">Vistigo Broadcast</a><a href="../infra/">Vistigo Infra</a>
-    </div>
-    <div class="foot-links">
-      <h4>444Video</h4>
-      <a href="https://444video.com">444video.com</a>
-      <a href="mailto:info@444.video">info@444.video</a>
-      <a href="https://www.linkedin.com/company/444video">LinkedIn</a>
+<footer class="footer py-5">
+  <div class="container-xl">
+    <div class="row g-4">
+      <div class="col-md-5">
+        <p class="mb-2">Vistigo is a monitoring product from <a href="https://444video.com">444Video</a>,
+        a broadcast engineering company in the UK. The name comes from <em>vista</em>, a view.</p>
+        <p class="mb-0"><a href="mailto:info@444.video">info@444.video</a> &nbsp; <a href="https://www.linkedin.com/company/444video">LinkedIn</a></p>
+      </div>
+      <div class="col-md-3">
+        <ul class="list-unstyled mb-0">
+          <li><a href="../maritime/">Vistigo Maritime</a></li><li><a href="../broadcast/">Vistigo Broadcast</a></li><li><a href="../infra/">Vistigo Infra</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <p class="legal">&copy; 2026 444Video. Built with the Tabler UI kit. Grafana is a trademark of Grafana Labs.
+        Zabbix, Prometheus, VictoriaMetrics, Starlink, Peplink, Zixi, TAG Video Systems and Dell iDRAC belong to their owners.
+        We use and integrate with them; we aren't endorsed by them.</p>
+      </div>
     </div>
   </div>
-  <p class="foot-legal">&copy; 2026 444Video. The Full Picture. Vistigo, from <i>vista</i> - the view.
-  Grafana is a trademark of Grafana Labs; Zabbix, Prometheus, VictoriaMetrics, Starlink, Peplink, Zixi, TAG Video Systems
-  and other names are trademarks of their respective owners.</p>
 </footer>
+<script src="../assets/vendor/tabler/tabler.min.js" defer></script>
 
 </body>
 </html>

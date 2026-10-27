@@ -1,201 +1,209 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" data-bs-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vistigo Infra - know your hardware before it fails</title>
-<meta name="description" content="Switch, server and power monitoring: SNMP, iDRAC, sFlow, PDU, UPS and battery data in Zabbix, VictoriaMetrics and Grafana.">
-<meta name="theme-color" content="#0A141C">
-<meta property="og:title" content="Vistigo Infra - know your hardware before it fails">
-<meta property="og:description" content="Switch, server and power monitoring: SNMP, iDRAC, sFlow, PDU, UPS and battery data in Zabbix, VictoriaMetrics and Grafana.">
+<title>Vistigo Infra: server, network and power monitoring</title>
+<meta name="description" content="Switches, servers, PDUs, UPS and batteries, read over SNMP, iDRAC and sFlow, with alerts to Slack.">
+<meta property="og:title" content="Vistigo Infra: server, network and power monitoring">
+<meta property="og:description" content="Switches, servers, PDUs, UPS and batteries, read over SNMP, iDRAC and sFlow, with alerts to Slack.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Vistigo by 444Video">
 <meta property="og:locale" content="en_GB">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%230A141C'/%3E%3Crect x='0' y='2' width='2' height='2' fill='%231200FE'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2300FEC8'/%3E%3Crect x='4' y='2' width='2' height='2' fill='%23FEA300'/%3E%3Crect x='6' y='2' width='2' height='2' fill='%23FE0000'/%3E%3Crect x='0' y='4' width='2' height='2' fill='%23B500FE'/%3E%3Crect x='2' y='4' width='2' height='2' fill='%2300FE05'/%3E%3Crect x='4' y='4' width='2' height='2' fill='%23FBFE00'/%3E%3Crect x='6' y='4' width='2' height='2' fill='%23FE009C'/%3E%3C/svg%3E">
-<link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/444.css">
-<link rel="stylesheet" href="../assets/css/vistigo.css">
-<link rel="stylesheet" href="../assets/css/themes.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%230B151D'/%3E%3Crect x='0' y='2' width='2' height='2' fill='%231200FE'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2300FEC8'/%3E%3Crect x='4' y='2' width='2' height='2' fill='%23FEA300'/%3E%3Crect x='6' y='2' width='2' height='2' fill='%23FE0000'/%3E%3Crect x='0' y='4' width='2' height='2' fill='%23B500FE'/%3E%3Crect x='2' y='4' width='2' height='2' fill='%2300FE05'/%3E%3Crect x='4' y='4' width='2' height='2' fill='%23FBFE00'/%3E%3Crect x='6' y='4' width='2' height='2' fill='%23FE009C'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/vendor/tabler/tabler.min.css">
+<link rel="stylesheet" href="../assets/vendor/tabler/tabler-marketing.min.css">
+<link rel="stylesheet" href="../assets/css/site.css">
 </head>
-<body class="glow glow-5 theme-infra">
-
+<body class="p-infra">
 <div class="bars" role="presentation"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-<header class="site-head">
-  <a class="brand" href="../" aria-label="Vistigo home">
-    <svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg>
-    <span class="brand-text"><b>Vistigo</b><i>by 444Video</i></span>
-  </a>
-  <nav class="site-nav" aria-label="Main"><a href="../maritime/">Maritime</a><a href="../broadcast/">Broadcast</a><a href="../infra/" aria-current="page">Infra</a><a href="#how">How it works</a><a href="#contact">Contact</a></nav>
+<header class="navbar navbar-expand-md">
+  <div class="container-xl">
+    <a class="navbar-brand" href="../"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
+<rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
+<rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
+<rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
+<rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/></svg><span>Vistigo<small>by 444Video</small></span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="../maritime/">Maritime</a></li><li class="nav-item"><a class="nav-link" href="../broadcast/">Broadcast</a></li><li class="nav-item"><a class="nav-link active" href="../infra/" aria-current="page">Infra</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
 </header>
 
-<main id="main">
+<main>
 <section class="hero">
-  <div class="hero-text">
-    <p class="eyebrow" style="--eyebrow-colour:#00FE05">Vistigo Infra</p>
-    <h1>Know your hardware before it fails.</h1>
-    <p class="standfirst">Switches, servers and power in one view. Catch the failing fan, the lost PSU and the saturated uplink
-    while there's still time to fix them on your terms.</p>
-    <p class="actions"><a class="btn" href="#flow">How we pull the data</a><a class="btn btn-quiet" href="#contact">Tell us what you can't see</a></p>
+  <div class="container-xl">
+    <div class="row align-items-center g-4 g-lg-5">
+      <div class="col-lg-6">
+        <p class="kicker">Vistigo Infra</p>
+        <h1 class="hero-title">Find the failing fan before the server does.</h1>
+        <p class="hero-description mt-4">Switches, servers and power, read from the management controllers and the network
+        itself. When something starts to go, it turns up in Slack with the rack, the device and the reading attached,
+        while the spare power supply is still running.</p>
+        <div class="btn-list"><a class="btn btn-primary btn-lg" href="#data">Where the numbers come from</a>
+        <a class="btn btn-ghost-secondary btn-lg" href="#contact">Talk to us</a></div>
+      </div>
+      <div class="col-lg-6">
+        <figure class="m-0">
+  <div class="browser">
+    <div class="browser-header d-flex align-items-center">
+      <div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
+      <span class="browser-input">noc.444.video/infra/rack-a04</span>
+    </div>
+    <div class="gp">
+  <div class="gp-stats">
+    <div class="gp-stat ok"><div class="k">Hosts up</div><div class="v">142<small>/142</small></div></div>
+    <div class="gp-stat warn"><div class="k">PSU redundancy</div><div class="v">1 lost</div></div>
+    <div class="gp-stat"><div class="k">Hottest inlet</div><div class="v">31<small> &deg;C</small></div></div>
+    <div class="gp-stat crit"><div class="k">Server 07, fan 4</div><div class="v">0<small> rpm</small></div></div>
   </div>
-  <figure class="shot">
-  <div class="shot-frame">
-    <div class="shot-bar"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg><span>Vistigo Infra · Rack health</span><em>Grafana</em></div>
-    <div class="gpanels">
-  <div class="gstats">
-    <div class="gstat ok"><div class="k">Hosts up</div><div class="v">142<small>/142</small></div></div>
-    <div class="gstat warn"><div class="k">PSU redundancy</div><div class="v">1 lost</div></div>
-    <div class="gstat"><div class="k">Max inlet</div><div class="v">31<small> &deg;C</small></div></div>
-    <div class="gstat crit"><div class="k">Fan 4, server 07</div><div class="v">0<small> rpm</small></div></div>
-  </div>
-  <div class="gpanel">
-    <div class="gpanel-h"><span>Core uplink throughput</span><i>last 24 h</i></div>
-    <svg class="gchart" viewBox="0 0 300 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24H300M0 48H300M0 72H300" stroke="#2c3235" stroke-width="1" vector-effect="non-scaling-stroke"/>
-      <polygon fill="#5794F2" fill-opacity=".18" points="0,96 0.0,82.0 25.0,84.0 50.0,80.0 75.0,72.0 100.0,56.0 125.0,44.0 150.0,40.0 175.0,36.0 200.0,38.0 225.0,46.0 250.0,58.0 275.0,72.0 300.0,80.0 300,96"/><polyline fill="none" stroke="#5794F2" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.0,82.0 25.0,84.0 50.0,80.0 75.0,72.0 100.0,56.0 125.0,44.0 150.0,40.0 175.0,36.0 200.0,38.0 225.0,46.0 250.0,58.0 275.0,72.0 300.0,80.0"/>
-      <polyline fill="none" stroke="#FF9830" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.0,88.0 25.0,89.0 50.0,87.0 75.0,80.0 100.0,70.0 125.0,64.0 150.0,60.0 175.0,22.0 200.0,58.0 225.0,66.0 250.0,76.0 275.0,84.0 300.0,87.0"/>
-    </svg>
-  </div>
-  <div class="gpanel gscroll">
-    <table class="gtable"><thead><tr><th>Device</th><th>Source</th><th>Reading</th><th>State</th></tr></thead><tbody>
-      <tr><td>core-sw-01</td><td>SNMP</td><td>Gi1/0/48 78% out</td><td><span class="pill warn">HIGH</span></td></tr>
-      <tr><td>server-07</td><td>iDRAC</td><td>PSU 2 lost</td><td><span class="pill warn">PSU</span></td></tr>
-      <tr><td>pdu-a</td><td>SNMP v1</td><td>7.2 A</td><td><span class="pill ok">OK</span></td></tr>
-      <tr><td>ups-01</td><td>SNMP</td><td>-</td><td><span class="pill nodata">NO DATA</span></td></tr>
-    </tbody></table>
-  </div>
+  <div class="gp-panel"><div class="gp-h"><span>Core uplink</span><i>last 24 h</i></div>
+    <svg class="gp-chart" viewBox="0 0 300 92" preserveAspectRatio="none" aria-hidden="true"><path d="M0 23H300M0 46H300M0 69H300" stroke="#2c3235" stroke-width="1" vector-effect="non-scaling-stroke"/>
+      <polygon fill="#5794F2" fill-opacity=".18" points="0,92 0.0,78.0 25.0,80.0 50.0,76.0 75.0,68.0 100.0,52.0 125.0,40.0 150.0,36.0 175.0,32.0 200.0,34.0 225.0,42.0 250.0,54.0 275.0,68.0 300.0,76.0 300,92"/><polyline fill="none" stroke="#5794F2" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.0,78.0 25.0,80.0 50.0,76.0 75.0,68.0 100.0,52.0 125.0,40.0 150.0,36.0 175.0,32.0 200.0,34.0 225.0,42.0 250.0,54.0 275.0,68.0 300.0,76.0"/>
+      <polyline fill="none" stroke="#FF9830" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.0,84.0 25.0,85.0 50.0,83.0 75.0,76.0 100.0,66.0 125.0,60.0 150.0,56.0 175.0,18.0 200.0,54.0 225.0,62.0 250.0,72.0 275.0,80.0 300.0,83.0"/></svg></div>
+  <div class="gp-panel gp-scroll"><table><thead><tr><th>Device</th><th>Read by</th><th>Reading</th><th>State</th></tr></thead><tbody>
+    <tr><td>core-sw-01</td><td>SNMP</td><td>Gi1/0/48 at 78% out</td><td><span class="pill warn">HIGH</span></td></tr>
+    <tr><td>server-07</td><td>iDRAC</td><td>PSU 2 lost</td><td><span class="pill warn">PSU</span></td></tr>
+    <tr><td>pdu-a</td><td>SNMP v1</td><td>7.2 A</td><td><span class="pill ok">OK</span></td></tr>
+    <tr><td>ups-01</td><td>SNMP</td><td>-</td><td><span class="pill nodata">NO DATA</span></td></tr>
+  </tbody></table></div>
 </div>
   </div>
-  <figcaption><span class="tag-mock">Illustrative</span>Sample data. Real screenshots of the infrastructure dashboards to follow.</figcaption>
+  <figcaption class="shot-note"><span class="badge bg-secondary-lt">Mock-up</span>Drawn with sample data. Screenshots of the live infrastructure dashboards will replace it.</figcaption>
 </figure>
-</section>
-<div class="strip strip-infra" aria-label="Illustrative rack readout">
-  <div class="strip-inner">
-    <div class="leds" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="amber"></i><i class="on"></i><i class="on"></i></div>
-    <div class="ro"><small>Rack</small><b>A04 · 42U</b></div><div class="ro"><small>PSU A / B</small><b>OK / OK</b></div><div class="ro"><small>Inlet</small><b>24 °C</b></div><div class="ro"><small>Load</small><b>3.2 kW</b></div><div class="ro"><small>Uplink</small><b>78%</b></div><div class="ro"><small>Problems</small><b>1 warning</b></div>
+      </div>
+    </div>
   </div>
+</section>
+<div class="readout" aria-label="Example readout">
+  <div class="container-xl"><div class="leds" aria-hidden="true"><i></i><i></i><i></i><i class="amber"></i><i></i><i></i></div><div class="ro"><span>Rack</span><b>A04, 42U</b></div><div class="ro"><span>PSU A / B</span><b>OK / OK</b></div><div class="ro"><span>Inlet</span><b>24 °C</b></div><div class="ro"><span>Load</span><b>3.2 kW</b></div><div class="ro"><span>Uplink</span><b>78%</b></div><div class="ro"><span>Problems</span><b>1 warning</b></div><span class="example">Example values</span></div>
 </div>
 
-<section class="section-break" id="flow"><div class="block">
-  <header class="section-head">
-    <p class="eyebrow" style="--eyebrow-colour:#00FE05">How we pull the data</p>
-    <h2>The kit underneath everything else.</h2>
-    <p class="lede">Zabbix and Prometheus are trusted everywhere because they work. What usually goes wrong is the setup -
-    templates nobody tuned, alerts nobody reads. That's the part we do for you.</p>
-  </header>
-  <div class="flowmap" style="--c:#00FE05;--rows:6" role="list" aria-label="Data flow">
-<div class="fm-head" aria-hidden="true"><span>Equipment</span><span>How we pull it</span><span>Where it lands</span><span>What you see</span></div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>Switches</b><span>Port throughput, errors, discards, optic levels, CPU, uptime and reboots</span></div>
-  <div class="fm-node fm-via"><em class="proto">SNMP</em><b>Zabbix / vmagent</b><span>Every port and uplink, with a trigger on unexpected reboots</span></div>
-  <div class="fm-node fm-store db-vm"><b>VictoriaMetrics</b><span></span><i class="fm-out"></i></div>
+<section class="section" id="data">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">Where the numbers come from</h2><p class="section-description">Zabbix and Prometheus are trusted everywhere because they work. What usually goes wrong is the setup: templates nobody tuned and alerts nobody reads. That's the part we do.</p></div>
+    <div class="flow" style="--rows:6">
+<div class="flow-head" aria-hidden="true"><span>The equipment</span><span>How we read it</span><span>Where it's kept</span><span>What you open</span></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>Switches</strong><p>Port throughput, errors, discards, optic levels, CPU, uptime and unexpected reboots</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">SNMP</span><strong>Zabbix, vmagent</strong><p>Every port and uplink, with an alarm on any reboot nobody asked for</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-vm"></span>VictoriaMetrics</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>Traffic flows</b><span>Top talkers and the traffic matrix between VLANs</span></div>
-  <div class="fm-node fm-via"><em class="proto">sFlow · NetFlow</em><b>Flow collector</b><span>Sampled flows from the switch, turned into per-host series</span></div>
-  <div class="fm-node fm-store db-vm"><b>VictoriaMetrics</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>Traffic between VLANs</strong><p>Who's talking to whom, and how much</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">sFlow, NetFlow</span><strong>Flow collector</strong><p>Sampled flows from the switch, turned into top talkers</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-vm"></span>VictoriaMetrics</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>Servers</b><span>PSU status and redundancy, fan speeds, inlet and CPU temperatures, disk health</span></div>
-  <div class="fm-node fm-via"><em class="proto">iDRAC · SNMP · IPMI</em><b>Zabbix</b><span>Read from the management controller, not just the operating system</span></div>
-  <div class="fm-node fm-store db-zbx"><b>Zabbix</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>Servers</strong><p>Power supply status and redundancy, fan speeds, inlet and CPU temperatures, disk health</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">iDRAC, IPMI, SNMP</span><strong>Zabbix</strong><p>From the management controller, so it works even when the OS is down</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-zbx"></span>Zabbix</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>Hosts and VMs</b><span>CPU, memory, disk space, network, services up</span></div>
-  <div class="fm-node fm-via"><em class="proto">agent · node_exporter</em><b>Zabbix / Prometheus</b><span>Scraped locally and buffered if the uplink drops</span></div>
-  <div class="fm-node fm-store db-vm"><b>VictoriaMetrics</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>Hosts and VMs</strong><p>CPU, memory, disk space, network, whether services are running</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">Zabbix agent, node_exporter</span><strong>Zabbix, Prometheus</strong><p>Collected on site and held on disk if the uplink drops</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-vm"></span>VictoriaMetrics</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>PDUs, UPS and batteries</b><span>Load per outlet, runtime, state of charge, watts in and out, temperature</span></div>
-  <div class="fm-node fm-via"><em class="proto">SNMP · BLE → MQTT</em><b>Telegraf</b><span>Even a battery with only Bluetooth gets a gateway</span></div>
-  <div class="fm-node fm-store db-influx"><b>InfluxDB</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>PDUs, UPS and batteries</strong><p>Load per outlet, runtime left, charge, watts in and out, temperature</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">SNMP, Bluetooth</span><strong>Telegraf</strong><p>Even a battery that only speaks Bluetooth gets a small gateway</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-influx"></span>InfluxDB</strong></div></div>
 </div>
-<div class="fm-row" role="listitem">
-  <div class="fm-node fm-src"><b>Housekeeping</b><span>Certificate expiry, NTP drift, DHCP pool use, backup age</span></div>
-  <div class="fm-node fm-via"><em class="proto">agent · exporters</em><b>Zabbix / Prometheus</b><span>The quiet things that cause loud outages</span></div>
-  <div class="fm-node fm-store db-zbx"><b>Zabbix</b><span></span><i class="fm-out"></i></div>
+<div class="flow-row">
+  <div class="card flow-kit"><div class="card-body"><strong>The easy-to-forget things</strong><p>Certificates about to expire, clock drift, DHCP pools filling up, backups getting old</p></div></div>
+  <div class="card flow-via"><div class="card-body"><span class="badge bg-primary-lt">Agent, exporters</span><strong>Zabbix, Prometheus</strong><p>The quiet problems that cause the loud outages</p></div></div>
+  <div class="card flow-store"><div class="card-body d-flex flex-column justify-content-center"><strong><span class="db db-zbx"></span>Zabbix</strong></div></div>
 </div>
-<div class="fm-sink">
-  <p class="eyebrow" style="--eyebrow-colour:#00FE05">Grafana</p>
-  <h3>Rooms, racks and the kit inside</h3>
-  <ul><li>Infrastructure overview</li><li>Server health</li><li>Network</li><li>Power</li><li>Problems and alerts</li></ul>
-  <p class="fm-alert"><b>Alerts:</b> severity-tagged triggers into Slack, email or your NOC, so the right person gets woken up.</p>
+<div class="flow-out"><div class="card">
+  <div class="card-status-top bg-primary"></div>
+  <div class="card-body d-flex flex-column">
+    <h3 class="mb-1">Rooms, racks and what's in them</h3>
+    <p class="text-secondary small mb-2">Grafana, in 444Video's house style</p>
+    <ul class="list-group list-group-flush mb-3"><li class="list-group-item">Overview</li><li class="list-group-item">Server health</li><li class="list-group-item">Network</li><li class="list-group-item">Power</li><li class="list-group-item">Problems</li></ul>
+    <p class="small text-secondary mt-auto mb-0"><strong class="text-reset">Alerts:</strong> tagged by severity and sent to Slack, email or your NOC, so the right person gets woken up.</p>
+  </div>
+</div></div>
 </div>
-</div>
-</div></section>
+  </div>
+</section>
 
-<section class="section-break"><div class="block">
-  <header class="section-head">
-    <p class="eyebrow" style="--eyebrow-colour:#00FE05">What you see</p>
-    <h2>One home page per room, rack or customer.</h2>
-  </header>
-  <div class="dcards" style="--dc:#00FE05">
-<div class="dcard start"><small>Start here</small><b>Infrastructure overview</b><p>Every host, switch and power feed on one page, with problems sorted to the top.</p></div>
-<div class="dcard" style="--dc:#00FEC8"><small>Compute</small><b>Server health</b><p>PSU, fans and temperatures per server, from the management controller.</p></div>
-<div class="dcard" style="--dc:#5794F2"><small>Network</small><b>Network</b><p>Port throughput, errors, optics and top talkers across the estate.</p></div>
-<div class="dcard" style="--dc:#FBFE00"><small>Power</small><b>Power</b><p>PDU load per outlet, UPS runtime and battery state of charge.</p></div>
-</div>
-</div></section>
+<section class="section section-alt">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">What your team opens</h2><p class="section-description">One home page per room, rack or customer.</p></div>
+    <div class="row g-3 mb-4"><div class="col-12"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#6BEB8A"></div>
+  <div class="card-body"><small style="color:#6BEB8A">Start here</small><h3>Overview</h3><p>Every host, switch and power feed on one page, with problems sorted to the top.</p></div>
+</div></div><div class="col-md-4"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#6FE6F3"></div>
+  <div class="card-body"><small style="color:#6FE6F3">Compute</small><h3>Server health</h3><p>Power supplies, fans and temperatures for each server.</p></div>
+</div></div><div class="col-md-4"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#5794F2"></div>
+  <div class="card-body"><small style="color:#5794F2">Network</small><h3>Network</h3><p>Port throughput, errors, optics and the top talkers.</p></div>
+</div></div><div class="col-md-4"><div class="card dash-card h-100">
+  <div class="card-status-top" style="background:#FBFE00"></div>
+  <div class="card-body"><small style="color:#FBFE00">Power</small><h3>Power</h3><p>PDU load per outlet, UPS runtime and battery charge.</p></div>
+</div></div></div>
+  </div>
+</section>
 
-<section class="section-break"><div class="block">
-  <header class="section-head"><p class="eyebrow" style="--eyebrow-colour:#00FE05">Who it's for</p>
-  <h2>Teams who look after racks they can't always stand in front of.</h2></header>
-  <ul class="audience"><li style="border-left-color:#00FE05"><b>NOC and IT operations</b><span>A single view across rooms and sites, with alerts you can trust.</span></li><li style="border-left-color:#00FE05"><b>Broadcast engineering</b><span>The servers and switches behind playout and contribution, next to the streams.</span></li><li style="border-left-color:#00FE05"><b>Managed service providers</b><span>A view and alert routing per customer, from one platform.</span></li><li style="border-left-color:#00FE05"><b>Edge and remote sites</b><span>Unattended racks, flyaway kits and portable systems, watched from anywhere.</span></li></ul>
-  <div class="figures"><div class="figure-tile"><b>10 racks → 3</b><span>infrastructure consolidated, with remote proactive monitoring</span></div><div class="figure-tile"><b>~70%</b><span>smaller footprint on the same project</span></div><div class="figure-tile"><b>Purple</b><span>the colour of no data - a dead feed never looks healthy</span></div></div><p class="attribution">Rack and footprint figures from the 444Video case study for a UK multiplex operator.</p>
-</div></section>
+<section class="section">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">Who uses it</h2></div>
+    <div class="row g-3 audience"><div class="col-md-6"><div class="card"><div class="card-body"><h3>NOC and IT operations</h3><p>One view across rooms and sites, and alerts you can trust.</p></div></div></div><div class="col-md-6"><div class="card"><div class="card-body"><h3>Broadcast engineering</h3><p>The servers and switches behind playout, next to the streams they carry.</p></div></div></div><div class="col-md-6"><div class="card"><div class="card-body"><h3>Managed service providers</h3><p>A view and alert routing for each customer, from one system.</p></div></div></div><div class="col-md-6"><div class="card"><div class="card-body"><h3>Edge and remote sites</h3><p>Unattended racks and flyaway kits, watched from anywhere.</p></div></div></div></div><div class="mt-4"><div class="row g-3"><div class="col-md-4"><div class="card figure-card h-100"><div class="card-body"><div class="display">10 racks to 3</div><p>for a UK multiplex operator, with remote monitoring replacing manual checks</p></div></div></div><div class="col-md-4"><div class="card figure-card h-100"><div class="card-body"><div class="display">About 70%</div><p>less space taken by kit on that project</p></div></div></div><div class="col-md-4"><div class="card figure-card h-100"><div class="card-body"><div class="display">Purple</div><p>is what no data looks like here. A silent device never passes for a healthy one.</p></div></div></div></div><p class="source">Rack and footprint figures from the 444Video case study for a UK multiplex operator.</p></div>
+  </div>
+</section>
 
-<section class="section-break"><div class="block">
-  <header class="section-head"><p class="eyebrow">Same platform</p><h2>Add another pillar.</h2>
-  <p class="lede">Every pillar lands in the same databases and the same Grafana, so a fault on one timeline sits next to its cause on another.</p></header>
-  <div class="others"><a class="other" href="../maritime/" style="--oc:#00FEC8">
-  <p class="eyebrow">Vistigo Maritime</p><b>Every vessel, always connected.</b><span class="more">Explore Maritime</span></a><a class="other" href="../broadcast/" style="--oc:#FEA300">
-  <p class="eyebrow">Vistigo Broadcast</p><b>Catch the error before the viewer does.</b><span class="more">Explore Broadcast</span></a></div>
-</div></section>
-<section class="cta" id="contact">
-  <div class="cta-inner">
-    <p class="eyebrow">Get in touch</p>
-    <h2>Tell us what you can't see.</h2>
-    <p>Tell us what's in your racks and where they are. We'll show you what Vistigo would put on screen.</p>
-    <p class="actions"><a class="btn" href="mailto:info@444.video?subject=Vistigo%20Infra">info@444.video</a></p>
+<section class="section section-alt">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">It all runs on the same system</h2><p class="section-description">Add another product whenever you like. The data lands in the same place, so a dropped stream and the satellite link it was on show up on the same timeline.</p></div>
+    <div class="row g-3"><div class="col-md-6"><a class="card card-link pillar-card" href="../maritime/" style="--pc:#6FE6F3">
+  <div class="card-status-start"></div>
+  <div class="card-body"><span class="who">For fleets</span><h3 class="f-maritime">Vistigo Maritime</h3><p class="text-secondary mb-0">Know which ship is on which link, right now.</p></div>
+</a></div><div class="col-md-6"><a class="card card-link pillar-card" href="../broadcast/" style="--pc:#FFB54D">
+  <div class="card-status-start"></div>
+  <div class="card-body"><span class="who">For broadcasters</span><h3 class="f-broadcast">Vistigo Broadcast</h3><p class="text-secondary mb-0">Find stream errors before your viewers do.</p></div>
+</a></div></div>
+  </div>
+</section>
+<section class="section contact-band" id="contact">
+  <div class="container-xl">
+    <div class="row align-items-end g-4">
+      <div class="col-lg-7"><h2 class="section-title mb-3">Tell us what you can't see.</h2>
+        <p class="section-description mb-0">Tell us what's in your racks and where they are. We'll show you what Vistigo would put on screen.</p></div>
+      <div class="col-lg-5 text-lg-end"><a class="btn btn-primary btn-lg" href="mailto:info@444.video?subject=Vistigo%20Infra">Email info@444.video</a></div>
+    </div>
   </div>
 </section>
 </main>
 
-<footer class="site-foot">
-  <div class="foot-inner">
-    <div class="foot-brand">
-      <svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg>
-      <span class="brand-text"><b>Vistigo</b><i>by 444Video</i></span>
-    </div>
-    <div class="foot-links">
-      <h4>Pillars</h4>
-      <a href="../maritime/">Vistigo Maritime</a><a href="../broadcast/">Vistigo Broadcast</a><a href="../infra/">Vistigo Infra</a>
-    </div>
-    <div class="foot-links">
-      <h4>444Video</h4>
-      <a href="https://444video.com">444video.com</a>
-      <a href="mailto:info@444.video">info@444.video</a>
-      <a href="https://www.linkedin.com/company/444video">LinkedIn</a>
+<footer class="footer py-5">
+  <div class="container-xl">
+    <div class="row g-4">
+      <div class="col-md-5">
+        <p class="mb-2">Vistigo is a monitoring product from <a href="https://444video.com">444Video</a>,
+        a broadcast engineering company in the UK. The name comes from <em>vista</em>, a view.</p>
+        <p class="mb-0"><a href="mailto:info@444.video">info@444.video</a> &nbsp; <a href="https://www.linkedin.com/company/444video">LinkedIn</a></p>
+      </div>
+      <div class="col-md-3">
+        <ul class="list-unstyled mb-0">
+          <li><a href="../maritime/">Vistigo Maritime</a></li><li><a href="../broadcast/">Vistigo Broadcast</a></li><li><a href="../infra/">Vistigo Infra</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <p class="legal">&copy; 2026 444Video. Built with the Tabler UI kit. Grafana is a trademark of Grafana Labs.
+        Zabbix, Prometheus, VictoriaMetrics, Starlink, Peplink, Zixi, TAG Video Systems and Dell iDRAC belong to their owners.
+        We use and integrate with them; we aren't endorsed by them.</p>
+      </div>
     </div>
   </div>
-  <p class="foot-legal">&copy; 2026 444Video. The Full Picture. Vistigo, from <i>vista</i> - the view.
-  Grafana is a trademark of Grafana Labs; Zabbix, Prometheus, VictoriaMetrics, Starlink, Peplink, Zixi, TAG Video Systems
-  and other names are trademarks of their respective owners.</p>
 </footer>
+<script src="../assets/vendor/tabler/tabler.min.js" defer></script>
 
 </body>
 </html>

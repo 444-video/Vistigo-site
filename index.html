@@ -1,176 +1,181 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" data-bs-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vistigo by 444Video - one view of everything you run</title>
-<meta name="description" content="Vistigo pulls live data from ships, broadcast chains and server rooms into one set of Grafana dashboards. Maritime, Broadcast and Infra monitoring from 444Video.">
-<meta name="theme-color" content="#0A141C">
-<meta property="og:title" content="Vistigo by 444Video - one view of everything you run">
-<meta property="og:description" content="Vistigo pulls live data from ships, broadcast chains and server rooms into one set of Grafana dashboards. Maritime, Broadcast and Infra monitoring from 444Video.">
+<title>Vistigo by 444Video</title>
+<meta name="description" content="Monitoring for ships, broadcast chains and server rooms, built by the 444Video engineers who run it on their own kit.">
+<meta property="og:title" content="Vistigo by 444Video">
+<meta property="og:description" content="Monitoring for ships, broadcast chains and server rooms, built by the 444Video engineers who run it on their own kit.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Vistigo by 444Video">
 <meta property="og:locale" content="en_GB">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%230A141C'/%3E%3Crect x='0' y='2' width='2' height='2' fill='%231200FE'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2300FEC8'/%3E%3Crect x='4' y='2' width='2' height='2' fill='%23FEA300'/%3E%3Crect x='6' y='2' width='2' height='2' fill='%23FE0000'/%3E%3Crect x='0' y='4' width='2' height='2' fill='%23B500FE'/%3E%3Crect x='2' y='4' width='2' height='2' fill='%2300FE05'/%3E%3Crect x='4' y='4' width='2' height='2' fill='%23FBFE00'/%3E%3Crect x='6' y='4' width='2' height='2' fill='%23FE009C'/%3E%3C/svg%3E">
-<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/444.css">
-<link rel="stylesheet" href="assets/css/vistigo.css">
-<link rel="stylesheet" href="assets/css/themes.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%230B151D'/%3E%3Crect x='0' y='2' width='2' height='2' fill='%231200FE'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2300FEC8'/%3E%3Crect x='4' y='2' width='2' height='2' fill='%23FEA300'/%3E%3Crect x='6' y='2' width='2' height='2' fill='%23FE0000'/%3E%3Crect x='0' y='4' width='2' height='2' fill='%23B500FE'/%3E%3Crect x='2' y='4' width='2' height='2' fill='%2300FE05'/%3E%3Crect x='4' y='4' width='2' height='2' fill='%23FBFE00'/%3E%3Crect x='6' y='4' width='2' height='2' fill='%23FE009C'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/vendor/tabler/tabler.min.css">
+<link rel="stylesheet" href="assets/vendor/tabler/tabler-marketing.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
 </head>
-<body class="glow glow-1">
-
+<body class="p-hub">
 <div class="bars" role="presentation"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-<header class="site-head">
-  <a class="brand" href="./" aria-label="Vistigo home">
-    <svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg>
-    <span class="brand-text"><b>Vistigo</b><i>by 444Video</i></span>
-  </a>
-  <nav class="site-nav" aria-label="Main"><a href="maritime/">Maritime</a><a href="broadcast/">Broadcast</a><a href="infra/">Infra</a><a href="#how">How it works</a><a href="#contact">Contact</a></nav>
+<header class="navbar navbar-expand-md">
+  <div class="container-xl">
+    <a class="navbar-brand" href="./"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
+<rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
+<rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
+<rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
+<rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/></svg><span>Vistigo<small>by 444Video</small></span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="maritime/">Maritime</a></li><li class="nav-item"><a class="nav-link" href="broadcast/">Broadcast</a></li><li class="nav-item"><a class="nav-link" href="infra/">Infra</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
 </header>
 
-<main id="main">
+<main>
 <section class="hero">
-  <div class="hero-text">
-    <p class="eyebrow">Vistigo by 444Video</p>
-    <h1>One view of everything you run.</h1>
-    <p class="standfirst">Vessels at sea, streams on air, racks in the server room. Vistigo pulls the numbers out of the
-    kit you already own and puts them in one set of live dashboards - so you see the problem before your customers do.</p>
-    <p class="actions"><a class="btn" href="#pillars">The three pillars</a><a class="btn btn-quiet" href="#how">How it works</a></p>
+  <div class="container-xl">
+    <div class="row align-items-center g-4 g-lg-5">
+      <div class="col-lg-6">
+        <h1 class="hero-title">We built this to watch our own kit. Now it can watch yours.</h1>
+        <p class="hero-description mt-4">Vistigo is the monitoring 444Video runs on Starlink-equipped vehicles, live DTT
+        transmission and the lab rack in our office. It reads the numbers straight from the equipment - the dish, the
+        probe, the power supply - and puts them on dashboards your team will actually open.</p>
+        <div class="btn-list"><a class="btn btn-primary btn-lg" href="#products">Pick your industry</a>
+        <a class="btn btn-ghost-secondary btn-lg" href="#how">How it works</a></div>
+      </div>
+      <div class="col-lg-6">
+        <figure class="m-0">
+  <div class="browser">
+  <div class="browser-header d-flex align-items-center">
+    <div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
+    <span class="browser-input">noc.444.video/maritime/cellular</span>
   </div>
-  <figure class="shot">
-  <div class="shot-frame">
-    <div class="shot-bar"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg><span>Vistigo Maritime · Home</span><em>Grafana</em></div>
-    <img src="assets/img/dash-maritime-home.png" alt="Vistigo Maritime home dashboard in Grafana, with cards for Peplink Overview, Cellular, Router Health and Starlink." loading="lazy">
-  </div>
-  <figcaption><span class="tag-real">Live dashboard</span>Every customer starts on a card home like this one, then drills into each dashboard.</figcaption>
+  <img src="assets/img/dash-cellular-cost.png" alt="Cellular dashboard: signal bars, RSRP and SINR gauges, data used today and the projected cost for the next day and month." loading="lazy">
+</div>
+  <figcaption class="shot-note"><span class="badge bg-green-lt">Screenshot</span>A live fleet dashboard: signal, data used, and what it will cost this month.</figcaption>
 </figure>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="pillars section-break" id="pillars">
-  <header class="section-head">
-    <p class="eyebrow">Three pillars, one platform</p>
-    <h2>Start with the pillar you need. Add the others later.</h2>
-    <p class="lede">Each pillar is a set of collectors, dashboards and alerts tuned to one industry. They share one data platform,
-    so a broadcaster on a ship sees the stream and the satellite link on the same timeline.</p>
-  </header>
-  <article class="pillar" style="--eyebrow-colour:#00FEC8">
-  <figure><div class="shot-frame"><img src="assets/img/dash-maritime-home.png" alt="The Maritime home: Peplink overview, cellular, router health and Starlink." loading="lazy"></div><figcaption class="note"><span class="tag-real">Live dashboard</span>The Maritime home: Peplink overview, cellular, router health and Starlink.</figcaption></figure>
-  <div class="pillar-body">
-    <p class="eyebrow">01 · Vistigo Maritime</p>
-    <h3>Every vessel, always connected.</h3>
-    <p class="pillar-standfirst">Starlink, cellular, failover and SIM data use, read from the dish, the router and the SIM provider, for every vessel.</p>
-    <ul class="chips"><li>Starlink</li><li>RSRP · RSRQ · SINR</li><li>per-WAN throughput</li><li>SIM data and cost</li></ul>
-    <a class="more" href="maritime/">How Vistigo Maritime works</a>
+<section class="section section-alt" id="products">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">Three products, one system underneath</h2>
+    <p class="section-description">Start with the one that matches your work. They share the same collectors, database
+    and dashboards, so adding a second later is a configuration change, not a new project.</p></div>
+    <div class="row g-4"><div class="col-lg-4"><a class="card card-link pillar-card" href="maritime/" style="--pc:#6FE6F3">
+  <div class="card-status-start"></div>
+  <div class="card-body d-flex flex-column">
+    <div class="browser">
+  <div class="browser-header d-flex align-items-center">
+    <div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
+    <span class="browser-input">noc.444.video/maritime/starlink</span>
   </div>
-</article><article class="pillar" style="--eyebrow-colour:#FEA300">
-  <figure><div class="shot-frame"><img src="assets/img/dash-zixi.png" alt="Contribution: source bitrate, ARQ packet recovery and broadcaster load." loading="lazy"></div><figcaption class="note"><span class="tag-real">Live dashboard</span>Contribution: source bitrate, ARQ packet recovery and broadcaster load.</figcaption></figure>
-  <div class="pillar-body">
-    <p class="eyebrow">02 · Vistigo Broadcast</p>
-    <h3>Catch the error before the viewer does.</h3>
-    <p class="pillar-standfirst">Transport stream health from probes and receivers, next to the contribution links it travels over.</p>
-    <ul class="chips"><li>ETR 101 290</li><li>CC errors</li><li>Zixi ARQ</li><li>SRT RTT</li><li>PCR / PES</li></ul>
-    <a class="more" href="broadcast/">How Vistigo Broadcast works</a>
+  <img src="assets/img/dash-starlink.png" alt="Starlink dashboard" loading="lazy">
+</div>
+    <span class="who">For fleets</span>
+    <h3 class="f-maritime">Vistigo Maritime</h3>
+    <p class="text-secondary">Reads the Starlink dish, the Peplink router and the SIM account on every vessel. You see who's online, which link they're on and what it's costing.</p>
+    <span class="go mt-auto">See how it works</span>
   </div>
-</article><article class="pillar" style="--eyebrow-colour:#00FE05">
-  <figure><div class="shot-frame"><div class="gpanels">
-  <div class="gstats">
-    <div class="gstat ok"><div class="k">Hosts up</div><div class="v">142<small>/142</small></div></div>
-    <div class="gstat warn"><div class="k">PSU redundancy</div><div class="v">1 lost</div></div>
-    <div class="gstat"><div class="k">Max inlet</div><div class="v">31<small> &deg;C</small></div></div>
-    <div class="gstat crit"><div class="k">Fan 4, server 07</div><div class="v">0<small> rpm</small></div></div>
+</a></div><div class="col-lg-4"><a class="card card-link pillar-card" href="broadcast/" style="--pc:#FFB54D">
+  <div class="card-status-start"></div>
+  <div class="card-body d-flex flex-column">
+    <div class="browser">
+  <div class="browser-header d-flex align-items-center">
+    <div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
+    <span class="browser-input">noc.444.video/broadcast/contribution</span>
   </div>
-  <div class="gpanel">
-    <div class="gpanel-h"><span>Core uplink throughput</span><i>last 24 h</i></div>
-    <svg class="gchart" viewBox="0 0 300 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24H300M0 48H300M0 72H300" stroke="#2c3235" stroke-width="1" vector-effect="non-scaling-stroke"/>
-      <polygon fill="#5794F2" fill-opacity=".18" points="0,96 0.0,82.0 25.0,84.0 50.0,80.0 75.0,72.0 100.0,56.0 125.0,44.0 150.0,40.0 175.0,36.0 200.0,38.0 225.0,46.0 250.0,58.0 275.0,72.0 300.0,80.0 300,96"/><polyline fill="none" stroke="#5794F2" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.0,82.0 25.0,84.0 50.0,80.0 75.0,72.0 100.0,56.0 125.0,44.0 150.0,40.0 175.0,36.0 200.0,38.0 225.0,46.0 250.0,58.0 275.0,72.0 300.0,80.0"/>
-      <polyline fill="none" stroke="#FF9830" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.0,88.0 25.0,89.0 50.0,87.0 75.0,80.0 100.0,70.0 125.0,64.0 150.0,60.0 175.0,22.0 200.0,58.0 225.0,66.0 250.0,76.0 275.0,84.0 300.0,87.0"/>
-    </svg>
+  <img src="assets/img/dash-zixi.png" alt="Zixi contribution dashboard" loading="lazy">
+</div>
+    <span class="who">For broadcasters</span>
+    <h3 class="f-broadcast">Vistigo Broadcast</h3>
+    <p class="text-secondary">Pulls alarms and stats from your probes, IP receivers and Zixi or SRT links, so you can tell a bad source from a bad network in a minute, not an afternoon.</p>
+    <span class="go mt-auto">See how it works</span>
   </div>
-  <div class="gpanel gscroll">
-    <table class="gtable"><thead><tr><th>Device</th><th>Source</th><th>Reading</th><th>State</th></tr></thead><tbody>
-      <tr><td>core-sw-01</td><td>SNMP</td><td>Gi1/0/48 78% out</td><td><span class="pill warn">HIGH</span></td></tr>
-      <tr><td>server-07</td><td>iDRAC</td><td>PSU 2 lost</td><td><span class="pill warn">PSU</span></td></tr>
-      <tr><td>pdu-a</td><td>SNMP v1</td><td>7.2 A</td><td><span class="pill ok">OK</span></td></tr>
-      <tr><td>ups-01</td><td>SNMP</td><td>-</td><td><span class="pill nodata">NO DATA</span></td></tr>
-    </tbody></table>
+</a></div><div class="col-lg-4"><a class="card card-link pillar-card" href="infra/" style="--pc:#6BEB8A">
+  <div class="card-status-start"></div>
+  <div class="card-body d-flex flex-column">
+    <div class="browser"><div class="browser-header d-flex align-items-center"><div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div><span class="browser-input">noc.444.video/infra</span></div><div class="preview-drawn"><div class="gp">
+  <div class="gp-stats">
+    <div class="gp-stat ok"><div class="k">Hosts up</div><div class="v">142<small>/142</small></div></div>
+    <div class="gp-stat warn"><div class="k">PSU redundancy</div><div class="v">1 lost</div></div>
+    <div class="gp-stat"><div class="k">Hottest inlet</div><div class="v">31<small> &deg;C</small></div></div>
+    <div class="gp-stat crit"><div class="k">Server 07, fan 4</div><div class="v">0<small> rpm</small></div></div>
   </div>
-</div></div><figcaption class="note"><span class="tag-mock">Illustrative</span>Sample data.</figcaption></figure>
-  <div class="pillar-body">
-    <p class="eyebrow">03 · Vistigo Infra</p>
-    <h3>Know your hardware before it fails.</h3>
-    <p class="pillar-standfirst">Switches, servers, power and the quiet housekeeping that causes loud outages - polled, tuned and alerted.</p>
-    <ul class="chips"><li>SNMP</li><li>iDRAC</li><li>PSU · fans · temps</li><li>PDU · UPS</li><li>sFlow</li></ul>
-    <a class="more" href="infra/">How Vistigo Infra works</a>
+  <div class="gp-panel"><div class="gp-h"><span>Core uplink</span><i>last 24 h</i></div>
+    <svg class="gp-chart" viewBox="0 0 300 92" preserveAspectRatio="none" aria-hidden="true"><path d="M0 23H300M0 46H300M0 69H300" stroke="#2c3235" stroke-width="1" vector-effect="non-scaling-stroke"/>
+      <polygon fill="#5794F2" fill-opacity=".18" points="0,92 0.0,78.0 25.0,80.0 50.0,76.0 75.0,68.0 100.0,52.0 125.0,40.0 150.0,36.0 175.0,32.0 200.0,34.0 225.0,42.0 250.0,54.0 275.0,68.0 300.0,76.0 300,92"/><polyline fill="none" stroke="#5794F2" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.0,78.0 25.0,80.0 50.0,76.0 75.0,68.0 100.0,52.0 125.0,40.0 150.0,36.0 175.0,32.0 200.0,34.0 225.0,42.0 250.0,54.0 275.0,68.0 300.0,76.0"/>
+      <polyline fill="none" stroke="#FF9830" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.0,84.0 25.0,85.0 50.0,83.0 75.0,76.0 100.0,66.0 125.0,60.0 150.0,56.0 175.0,18.0 200.0,54.0 225.0,62.0 250.0,72.0 275.0,80.0 300.0,83.0"/></svg></div>
+  <div class="gp-panel gp-scroll"><table><thead><tr><th>Device</th><th>Read by</th><th>Reading</th><th>State</th></tr></thead><tbody>
+    <tr><td>core-sw-01</td><td>SNMP</td><td>Gi1/0/48 at 78% out</td><td><span class="pill warn">HIGH</span></td></tr>
+    <tr><td>server-07</td><td>iDRAC</td><td>PSU 2 lost</td><td><span class="pill warn">PSU</span></td></tr>
+    <tr><td>pdu-a</td><td>SNMP v1</td><td>7.2 A</td><td><span class="pill ok">OK</span></td></tr>
+    <tr><td>ups-01</td><td>SNMP</td><td>-</td><td><span class="pill nodata">NO DATA</span></td></tr>
+  </tbody></table></div>
+</div></div></div>
+    <span class="who">For the racks behind it all</span>
+    <h3 class="f-infra">Vistigo Infra</h3>
+    <p class="text-secondary">Watches the switches, servers and power that everything else sits on, read from the management controllers rather than guessed from the operating system.</p>
+    <span class="go mt-auto">See how it works</span>
   </div>
-</article>
+</a></div></div>
+  </div>
 </section>
 
-<section class="section-break" id="how"><div class="block">
-  <header class="section-head">
-    <p class="eyebrow">How it works</p>
-    <h2>From the kit to the screen in five steps.</h2>
-    <p class="lede">No black box. Vistigo is built on open, proven tooling - Zabbix, Prometheus, VictoriaMetrics and Grafana -
-    with our own collectors filling the gaps where a device only talks its own language.</p>
-  </header>
-  <div class="arch"><div class="arch-col" style="--col:#00FEC8"><h4>At the edge</h4><div class="arch-node"><b>Vessels</b><span>Peplink routers, cellular modems, Starlink dishes, SIMs</span></div><div class="arch-node"><b>Galleries and playout</b><span>Probes, receivers, encoders, Zixi and SRT gateways</span></div><div class="arch-node"><b>Racks and rooms</b><span>Switches, servers, PDUs, UPS and batteries</span></div></div><div class="arch-col" style="--col:#FEA300"><h4>Collect</h4><div class="arch-node"><b>On-site collectors</b><span>Starlink collector, vmagent and Telegraf, buffering to disk if the link drops</span></div><div class="arch-node"><b>Agents and polling</b><span>Zabbix agents, SNMP, iDRAC, node_exporter</span></div><div class="arch-node"><b>Cloud API bridges</b><span>Peplink InControl2, Geniox SIMs, Zixi, TAG</span></div></div><div class="arch-col" style="--col:#FE009C"><h4>Secure ingest</h4><div class="arch-node"><b>HTTPS, every site its own login</b><span>Checked at the proxy before anything is written</span></div><div class="arch-node"><b>Nothing inbound on site</b><span>Ships and customer networks only ever push out</span></div></div><div class="arch-col" style="--col:#FBFE00"><h4>Store</h4><div class="arch-node"><b>VictoriaMetrics</b><span>Fast, compact time series for months of history</span></div><div class="arch-node"><b>Zabbix</b><span>Availability, triggers and device logs</span></div><div class="arch-node"><b>Elasticsearch</b><span>High-volume probe statistics and events</span></div></div><div class="arch-col" style="--col:#00FE05"><h4>See and act</h4><div class="arch-node"><b>Grafana, 444Video-styled</b><span>A card home page per customer, then a dashboard per job</span></div><div class="arch-node"><b>Alerts that reach a person</b><span>Slack, email or your NOC, with the context attached</span></div></div></div>
-  <p class="note"><b>House rule:</b> a tile with no data turns purple, never green. A dead feed can't pass for a healthy one.</p>
-</div></section>
+<section class="section" id="how">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">From the kit to your screen</h2><p class="section-description">No black box. It's Zabbix, Prometheus, VictoriaMetrics and Grafana, which half the internet already trusts, plus our own collectors for the equipment that only speaks its own language.</p></div>
+    <ul class="steps steps-counter steps-primary my-4"><li class="step-item">Read it where it lives</li><li class="step-item">Send it out safely</li><li class="step-item">Keep the history</li><li class="step-item">Show it, and shout</li></ul><div class="row g-3"><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Read it where it lives</h3><ul><li><strong>On the ship</strong>: a small collector asks the Starlink dish directly</li><li><strong>In the building</strong>: Zabbix agents, SNMP and iDRAC</li><li><strong>In the cloud</strong>: Peplink InControl2, the SIM provider, Zixi</li></ul></div></div></div><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Send it out safely</h3><ul><li><strong>Outbound only</strong>: nothing on a ship or customer network accepts connections</li><li><strong>HTTPS, one login per site</strong>: checked at our proxy before it's written</li><li><strong>Buffered</strong>: if the link drops, readings queue on disk and catch up</li></ul></div></div></div><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Keep the history</h3><ul><li><strong>VictoriaMetrics</strong>: most numbers, for months</li><li><strong>Zabbix</strong>: up/down, alarms and device logs</li><li><strong>Elasticsearch</strong>: the firehose from broadcast probes</li></ul></div></div></div><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Show it, and shout</h3><ul><li><strong>Grafana</strong>: a home page per customer, then one dashboard per job</li><li><strong>Alerts</strong>: to Slack, email or your NOC, with the device and reading attached</li><li><strong>No data is purple</strong>: a dead feed never shows green</li></ul></div></div></div></div>
+  </div>
+</section>
 
-<section class="band"><div class="band-inner">
-  <p class="eyebrow">Why 444Video</p>
-  <h2>We built it for our own projects first.</h2>
-  <p class="lede">444Video designs and runs bespoke broadcast and connectivity systems for organisations that can't afford
-  downtime. Vistigo is the monitoring we built to run them, turned into a product.</p>
-  <div class="figures"><div class="figure-tile"><b>10 racks → 3</b><span>infrastructure re-engineered, with remote proactive monitoring</span></div><div class="figure-tile"><b>Zero</b><span>live broadcast disruption during that migration</span></div><div class="figure-tile"><b>10+ years</b><span>complex broadcast networks for Tier 1 global customers</span></div></div><p class="attribution">Rack and disruption figures from the 444Video case study for a UK multiplex operator.</p>
-</div></section>
+<section class="section section-alt">
+  <div class="container-xl">
+    <div class="section-header"><h2 class="section-title">We run it before we sell it</h2><p class="section-description">When we rebuilt a UK multiplex operator's transmission network, we replaced their manual checks with remote monitoring and kept every channel on air while we did it. The same tooling runs our own field tests and lab.</p></div>
+    <div class="row g-3"><div class="col-md-4"><div class="card figure-card h-100"><div class="card-body"><div class="display">10 racks to 3</div><p>after re-engineering the operator's infrastructure</p></div></div></div><div class="col-md-4"><div class="card figure-card h-100"><div class="card-body"><div class="display">Nothing off air</div><p>during the whole migration</p></div></div></div><div class="col-md-4"><div class="card figure-card h-100"><div class="card-body"><div class="display">1,400 miles</div><p>of bonded connectivity logged on our Belgium road test</p></div></div></div></div><p class="source">Rack and disruption figures from the 444Video case study for a UK multiplex operator.</p>
+  </div>
+</section>
 
-<section class="cta" id="contact">
-  <div class="cta-inner">
-    <p class="eyebrow">Get in touch</p>
-    <h2>Tell us what you can't see.</h2>
-    <p>A fleet that drops off the map, a stream that glitches at 9pm, a rack that runs hot. Tell us about it and we'll show you what Vistigo would put on screen.</p>
-    <p class="actions"><a class="btn" href="mailto:info@444.video?subject=Vistigo">info@444.video</a></p>
+<section class="section contact-band" id="contact">
+  <div class="container-xl">
+    <div class="row align-items-end g-4">
+      <div class="col-lg-7"><h2 class="section-title mb-3">Tell us what you can't see.</h2>
+        <p class="section-description mb-0">A fleet that drops off the map, a channel that glitches at 9pm, a server room that runs hot. Tell us about it and we'll show you what it looks like in Vistigo.</p></div>
+      <div class="col-lg-5 text-lg-end"><a class="btn btn-primary btn-lg" href="mailto:info@444.video?subject=Vistigo">Email info@444.video</a></div>
+    </div>
   </div>
 </section>
 </main>
 
-<footer class="site-foot">
-  <div class="foot-inner">
-    <div class="foot-brand">
-      <svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-  <rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-  <rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-  <rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-  <rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/>
-</svg>
-      <span class="brand-text"><b>Vistigo</b><i>by 444Video</i></span>
-    </div>
-    <div class="foot-links">
-      <h4>Pillars</h4>
-      <a href="maritime/">Vistigo Maritime</a><a href="broadcast/">Vistigo Broadcast</a><a href="infra/">Vistigo Infra</a>
-    </div>
-    <div class="foot-links">
-      <h4>444Video</h4>
-      <a href="https://444video.com">444video.com</a>
-      <a href="mailto:info@444.video">info@444.video</a>
-      <a href="https://www.linkedin.com/company/444video">LinkedIn</a>
+<footer class="footer py-5">
+  <div class="container-xl">
+    <div class="row g-4">
+      <div class="col-md-5">
+        <p class="mb-2">Vistigo is a monitoring product from <a href="https://444video.com">444Video</a>,
+        a broadcast engineering company in the UK. The name comes from <em>vista</em>, a view.</p>
+        <p class="mb-0"><a href="mailto:info@444.video">info@444.video</a> &nbsp; <a href="https://www.linkedin.com/company/444video">LinkedIn</a></p>
+      </div>
+      <div class="col-md-3">
+        <ul class="list-unstyled mb-0">
+          <li><a href="maritime/">Vistigo Maritime</a></li><li><a href="broadcast/">Vistigo Broadcast</a></li><li><a href="infra/">Vistigo Infra</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <p class="legal">&copy; 2026 444Video. Built with the Tabler UI kit. Grafana is a trademark of Grafana Labs.
+        Zabbix, Prometheus, VictoriaMetrics, Starlink, Peplink, Zixi, TAG Video Systems and Dell iDRAC belong to their owners.
+        We use and integrate with them; we aren't endorsed by them.</p>
+      </div>
     </div>
   </div>
-  <p class="foot-legal">&copy; 2026 444Video. The Full Picture. Vistigo, from <i>vista</i> - the view.
-  Grafana is a trademark of Grafana Labs; Zabbix, Prometheus, VictoriaMetrics, Starlink, Peplink, Zixi, TAG Video Systems
-  and other names are trademarks of their respective owners.</p>
 </footer>
+<script src="assets/vendor/tabler/tabler.min.js" defer></script>
 
 </body>
 </html>
