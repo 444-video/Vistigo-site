@@ -14,30 +14,30 @@ Plain static HTML and CSS, no build step. Hosted on GitHub Pages from the `main`
 ## Structure
 
 ```
-index.html            hub page
-maritime/index.html   Maritime pillar
-broadcast/index.html  Broadcast pillar
-infra/index.html      Infra pillar
-assets/site.css       all colour and type tokens, defined once at the top
-assets/site.js        mobile menu toggle
-assets/fonts/         Inter and IBM Plex Mono, self-hosted (no Google Fonts requests)
+build.py              generates every page - edit content here, then run it
+index.html            hub (generated)
+maritime/ broadcast/ infra/   pillar pages (generated)
+assets/css/444.css    the 444video.com design system, copied unchanged
+assets/css/vistigo.css   additions only: flow diagrams, architecture map, dashboard frames
+assets/img/           real Grafana dashboard screenshots
+assets/fonts/         Inter and IBM Plex Mono, self-hosted
 ```
-
-## Brand rules followed
-
-Taken from the 444Video Marketing & Brand Guidelines v1.0 and the website design system in Outline:
-
-- Dark ground `#0A141C`. Aqua `#00FEC8` for links and interactive states. Logo blue is never used for text.
-- Pure brand hues only in the colour-bar rule and chart series.
-- Inter for everything, IBM Plex Mono for data readouts. Both self-hosted.
-- UK English. Hyphens, not em dashes.
-- Comux figures are attributed to "a UK multiplex operator" and never generalised.
-- Call to action: "Tell us what you can't see."
 
 ## Editing
 
-Each page is self-contained HTML. The header and footer are repeated on every page, so change all four when editing them. The dashboards on each page are illustrative mock-ups with sample data, built in HTML and SVG. Swap them for real Grafana screenshots when they're ready.
+1. Change the content in `build.py` (each page is one function).
+2. Run `python3 build.py`.
+3. Commit `build.py` and the generated HTML together.
 
-## Custom domain
+To refresh `444.css` when the main site's design changes, copy `static/css/site.css` from the `444-video/website` repo over it.
 
-To serve from a domain such as `vistigo.io`, add a `CNAME` file containing the domain, then point DNS at GitHub Pages (see GitHub's docs on custom domains).
+## Brand rules followed
+
+From the 444Video Marketing & Brand Guidelines and the website's "Design system and writing rules" in Outline:
+
+- The main site's stylesheet is used as-is, including the glow background, square buttons and caps labels.
+- Aqua for links; pure brand hues only in the colour-bar rule, diagrams and chart series.
+- UK English. Hyphens, not em dashes.
+- Comux figures are attributed to "a UK multiplex operator" and never generalised.
+- Call to action: "Tell us what you can't see."
+- Real dashboard screenshots are labelled "Live dashboard"; anything drawn is labelled "Illustrative".

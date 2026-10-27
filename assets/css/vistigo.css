@@ -1,0 +1,210 @@
+/* ============================================================
+   Vistigo - additions on top of the 444Video design system (444.css).
+   444.css is copied unchanged from the 444video.com site, so brand
+   tokens, type, buttons, glow and layout stay identical. Only
+   components the main site does not have live here:
+   flow diagrams, the architecture map and dashboard frames.
+   ============================================================ */
+
+.brand-text i{white-space:nowrap}
+
+/* ---------- section wrapper ---------- */
+.block{max-width:var(--page);margin:0 auto;padding:56px var(--gutter) 48px}
+.block > .section-head{padding:0 0 4px}
+.block-tight{padding-top:8px}
+
+/* ---------- metric chips ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:10px 0 0;padding:0;max-width:none}
+.chips li{
+  font-family:var(--mono);font-size:12px;line-height:1.4;color:var(--text);
+  background:var(--surface-2);border:1px solid var(--line);padding:3px 8px;
+}
+
+/* ---------- flow map: equipment -> how we pull it -> where it lands -> Grafana ---------- */
+.flowmap{
+  --c:var(--accent);
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.15fr) minmax(0,.8fr) minmax(0,.9fr);
+  column-gap:40px;row-gap:14px;margin-top:30px;position:relative;
+}
+.fm-head{display:contents}
+.fm-head span{
+  font-family:var(--label);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);padding-bottom:4px;border-bottom:1px solid var(--line);
+}
+.fm-row{display:contents}
+.fm-node{
+  position:relative;background:rgba(15,30,41,.86);border:1px solid var(--line);
+  padding:14px 16px;min-width:0;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.fm-node b{display:block;font-weight:600;font-size:15.5px;line-height:1.3;letter-spacing:-.005em}
+.fm-node span{display:block;font-size:13.5px;line-height:1.45;color:var(--dim);margin-top:4px}
+.fm-src{border-left:2px solid var(--c)}
+.proto{
+  display:inline-block;font-family:var(--mono);font-size:11.5px;font-style:normal;
+  color:var(--c);border:1px solid color-mix(in srgb,var(--c) 45%,transparent);
+  padding:1px 7px;margin-bottom:7px;
+}
+.fm-store{display:flex;flex-direction:column;justify-content:center}
+.fm-store b::before{
+  content:"";display:inline-block;width:8px;height:8px;margin-right:8px;vertical-align:1px;
+  background:var(--db,var(--faint));
+}
+.db-vm{--db:#00FEC8}.db-zbx{--db:#FE0000}.db-es{--db:#FBFE00}.db-influx{--db:#B500FE}
+/* connectors: a hairline with an arrowhead from the previous column */
+.fm-via::before,.fm-store::before{
+  content:"";position:absolute;left:-40px;top:50%;width:34px;height:0;
+  border-top:1px dashed var(--c);
+}
+.fm-via::after,.fm-store::after{
+  content:"";position:absolute;left:-8px;top:calc(50% - 4px);
+  border:4px solid transparent;border-left:6px solid var(--c);
+}
+/* the store column feeds the Grafana sink, which spans every row */
+.fm-store .fm-out{position:absolute;right:-40px;top:50%;width:40px;border-top:1px dashed var(--line)}
+.fm-sink{
+  grid-column:4;grid-row:2 / span var(--rows,4);
+  background:rgba(10,20,28,.9);border:1px solid var(--line);border-top:3px solid var(--c);
+  padding:18px;display:flex;flex-direction:column;gap:10px;align-self:stretch;
+}
+.fm-sink .eyebrow{margin:0}
+.fm-sink h3{font-size:19px;margin:0}
+.fm-sink ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.fm-sink li{font-size:13.5px;color:var(--text);padding:7px 10px;background:var(--surface);border-left:2px solid var(--c)}
+.fm-sink p{font-size:13.5px;color:var(--dim);margin:0}
+.fm-alert{margin-top:auto;font-size:13px;color:var(--dim);border-top:1px solid var(--line);padding-top:10px}
+.fm-alert b{color:var(--text);font-weight:600}
+
+@media (max-width:980px){
+  .flowmap{grid-template-columns:1fr;row-gap:0}
+  .fm-head{display:none}
+  .fm-row{
+    display:grid;grid-template-columns:1fr;row-gap:22px;
+    padding:0 0 26px;margin:0 0 22px;border-bottom:1px solid var(--line-soft);
+  }
+  .fm-via::before,.fm-store::before{left:24px;top:-22px;width:0;height:16px;border-top:0;border-left:1px dashed var(--c)}
+  .fm-via::after,.fm-store::after{left:20px;top:-8px;border:4px solid transparent;border-top:6px solid var(--c);border-bottom:0}
+  .fm-store .fm-out{display:none}
+  .fm-sink{grid-column:1;grid-row:auto}
+}
+
+/* ---------- architecture map (hub) ---------- */
+.arch{
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:36px;margin-top:30px;
+}
+.arch-col{display:flex;flex-direction:column;gap:10px;position:relative}
+.arch-col > h4{margin:0 0 4px;color:var(--col,var(--accent))}
+.arch-col:not(:first-child)::before{
+  content:"";position:absolute;left:-32px;top:50%;width:26px;border-top:1px dashed var(--line);
+}
+.arch-col:not(:first-child)::after{
+  content:"";position:absolute;left:-8px;top:calc(50% - 4px);
+  border:4px solid transparent;border-left:6px solid var(--dim);
+}
+.arch-node{
+  background:rgba(15,30,41,.86);border:1px solid var(--line);border-left:2px solid var(--col,var(--accent));
+  padding:12px 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.arch-node b{display:block;font-weight:600;font-size:15px;line-height:1.3}
+.arch-node span{display:block;font-size:13px;color:var(--dim);line-height:1.45;margin-top:3px}
+@media (max-width:980px){
+  .arch{grid-template-columns:1fr;gap:34px}
+  .arch-col:not(:first-child)::before{left:22px;top:-28px;width:0;height:20px;border-top:0;border-left:1px dashed var(--line)}
+  .arch-col:not(:first-child)::after{left:18px;top:-10px;border:4px solid transparent;border-top:6px solid var(--dim);border-bottom:0}
+}
+
+/* ---------- dashboard frames ---------- */
+/* Real screenshots and illustrative panels share one frame, styled like
+   the Grafana dark theme the dashboards actually use. */
+.shot{margin:0}
+.shot-frame{background:#111217;border:1px solid #2c3235;padding:0;overflow:hidden}
+.shot-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 12px;background:#181b1f;border-bottom:1px solid #2c3235;
+  font-size:12.5px;color:#ccccdc;
+}
+.shot-bar .logo-mark{width:26px}
+.shot-bar em{margin-left:auto;font-style:normal;font-family:var(--mono);font-size:11px;color:#8e8e9e}
+.shot img{width:100%;border:0}
+.shot figcaption{font-family:var(--label);font-size:11.5px;color:var(--faint);margin-top:10px;line-height:1.5}
+.tag-real,.tag-mock{
+  display:inline-block;font-family:var(--label);font-size:10.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;padding:1px 6px;margin-right:8px;
+}
+.tag-real{color:var(--ground);background:var(--good)}
+.tag-mock{color:var(--text);border:1px solid var(--line)}
+
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:30px}
+.gallery .wide{grid-column:1 / -1}
+@media (max-width:900px){.gallery{grid-template-columns:1fr}}
+
+/* illustrative panels, drawn in HTML in the Grafana dark style */
+.gpanels{padding:10px;display:grid;gap:8px}
+.gstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.gstat{background:#181b1f;border:1px solid #2c3235;padding:8px 10px}
+.gstat .k{font-size:11.5px;color:#ccccdc;font-weight:500}
+.gstat .v{font-size:26px;font-weight:500;line-height:1.25;color:#fff;font-variant-numeric:tabular-nums}
+.gstat .v small{font-size:13px;color:#ccccdc}
+.gstat.ok{background:linear-gradient(120deg,#2d8f3b,#56a64b)}
+.gstat.warn{background:linear-gradient(120deg,#c98a00,#ff9830)}
+.gstat.crit{background:linear-gradient(120deg,#d10e1c,#f2495c)}
+.gstat.nodata{background:linear-gradient(120deg,#6a1fb8,#8f3bb8)}
+.gstat.ok .k,.gstat.warn .k,.gstat.crit .k,.gstat.nodata .k{color:#fff}
+.gpanel{background:#181b1f;border:1px solid #2c3235;padding:8px 10px}
+.gpanel-h{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:#ccccdc;font-weight:500;margin-bottom:6px}
+.gpanel-h i{font-style:normal;color:#8e8e9e}
+.gchart{width:100%;height:96px;display:block}
+.gtable{width:100%;border-collapse:collapse;font-size:12px;color:#ccccdc}
+.gtable th{text-align:left;font-weight:500;color:#8e8e9e;padding:5px 6px;border-bottom:1px solid #2c3235}
+.gtable td{padding:6px;border-bottom:1px solid #22252b;white-space:nowrap}
+.gtable tr:last-child td{border-bottom:0}
+.pill{display:inline-block;padding:0 6px;font-size:11px;font-weight:600;color:#fff}
+.pill.ok{background:#56a64b}.pill.warn{background:#ff9830}.pill.crit{background:#f2495c}.pill.nodata{background:#8f3bb8}
+.gscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:560px){
+  .gstats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gstat .v{font-size:22px}
+}
+
+/* ---------- dashboard set: the card home every customer gets ---------- */
+.dcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+.dcard{background:#181b1f;border:1px solid #2c3235;border-top:3px solid var(--dc,var(--accent));padding:18px 20px}
+.dcard.start{grid-column:1 / -1;border-top-color:var(--dc,var(--accent))}
+.dcard small{
+  display:block;font-family:var(--label);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dc,var(--accent));margin-bottom:6px;
+}
+.dcard b{display:block;font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+.dcard p{font-size:14px;color:var(--dim);margin:0}
+@media (max-width:900px){.dcards{grid-template-columns:1fr}}
+
+/* ---------- audience, cross-links ---------- */
+.audience{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);list-style:none;margin:26px 0 0;padding:0;max-width:none;
+}
+.audience li{background:rgba(15,30,41,.86);padding:20px 22px;border-left:2px solid var(--accent)}
+.audience b{display:block;font-weight:600;margin-bottom:4px}
+.audience span{color:var(--dim);font-size:15px}
+
+.others{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:18px;margin-top:22px}
+.other{
+  display:block;text-decoration:none;color:var(--text);background:rgba(15,30,41,.86);
+  border:1px solid var(--line);border-top:3px solid var(--oc);padding:22px 24px;
+}
+.other:hover{border-color:var(--oc)}
+.other .eyebrow{--eyebrow-colour:var(--oc);margin-bottom:8px}
+.other b{display:block;font-size:20px;font-weight:600;letter-spacing:-.012em;margin-bottom:10px}
+.other .more{border-color:var(--oc);color:var(--oc)}
+
+/* hub pillar rows reuse .pillar from 444.css; the figure is a dashboard frame */
+.pillar .shot-frame img{border:0;aspect-ratio:auto}
+.pillar .chips{margin-bottom:18px}
+
+.note{
+  font-family:var(--label);font-size:12px;color:var(--faint);margin:18px 0 0;max-width:none;
+}
+.note b{color:var(--dim);font-weight:600}
+
+/* figures sit inside an already-padded block here, so drop their side margin */
+.block .figures,.band-inner .figures{margin-left:0;margin-right:0}
+.block .attribution,.band-inner .attribution{margin-left:0;margin-right:0}
