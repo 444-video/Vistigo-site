@@ -33,7 +33,7 @@ FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox
 
 PRODUCTS = {
     "maritime": dict(name="Vistigo Maritime", colour="#6FE6F3", font="f-maritime",
-                     who="For fleets", line="Know which ship is on which link, right now."),
+                     who="For yachts", line="Know what the yacht's internet is costing, while it's happening."),
     "broadcast": dict(name="Vistigo Broadcast", colour="#FFB54D", font="f-broadcast",
                       who="For broadcasters", line="Find stream errors before your viewers do."),
     "infra": dict(name="Vistigo Infra", colour="#6BEB8A", font="f-infra",
@@ -359,7 +359,7 @@ def hub():
                 "broadcast": ("dash-zixi.png", "Zixi contribution dashboard", "/broadcast/contribution"),
                 "infra": None}
     blurbs = {
-        "maritime": "Reads the Starlink dish, the Peplink router and the SIM account on every vessel. You see who's online, which link they're on and what it's costing.",
+        "maritime": "Reads the Starlink dish, the Peplink router and every Wi-Fi network on board. You see which link the yacht is on, who's using it and what the cellular data is costing.",
         "broadcast": "Pulls alarms and stats from your probes, IP receivers and Zixi or SRT links, so you can tell a bad source from a bad network in a minute, not an afternoon.",
         "infra": "Watches the switches, servers and power that everything else sits on, read from the management controllers rather than guessed from the operating system.",
     }
@@ -442,72 +442,174 @@ def hub():
 
 
 # ------------------------------------------------------------------ maritime
+def _yacht():
+    """An original line drawing of a motor yacht under way, with its Starlink and cellular links."""
+    waves = "".join(
+        f'<path d="M0 {y} ' + " ".join(f"Q{i + 25} {y - a} {i + 50} {y} T{i + 100} {y}" for i in range(0, 1300, 100)) +
+        f'" fill="none" stroke="#6FE6F3" stroke-opacity="{o}" stroke-width="1"/>'
+        for y, a, o in [(176, 4, .5), (190, 3, .3), (204, 2, .18)])
+    windows = "".join(f'<rect x="{x}" y="128" width="22" height="5" rx="1"/>' for x in range(330, 760, 30))
+    upper = "".join(f'<rect x="{x}" y="104" width="26" height="9" rx="1"/>' for x in range(420, 700, 34))
+    return f"""<div class="voyage" role="img" aria-label="Illustration of a motor yacht at sea, linked to a satellite overhead and a cell mast on the coast.">
+<svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <defs><linearGradient id="hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAF4F8"/><stop offset="1" stop-color="#9FB8C6"/></linearGradient></defs>
+  <g stroke="#6FE6F3" fill="none" stroke-linecap="round">
+    <path d="M1080 34 l12 -8 l12 8 l-12 8z M1068 34 h12 M1104 34 h12" stroke-width="1.4"/>
+    <path d="M560 64 Q 800 -6 1080 34" stroke-dasharray="3 7" stroke-opacity=".55"/>
+    <path d="M560 64 Q 800 80 1010 120" stroke-dasharray="3 7" stroke-opacity=".35" stroke="#FFB54D"/>
+  </g>
+  <g stroke="#FFB54D" stroke-opacity=".7" fill="none">
+    <path d="M1010 168 L1010 104 M1002 168 L1010 104 L1018 168 M1004 128 h12 M1006 116 h8"/>
+    <path d="M1000 98 a14 14 0 0 1 20 0 M995 92 a22 22 0 0 1 30 0" stroke-opacity=".5"/>
+  </g>
+  <path d="M960 168 L990 150 L1040 146 L1110 158 L1200 150 L1200 172 L940 172Z" fill="#0A2238" stroke="#1A3A58"/>
+  <g>
+    <path d="M250 142 L860 142 Q 900 142 930 120 L 890 166 L 300 166 Q 268 160 250 142Z" fill="url(#hull)" stroke="#6FE6F3" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M300 156 L880 156" stroke="#06182A" stroke-opacity=".55" stroke-width="2"/>
+    <path d="M300 142 L330 120 L800 120 L850 142Z" fill="#DCEBF2" stroke="#6FE6F3" stroke-width="1.2" stroke-linejoin="round"/>
+    <g fill="#0E2A44">{windows}</g>
+    <path d="M400 120 L430 98 L700 98 L740 120Z" fill="#CFE2EA" stroke="#6FE6F3" stroke-width="1.2" stroke-linejoin="round"/>
+    <g fill="#0E2A44">{upper}</g>
+    <path d="M470 98 L490 82 L640 82 L660 98Z" fill="#BFD6E0" stroke="#6FE6F3" stroke-width="1.2" stroke-linejoin="round"/>
+    <path d="M500 92 h130" stroke="#0E2A44" stroke-width="4"/>
+    <path d="M560 82 V66 M548 72 H572" stroke="#6FE6F3" stroke-width="1.3"/>
+    <circle cx="560" cy="62" r="5" fill="#EAF7FA"/>
+    <rect x="596" y="74" width="14" height="4" rx="1" fill="#EAF7FA" transform="rotate(-10 603 76)"/>
+    <path d="M300 142 h-30" stroke="#6FE6F3" stroke-width="1"/>
+  </g>
+  <path d="M930 150 q 18 2 34 -4 M926 158 q 14 6 30 6" stroke="#C9F6FB" stroke-opacity=".5" fill="none"/>
+  <path d="M0 170 H1200" stroke="#6FE6F3" stroke-opacity=".35"/>
+  {waves}
+</svg>
+</div>"""
+
+
+YACHT = _yacht()
+
+
+def crew_panel():
+    """Drawn copy of the Crew Wi-Fi dashboard's top rows, with example figures."""
+    bars = "".join(
+        f'<div class="cb"><span>{n}</span><i><b style="width:{w}%;background:{c}"></b></i><em style="color:{c}">{v}</em></div>'
+        for n, w, c, v in [("Crew", 92, "#ff8a65", "€28.40"), ("Guest", 21, "#4dd0e1", "€6.10"), ("Owner", 2, "#ce93d8", "€0.40")])
+    return f"""<div class="gp crew-gp">
+  <div class="crew-switch"><div><small>Crew Wi-Fi</small><strong>On</strong><p>Switch it from the bridge. The bridge network is never switched.</p></div>
+    <span class="crew-btn" aria-hidden="true">Switch crew Wi-Fi off</span></div>
+  <div class="gp-stats">
+    <div class="gp-stat"><div class="k">Crew devices online</div><div class="v">14</div></div>
+    <div class="gp-stat"><div class="k">Crew share of the Wi-Fi (1h)</div><div class="v">61<small>%</small></div></div>
+    <div class="gp-stat"><div class="k">Crew cellular cost - 24h</div><div class="v" style="color:#ff8a65">€28.40</div></div>
+    <div class="gp-stat ok"><div class="k">Saved by switching off - 24h</div><div class="v">€11.20</div></div>
+  </div>
+  <div class="gp-panel"><div class="gp-h">Cellular cost by network - last 24h <i>only traffic that went over cellular</i></div>{bars}</div>
+</div>"""
+
+
+def money_cards(items):
+    cols = "".join(f"""<div class="col-md-6 col-lg-3"><div class="card money-card h-100"><div class="card-body">
+  <span class="money-n">{i + 1:02d}</span><h3>{a}</h3><p>{b}</p><p class="money-dash">{c}</p></div></div></div>"""
+                   for i, (a, b, c) in enumerate(items))
+    return f'<div class="row g-3">{cols}</div>'
+
+
 def maritime():
     rel = "../"
     rows = [
-        ("Starlink dish", "Throughput, latency to the ground station, how much sky is blocked, GPS, where it's pointing, its own alerts",
-         "gRPC, every 60 s", "Collector on board", "Sits behind the dish on the ship's network and pushes out over HTTPS", "db-vm", "VictoriaMetrics"),
-        ("Peplink router", "Which WAN is live, CPU and memory, and every dish if there's more than one",
+        ("Starlink dish", "Throughput, latency, how much sky is blocked, where it's pointing, reboots",
+         "gRPC, every 60 s", "Collector on board", "Sits behind the dish on the yacht's network and pushes out over HTTPS", "db-vm", "VictoriaMetrics"),
+        ("Peplink router", "Which link is live, every WAN's status and health check, CPU and memory, GPS position",
          "REST API", "InControl2", "One call per router, split into system, WAN and Starlink figures", "db-vm", "VictoriaMetrics"),
-        ("4G and 5G modems", "RSRP, RSRQ, SINR, RSSI, signal bars, band and operator",
-         "REST API", "InControl2", "Read from the same router status as above, one line per modem", "db-vm", "VictoriaMetrics"),
-        ("Each WAN link", "Live upload and download on Starlink, cellular and Wi-Fi",
+        ("Owner, guest and crew Wi-Fi", "Devices, data used, signal and which link each network is routed over",
+         "REST API", "InControl2", "Each network runs on its own VLAN, so usage and cost split cleanly", "db-vm", "VictoriaMetrics"),
+        ("4G and 5G modems", "RSRP, RSRQ, SINR, RSSI and signal bars, per modem",
+         "REST API", "InControl2", "Read from the same router status as above", "db-vm", "VictoriaMetrics"),
+        ("Each link", "Live upload and download on Starlink, OneWeb, cellular, Wi-Fi WAN and marina internet",
          "REST, every 15 s", "Throughput collector", "Runs as its own service, so a fault here can't stop the rest", "db-vm", "VictoriaMetrics"),
-        ("SIM cards", "Data used, cost and subscribers, per SIM and for the company",
-         "REST API", "Geniox", "Straight from the SIM provider's account, not estimated", "db-vm", "VictoriaMetrics"),
-        ("Is the router there at all?", "Up or down, and for how long",
-         "ICMP, SNMP", "Zabbix", "Raises the alarm when a vessel goes dark or drops to its backup link", "db-zbx", "Zabbix"),
     ]
-    out = dict(title="Your fleet", dashboards=["Peplink Overview", "Cellular", "Router Health", "Starlink", "SIM Card Monitoring"],
-               alerts="vessel offline, running on backup, obstruction climbing, SIM spend over budget.")
+    out = dict(title="Your yacht", dashboards=["Yacht overview", "This month's bill", "Crew Wi-Fi", "Owner / Guest / Crew",
+                                               "Is the internet OK?", "Where are we?", "Starlink, Cellular, Router Health"],
+               alerts="yacht offline, running on cellular, spend heading over budget, dish obstructed.")
 
     body = f"""<section class="hero">
   <div class="container-xl">
     <div class="row align-items-center g-4 g-lg-5">
       <div class="col-lg-6">
-        <p class="kicker">Vistigo Maritime</p>
-        <h1 class="hero-title">Know which ship is on which link, right now.</h1>
-        <p class="hero-description mt-4">Vistigo Maritime reads the Starlink dish, the Peplink router and the SIM account
-        on every vessel, every 15 to 60 seconds, and puts the whole fleet on one screen. No more logging into routers one
-        at a time to find out who's offline.</p>
-        <div class="btn-list"><a class="btn btn-primary btn-lg" href="#data">Where the numbers come from</a>
-        <a class="btn btn-ghost-secondary btn-lg" href="#contact">Talk to us</a></div>
+        <p class="kicker">Vistigo Maritime &middot; for yachts</p>
+        <h1 class="hero-title">Know what the yacht's internet is costing, before the bill arrives.</h1>
+        <p class="hero-description mt-4">Vistigo reads the Starlink dish, the Peplink router and every Wi-Fi network on
+        board. It shows which link is carrying the traffic, who is using it, and what the cellular data is costing, as
+        it happens. Switch crew Wi-Fi off from the bridge, and see the month's spend against budget before anyone
+        signs the invoice.</p>
+        <div class="btn-list"><a class="btn btn-primary btn-lg" href="#money">How it saves money</a>
+        <a class="btn btn-ghost-secondary btn-lg" href="#metstrade">See it at METSTRADE</a></div>
       </div>
       <div class="col-lg-6">
-        {shot('dash-starlink.png', 'Starlink dashboard: aligned, 7.18 percent of sky obstructed, 64 ms latency, an alignment bullseye and azimuth and elevation gauges.',
-              'Our Starlink dashboard. The bullseye shows which way to nudge the dish.', rel, '/maritime/starlink')}
+        {shot('dash-yacht-bill.png', "This month's internet bill: 9 euros spent, 31 expected by the end of the month, on track against a 500 euro budget, 4 percent of a 100 GB allowance used, daily spend and who used the data.",
+              "The captain's and purser's view: spend so far, expected month-end and budget, from our test router.", rel, '/maritime/bill')}
       </div>
     </div>
   </div>
 </section>
-{SHIP}
-{readout(f'<div class="d-flex align-items-center gap-2">{COMPASS}<strong class="kicker mb-0">Bridge</strong></div>',
-         [("Position", "50°48.2′N 001°05.7′W"), ("Heading", "274°"), ("Speed", "11.2 kn"), ("Live link", "Starlink"), ("Latency", "34 ms"), ("Backup", "5G, 3 bars")])}
+{YACHT}
+{readout(f'<div class="d-flex align-items-center gap-2">{COMPASS}<strong class="kicker mb-0">On board</strong></div>',
+         [("Live link", "Starlink"), ("Latency", "33 ms"), ("Back-up", "5G, 4 bars"), ("Crew Wi-Fi", "On, 14 devices"),
+          ("Cellular today", "€0.79"), ("This month", "€9 of €500")])}
 
-{section("Where the numbers come from", "We read each device the way it prefers. The dish only answers on the ship's own network, so a small collector on board asks it directly. The router, modems and SIMs already report to their makers' cloud services, so we collect from there. Everything is tagged with the vessel it came from.",
-         flow(rows, out), id_="data")}
+{section("Where the money goes, and how you keep it", "Starlink and marina internet are flat-rate. Cellular is charged by the gigabyte, and that's where a bill runs away: a dish blocked by the mast, a week in port on 5G, the crew streaming on the SIM. Vistigo watches each of those as it happens, so you can act the same day.",
+         money_cards([
+             ("Only the SIM is costed", "Vistigo knows which link each network is routed over. Traffic on Starlink or shore internet counts as zero. Only what really went over cellular is priced, at your rate per GB.", "Links &amp; throughput"),
+             ("The month, before it ends", "Spend so far, the expected month-end figure and the allowance used, checked against the budget you set. Over budget turns red while there's still time to do something about it.", "This month's bill"),
+             ("Crew Wi-Fi, under control", "Switch the crew network off from the bridge, or schedule it around guest trips. The crew's share of the bandwidth goes back to the owner and guests, and the dashboard shows what it saved.", "Crew Wi-Fi"),
+             ("Catch a fallback early", "If the dish loses sight of the sky and the yacht drops to cellular, you see it within a minute, along with what it's costing per hour. You don't find out from the invoice.", "Yacht overview"),
+         ]), id_="money")}
 
-{section("What your team opens in the morning", "A home page for the fleet, with a card for each job. Click through for the detail.",
-         dash_cards([("#6FE6F3", "Start here", "Peplink Overview", "Every WAN, the headline health figures, cellular signal and Starlink status on one screen."),
-                     ("#FBFE00", "Signal", "Cellular", "RSRP, RSRQ, SINR, RSSI and bars, with the last 24 hours to show how stable it's been."),
-                     ("#4ADE6E", "System", "Router Health", "CPU, memory and daily peaks, so you spot a router that's struggling."),
-                     ("#5794F2", "Uplink", "Starlink", "Alignment, obstruction, throughput, latency and pointing.")])
-         + f"""<div class="row g-4">
-  <div class="col-lg-6">{shot('dash-sim-usage.png', 'SIM Card Monitoring: 2.0 GB used, 4.08 euros, 4 SIMs, with data used per SIM.', 'SIM spend per card, straight from the provider.', rel, '/maritime/sims')}</div>
-  <div class="col-lg-6">{shot('dash-cellular-cost.png', 'Cellular dashboard: signal bars, RSRP and SINR gauges, data used today and the projected cost for the next day and month.', "What today's data use will cost you this month.", rel, '/maritime/cellular')}</div>
-  <div class="col-12">{shot('dash-cellular-history.png', 'Throughput per WAN and 24 hours of signal strength and quality.', 'Throughput per link and a day of signal history. You can see exactly when the vessel moved out of 5G coverage.', rel, '/maritime/cellular')}</div>
+{section("Crew Wi-Fi: one switch, two wins", "Each network on board runs on its own VLAN, so Vistigo can split usage and cost between owner, guests and crew. When the crew network is switched off, its bandwidth goes back to the guests and its streaming stops costing you cellular data. The switch is logged on every graph, so you can see exactly what changed.",
+         f"""<div class="row g-4 align-items-center">
+  <div class="col-lg-7">{drawn(crew_panel(), "Drawn from our Crew Wi-Fi dashboard. Figures are examples.", '/maritime/crew')}</div>
+  <div class="col-lg-5"><ul class="ticks">
+    <li><strong>From the bridge.</strong> One button, and the bridge network itself is never switched.</li>
+    <li><strong>On a schedule.</strong> Off for guest trips, back on when the yacht is in port.</li>
+    <li><strong>Route-aware cost.</strong> Crew traffic is only priced while it's going over cellular.</li>
+    <li><strong>Bandwidth handed back.</strong> See the crew's average speed returned to owner and guests.</li>
+    <li><strong>A record of the switch.</strong> Every on and off is marked on the timeline.</li>
+  </ul></div>
 </div>""", alt=True)}
 
-{section("Who uses it", "",
-         audience([("Ship operators and fleet managers", "One screen for every vessel, instead of a login per router."),
-                   ("Maritime IT and managed service providers", "A view for each customer, with alerts going to your own NOC."),
-                   ("Survey, offshore and research vessels", "A record of when the link was up and how good it was, for crew and clients."),
-                   ("Broadcasting from the water", "Add Vistigo Broadcast and see the stream next to the link carrying it.")]))}
+{section("A screen for everyone on board", "One home page for the yacht, then a dashboard for each job. The owner gets a yes or no, the purser gets the bill, and the engineer gets every reading from the dish and the modems.",
+         f"""<div class="mb-4">{shot('dash-yacht-home.png', 'Vistigo Maritime home page for a demo yacht, with cards for the yacht overview, Wi-Fi by network, crew Wi-Fi, links, cellular, Starlink, router health and three simple views.',
+                                    'The home page for a yacht: on board, engineering and simple views.', rel, '/maritime')}</div>
+<div class="row g-4">
+  <div class="col-lg-6">{shot('dash-yacht-status.png', 'Is the internet OK? The internet is working, connected via wired internet, with Wi-Fi WAN and wired internet ready as back-up and 100 percent online today.',
+                              'For the owner and guests: is it working, and is there a back-up?', rel, '/maritime/status')}</div>
+  <div class="col-lg-6">""" + audience([
+             ("Owner and guests", "Is the internet OK? A green tick, the link it's on and whether a back-up is ready."),
+             ("Captain and purser", "This month's bill against budget, and who used the data."),
+             ("Owner's phone", "Where are we? Position, link and any drops today."),
+             ("Engineer or ETO", "Starlink alignment and obstruction, 4G and 5G signal, router CPU and memory, every link side by side."),
+         ]).replace('col-md-6', 'col-sm-6') + "</div>\n</div>")}
+
+{section("Where the numbers come from", "The dish only answers on the yacht's own network, so a small collector on board asks it directly. The router, modems and Wi-Fi already report to Peplink's InControl2, so we collect from there. Nothing on board accepts incoming connections.",
+         flow(rows, out), id_="data", alt=True)}
+
+<section class="section metstrade" id="metstrade">
+  <div class="container-xl">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-7">
+        <p class="kicker">17-19 November 2026 &middot; RAI Amsterdam</p>
+        <h2 class="section-title mb-3">See it live at METSTRADE</h2>
+        <p class="section-description mb-0">We're bringing a working rig: Starlink, a Peplink router and owner, guest and
+        crew networks, all feeding the dashboards on this page. Switch crew Wi-Fi off and watch the bandwidth and the
+        cost move. Email us to book a time on the stand.</p>
+      </div>
+      <div class="col-lg-5 text-lg-end"><a class="btn btn-primary btn-lg" href="mailto:info@444.video?subject=Vistigo%20Maritime%20at%20METSTRADE">Book a demo at METSTRADE</a></div>
+    </div>
+  </div>
+</section>
 
 {others(rel, 'maritime')}
-{contact("Tell us how many vessels you run and what's on board. We'll show you your fleet in Vistigo.", "Vistigo%20Maritime")}"""
-    return page(rel=rel, title="Vistigo Maritime: fleet connectivity monitoring",
-                description="Starlink, 4G/5G, failover and SIM spend for every vessel, read from the dish, the Peplink router and the SIM provider.",
+{contact("Tell us about the yacht: the links on board, the networks and what the data bill looks like. We'll show you it in Vistigo.", "Vistigo%20Maritime")}"""
+    return page(rel=rel, title="Vistigo Maritime: yacht connectivity and data cost",
+                description="Starlink, 4G/5G, owner, guest and crew Wi-Fi, and what the cellular data is costing, for every yacht. See it at METSTRADE 2026.",
                 product="maritime", body=body)
 
 

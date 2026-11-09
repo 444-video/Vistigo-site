@@ -453,3 +453,26 @@ p{max-width:68ch}
   background:linear-gradient(180deg,transparent,rgba(4,16,30,.6))}
 .voyage svg{position:absolute;inset:0;width:100%;height:100%}
 .p-maritime .hero{padding-bottom:2rem}
+
+/* ---------- yacht page: money cards, crew Wi-Fi panel, METSTRADE band ---------- */
+.money-card{border-top:2px solid var(--accent)}
+.money-card h3{font-family:var(--display);font-weight:var(--display-weight);font-size:1.3rem;margin:.35rem 0 .5rem}
+.money-card p{color:var(--tblr-secondary);margin-bottom:.75rem}
+.money-n{font-family:var(--tblr-font-monospace);font-size:.8rem;color:var(--accent)}
+.money-dash{font-size:.8rem;margin:0!important;color:var(--tblr-body-color)!important}
+.money-dash::before{content:"Dashboard: ";color:var(--tblr-secondary)}
+.ticks{list-style:none;padding:0;margin:0;display:grid;gap:.85rem}
+.ticks li{position:relative;padding-left:1.6rem;color:var(--tblr-secondary)}
+.ticks li strong{color:var(--tblr-body-color)}
+.ticks li::before{content:"";position:absolute;left:0;top:.45em;width:.8rem;height:.45rem;border-left:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(-45deg)}
+.crew-switch{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#141414;border:1px solid #2c3235;border-top:3px solid #ff8a65;border-radius:4px;padding:12px 14px}
+.crew-switch small{display:block;font-size:11px;color:#ff8a65;font-weight:600}
+.crew-switch strong{font-size:20px;color:#fff}
+.crew-switch p{margin:2px 0 0;font-size:12px;color:#8e8e9e}
+.crew-btn{flex-shrink:0;border:1px solid #ff8a65;color:#ff8a65;border-radius:6px;padding:7px 12px;font-size:13px;font-weight:500}
+.cb{display:grid;grid-template-columns:56px 1fr 64px;align-items:center;gap:8px;font-size:13px;margin:6px 0}
+.cb i{height:22px;background:#22252b;display:block}
+.cb b{display:block;height:100%;opacity:.55}
+.cb em{font-style:normal;font-weight:600;text-align:right;font-size:16px}
+.metstrade{background:linear-gradient(120deg,rgba(71,214,232,.14),rgba(71,214,232,0) 60%),var(--tblr-bg-surface-secondary);border-top:1px solid var(--tblr-border-color);border-bottom:1px solid var(--tblr-border-color)}
+@media (max-width:575.98px){.crew-switch{flex-direction:column;align-items:flex-start}}
