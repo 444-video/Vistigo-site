@@ -476,3 +476,9 @@ p{max-width:68ch}
 .cb em{font-style:normal;font-weight:600;text-align:right;font-size:16px}
 .metstrade{background:linear-gradient(120deg,rgba(71,214,232,.14),rgba(71,214,232,0) 60%),var(--tblr-bg-surface-secondary);border-top:1px solid var(--tblr-border-color);border-bottom:1px solid var(--tblr-border-color)}
 @media (max-width:575.98px){.crew-switch{flex-direction:column;align-items:flex-start}}
+
+/* yacht page at laptop sizes: a shorter hero, a bigger screenshot, an illustration that is never cropped */
+.p-maritime .hero{padding-top:3.5rem}
+.p-maritime .hero-title{font-size:clamp(2.4rem,3.9vw,3.6rem);max-width:none}
+.p-maritime .hero-description{font-size:1.125rem}
+.p-maritime .voyage{height:auto;aspect-ratio:1600/190;min-height:110px;max-height:240px;margin-top:0}
