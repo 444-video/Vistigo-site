@@ -554,15 +554,15 @@ def maritime():
          [("Live link", "Starlink"), ("Latency", "33 ms"), ("Back-up", "5G, 4 bars"), ("Crew Wi-Fi", "On, 14 devices"),
           ("Cellular today", "€0.79"), ("This month", "€9 of €500")])}
 
-{section("Where the money goes, and how you keep it", "Starlink and marina internet are flat-rate. Cellular is charged by the gigabyte, and that's where a bill runs away: a dish blocked by the mast, a week in port on 5G, the crew streaming on the SIM. Vistigo watches each of those as it happens, so you can act the same day.",
+{section("Where the money goes, and how you keep it", "Not every link is billed the same way. Marina internet is usually a flat monthly charge. Starlink can be unlimited near the coast but charged by the gigabyte further out, or bought in data blocks on business plans. Cellular is charged by the gigabyte. A bill runs away when traffic lands on a metered link and nobody notices: the dish switches to pay-per-GB offshore, the yacht sits in port on 5G, or the crew stream on the SIM. Vistigo shows which link is carrying the traffic and how much data it's using, as it happens, so you can act the same day.",
          money_cards([
-             ("Only the SIM is costed", "Vistigo knows which link each network is routed over. Traffic on Starlink or shore internet counts as zero. Only what really went over cellular is priced, at your rate per GB.", "Links &amp; throughput"),
+             ("Metered data, costed as it happens", "Vistigo knows which link each network is routed over. Cellular traffic is priced at your rate per GB as it happens, and the data used on Starlink and marina internet is tracked link by link, so you can check it against your plan.", "Links &amp; throughput"),
              ("The month, before it ends", "Spend so far, the expected month-end figure and the allowance used, checked against the budget you set. Over budget turns red while there's still time to do something about it.", "This month's bill"),
              ("Crew Wi-Fi, under control", "Switch the crew network off from the bridge, or schedule it around guest trips. The crew's share of the bandwidth goes back to the owner and guests, and the dashboard shows what it saved.", "Crew Wi-Fi"),
              ("Catch a fallback early", "If the dish loses sight of the sky and the yacht drops to cellular, you see it within a minute, along with what it's costing per hour. You don't find out from the invoice.", "Yacht overview"),
          ]), id_="money")}
 
-{section("Crew Wi-Fi: one switch, two wins", "Each network on board runs on its own VLAN, so Vistigo can split usage and cost between owner, guests and crew. When the crew network is switched off, its bandwidth goes back to the guests and its streaming stops costing you cellular data. The switch is logged on every graph, so you can see exactly what changed.",
+{section("Crew Wi-Fi: one switch, two wins", "Each network on board runs on its own VLAN, so Vistigo can split usage and cost between owner, guests and crew. When the crew network is switched off, its bandwidth goes back to the guests and its streaming stops using up metered data. The switch is logged on every graph, so you can see exactly what changed.",
          f"""<div class="row g-4 align-items-center">
   <div class="col-lg-7">{drawn(crew_panel(), "Drawn from our Crew Wi-Fi dashboard. Figures are examples.", '/maritime/crew')}</div>
   <div class="col-lg-5"><ul class="ticks">
