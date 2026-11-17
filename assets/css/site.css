@@ -470,3 +470,6 @@ p{max-width:68ch}
 .p-maritime .hero-title{font-size:clamp(2.2rem,3.4vw,3.25rem);max-width:none}
 .p-maritime .hero-description{font-size:1.125rem}
 .p-maritime .voyage{height:clamp(110px,11.875vw,240px);margin-top:0}
+.voyage-img{height:auto;background:none;overflow:visible;padding:0 1rem}
+.voyage-img img{display:block;width:100%;max-width:1200px;height:auto;margin:0 auto;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.p-maritime .voyage-img{height:auto}

@@ -441,43 +441,10 @@ def hub():
 
 # ------------------------------------------------------------------ maritime
 def _yacht():
-    """An original line drawing of a motor yacht under way, with its Starlink and cellular links."""
-    waves = "".join(
-        f'<path d="M0 {y} ' + " ".join(f"Q{i + 25} {y - a} {i + 50} {y} T{i + 100} {y}" for i in range(0, 1700, 100)) +
-        f'" fill="none" stroke="#6FE6F3" stroke-opacity="{o}" stroke-width="1"/>'
-        for y, a, o in [(150, 4, .5), (163, 3, .3), (176, 2, .18)])
-    windows = "".join(f'<rect x="{x}" y="128" width="22" height="5" rx="1"/>' for x in range(330, 760, 30))
-    upper = "".join(f'<rect x="{x}" y="104" width="26" height="9" rx="1"/>' for x in range(420, 700, 34))
-    return f"""<div class="voyage" role="img" aria-label="Illustration of a motor yacht at sea, linked to a satellite overhead and a cell mast on the coast.">
-<svg viewBox="0 0 1600 190" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-  <defs><linearGradient id="hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAF4F8"/><stop offset="1" stop-color="#9FB8C6"/></linearGradient></defs>
-  <path d="M0 144 H1600" stroke="#6FE6F3" stroke-opacity=".35"/>
-  {waves}
-  <g transform="translate(175 -9) scale(.9)">
-  <g stroke="#6FE6F3" fill="none" stroke-linecap="round">
-    <path d="M1080 34 l12 -8 l12 8 l-12 8z M1068 34 h12 M1104 34 h12" stroke-width="1.4"/>
-    <path d="M560 64 Q 800 -6 1080 34" stroke-dasharray="3 7" stroke-opacity=".55"/>
-    <path d="M560 64 Q 800 80 1010 120" stroke-dasharray="3 7" stroke-opacity=".35" stroke="#FFB54D"/>
-  </g>
-  <g stroke="#FFB54D" stroke-opacity=".7" fill="none">
-    <path d="M1010 168 L1010 104 M1002 168 L1010 104 L1018 168 M1004 128 h12 M1006 116 h8"/>
-    <path d="M1000 98 a14 14 0 0 1 20 0 M995 92 a22 22 0 0 1 30 0" stroke-opacity=".5"/>
-  </g>
-  <path d="M960 168 L990 150 L1040 146 L1110 158 L1180 152 L1240 168 Z" fill="#0A2238" stroke="#1A3A58"/>
-  <path d="M250 142 L860 142 Q 900 142 930 120 L 890 166 L 300 166 Q 268 160 250 142Z" fill="url(#hull)" stroke="#6FE6F3" stroke-width="1.3" stroke-linejoin="round"/>
-  <path d="M300 156 L880 156" stroke="#06182A" stroke-opacity=".55" stroke-width="2"/>
-  <path d="M300 142 L330 120 L800 120 L850 142Z" fill="#DCEBF2" stroke="#6FE6F3" stroke-width="1.2" stroke-linejoin="round"/>
-  <g fill="#0E2A44">{windows}</g>
-  <path d="M400 120 L430 98 L700 98 L740 120Z" fill="#CFE2EA" stroke="#6FE6F3" stroke-width="1.2" stroke-linejoin="round"/>
-  <g fill="#0E2A44">{upper}</g>
-  <path d="M470 98 L490 82 L640 82 L660 98Z" fill="#BFD6E0" stroke="#6FE6F3" stroke-width="1.2" stroke-linejoin="round"/>
-  <path d="M500 92 h130" stroke="#0E2A44" stroke-width="4"/>
-  <path d="M560 82 V66 M548 72 H572" stroke="#6FE6F3" stroke-width="1.3"/>
-  <circle cx="560" cy="62" r="5" fill="#EAF7FA"/>
-  <rect x="596" y="74" width="14" height="4" rx="1" fill="#EAF7FA" transform="rotate(-10 603 76)"/>
-  <path d="M930 150 q 18 2 34 -4 M926 158 q 14 6 30 6" stroke="#C9F6FB" stroke-opacity=".5" fill="none"/>
-  </g>
-</svg>
+    """Illustration of a motor yacht under way, with its Starlink and cellular links."""
+    return """<div class="voyage voyage-img">
+<img src="../assets/img/yacht-links.webp" width="1600" height="782" loading="lazy" decoding="async"
+     alt="Illustration of a motor yacht at sea, linked to a satellite overhead and a cell mast on the coast.">
 </div>"""
 
 
