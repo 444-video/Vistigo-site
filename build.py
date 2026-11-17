@@ -12,12 +12,24 @@ dark theme, with assets/css/site.css on top for type, the industry palettes
 and the diagram. Writing: UK English, hyphens rather than em dashes, client
 figures attributed to "a UK multiplex operator".
 """
+import hashlib
 import math
 from html import escape
 from pathlib import Path
 
 ROOT = Path(__file__).parent
 PROTOTYPE = "noc.444.video"
+
+
+def asset(rel, path):
+    """URL of a file under assets/, tagged with a short hash of its contents.
+
+    Browsers are told to keep stylesheets and images for hours, far longer than pages. Without the tag, a
+    device that has visited before pairs a new page with the old stylesheet or picture. With it, a changed
+    file gets a new address. Line endings are ignored so the tag is the same on every machine.
+    """
+    data = (ROOT / "assets" / path).read_bytes().replace(b"\r\n", b"\n")
+    return f"{rel}assets/{path}?v={hashlib.sha1(data).hexdigest()[:8]}"
 
 # the 444Video grid as the dashboards show it: 4 x 2 squares with 1px gaps, as tall as the text beside it
 LOGO = """<svg class="logo-mark" viewBox="0 0 27 13" role="img" aria-label="444Video"><rect x="0" y="0" width="6" height="6" fill="#1500FF"/><rect x="7" y="0" width="6" height="6" fill="#00E5C0"/><rect x="14" y="0" width="6" height="6" fill="#FF9500"/><rect x="21" y="0" width="6" height="6" fill="#FF0000"/><rect x="0" y="7" width="6" height="6" fill="#C300FF"/><rect x="7" y="7" width="6" height="6" fill="#00E000"/><rect x="14" y="7" width="6" height="6" fill="#FFEE00"/><rect x="21" y="7" width="6" height="6" fill="#FF1493"/></svg>"""
@@ -61,7 +73,7 @@ def page(*, rel, title, description, product, body, extra=""):
 <link rel="icon" href="{FAVICON}">
 <link rel="stylesheet" href="{rel}assets/vendor/tabler/tabler.min.css">
 <link rel="stylesheet" href="{rel}assets/vendor/tabler/tabler-marketing.min.css">
-<link rel="stylesheet" href="{rel}assets/css/site.css">
+<link rel="stylesheet" href="{asset(rel, 'css/site.css')}">
 </head>
 <body class="{body_class}">
 <div class="bars" role="presentation"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -118,7 +130,7 @@ def browser(src, alt, rel, path):
     <div class="browser-dots"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
     <span class="browser-input">{PROTOTYPE}{path}</span>
   </div>
-  <img src="{rel}assets/img/{src}" alt="{escape(alt)}" loading="lazy">
+  <img src="{asset(rel, 'img/' + src)}" alt="{escape(alt)}" loading="lazy">
 </div>"""
 
 
@@ -449,7 +461,7 @@ def _yacht():
     curve = " ".join(f"{x},{570 + 3.5 * math.sin(math.tau * (x + 30) / 200):.1f}" for x in range(-120, 1721, 20))
 
     def img(name):
-        return f'<img class="ys-{name}" src="../assets/img/yacht-{name}.webp" width="1600" height="700" decoding="async" alt="">'
+        return f'<img class="ys-{name}" src="{asset('../', f'img/yacht-{name}.webp')}" width="1600" height="700" decoding="async" alt="">'
 
     return f"""<div class="voyage voyage-img">
 <div class="yacht-scene" role="img" aria-label="Illustration of a motor yacht at sea, linked to a satellite overhead and a cell mast on the coast.">
