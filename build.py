@@ -34,12 +34,8 @@ def asset(rel, path):
 # the 444Video grid as the dashboards show it: 4 x 2 squares with 1px gaps, as tall as the text beside it
 LOGO = """<svg class="logo-mark" viewBox="0 0 27 13" role="img" aria-label="444Video"><rect x="0" y="0" width="6" height="6" fill="#1500FF"/><rect x="7" y="0" width="6" height="6" fill="#00E5C0"/><rect x="14" y="0" width="6" height="6" fill="#FF9500"/><rect x="21" y="0" width="6" height="6" fill="#FF0000"/><rect x="0" y="7" width="6" height="6" fill="#C300FF"/><rect x="7" y="7" width="6" height="6" fill="#00E000"/><rect x="14" y="7" width="6" height="6" fill="#FFEE00"/><rect x="21" y="7" width="6" height="6" fill="#FF1493"/></svg>"""
 
-FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E"
-           "%3Crect width='8' height='8' fill='%230B151D'/%3E"
-           "%3Crect x='0' y='2' width='2' height='2' fill='%231200FE'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2300FEC8'/%3E"
-           "%3Crect x='4' y='2' width='2' height='2' fill='%23FEA300'/%3E%3Crect x='6' y='2' width='2' height='2' fill='%23FE0000'/%3E"
-           "%3Crect x='0' y='4' width='2' height='2' fill='%23B500FE'/%3E%3Crect x='2' y='4' width='2' height='2' fill='%2300FE05'/%3E"
-           "%3Crect x='4' y='4' width='2' height='2' fill='%23FBFE00'/%3E%3Crect x='6' y='4' width='2' height='2' fill='%23FE009C'/%3E%3C/svg%3E")
+# favicon.ico sits at the site root, where browsers also look for it unprompted; tagged like the other assets
+FAVICON = "favicon.ico?v=" + hashlib.sha1((ROOT / "favicon.ico").read_bytes()).hexdigest()[:8]
 
 PRODUCTS = {
     "maritime": dict(name="Vistigo Maritime", colour="#6FE6F3", font="f-maritime",
@@ -70,7 +66,7 @@ def page(*, rel, title, description, product, body, extra=""):
 <meta property="og:description" content="{escape(description)}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_GB">
-<link rel="icon" href="{FAVICON}">
+<link rel="icon" href="{rel}{FAVICON}" sizes="any">
 <link rel="stylesheet" href="{rel}assets/vendor/tabler/tabler.min.css">
 <link rel="stylesheet" href="{rel}assets/vendor/tabler/tabler-marketing.min.css">
 <link rel="stylesheet" href="{asset(rel, 'css/site.css')}">
