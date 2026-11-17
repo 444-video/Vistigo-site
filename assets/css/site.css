@@ -88,10 +88,10 @@ p{max-width:68ch}
 .bars i{flex:1}
 .bars i:nth-child(1){background:#1200FE}.bars i:nth-child(2){background:#00FEC8}.bars i:nth-child(3){background:#FEA300}.bars i:nth-child(4){background:#FE0000}
 .bars i:nth-child(5){background:#B500FE}.bars i:nth-child(6){background:#00FE05}.bars i:nth-child(7){background:#FBFE00}.bars i:nth-child(8){background:#FE009C}
-.logo-mark{width:46px;height:auto;flex:none}
+.logo-mark{height:1em;width:auto;flex:none}
 .navbar{background:transparent;border-bottom:1px solid var(--tblr-border-color)}
-.navbar-brand{display:flex;align-items:center;gap:.75rem;font-size:1.5rem;color:var(--tblr-body-color)}
-.navbar-brand small{display:block;font-family:"Inter";font-weight:400;font-style:italic;font-size:.78rem;color:var(--tblr-secondary);letter-spacing:0;margin-top:-.15rem}
+.navbar-brand{display:flex;align-items:center;gap:.75rem;font-size:2.375rem;line-height:1;color:var(--tblr-body-color)}
+.navbar-brand small{display:flex;align-items:center;gap:6px;font-family:"Inter";font-weight:400;font-size:.8125rem;color:var(--tblr-secondary);letter-spacing:0;line-height:1;margin-top:.3rem}
 .navbar .nav-link{font-weight:500;color:var(--tblr-secondary)}
 .navbar .nav-link:hover,.navbar .nav-link.active{color:var(--tblr-body-color)}
 .navbar .nav-link.active{box-shadow:inset 0 -2px 0 var(--accent)}
@@ -442,7 +442,7 @@ p{max-width:68ch}
 .voyage svg{position:absolute;inset:0;width:100%;height:100%}
 .p-maritime .hero{padding-bottom:2rem}
 
-/* ---------- yacht page: money cards, crew Wi-Fi panel, METSTRADE band ---------- */
+/* ---------- yacht page: money cards, crew Wi-Fi panel, Metstrade band ---------- */
 .money-card{border-top:2px solid var(--accent)}
 .money-card h3{font-family:var(--display);font-weight:var(--display-weight);font-size:1.3rem;margin:.35rem 0 .5rem}
 .money-card p{color:var(--tblr-secondary);margin-bottom:.75rem}

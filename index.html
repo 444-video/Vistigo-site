@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vistigo by 444Video</title>
+<title>Vistigo By 444Video</title>
 <meta name="description" content="Monitoring for ships, broadcast chains and server rooms, built by the 444Video engineers who run it on their own kit.">
-<meta property="og:title" content="Vistigo by 444Video">
+<meta property="og:title" content="Vistigo By 444Video">
 <meta property="og:description" content="Monitoring for ships, broadcast chains and server rooms, built by the 444Video engineers who run it on their own kit.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_GB">
@@ -19,11 +19,7 @@
 
 <header class="navbar navbar-expand-md">
   <div class="container-xl">
-    <a class="navbar-brand" href="./"><svg class="logo-mark" viewBox="0 0 404 204" role="img" aria-label="444Video">
-<rect x="1" y="1" width="99" height="99" fill="#1200FE"/><rect x="102" y="1" width="99" height="99" fill="#00FEC8"/>
-<rect x="203" y="1" width="99" height="99" fill="#FEA300"/><rect x="304" y="1" width="99" height="99" fill="#FE0000"/>
-<rect x="1" y="102" width="99" height="99" fill="#B500FE"/><rect x="102" y="102" width="99" height="99" fill="#00FE05"/>
-<rect x="203" y="102" width="99" height="99" fill="#FBFE00"/><rect x="304" y="102" width="99" height="99" fill="#FE009C"/></svg><span>Vistigo<small>by 444Video</small></span></a>
+    <a class="navbar-brand" href="./"><span>Vistigo<small><svg class="logo-mark" viewBox="0 0 27 13" role="img" aria-label="444Video"><rect x="0" y="0" width="6" height="6" fill="#1500FF"/><rect x="7" y="0" width="6" height="6" fill="#00E5C0"/><rect x="14" y="0" width="6" height="6" fill="#FF9500"/><rect x="21" y="0" width="6" height="6" fill="#FF0000"/><rect x="0" y="7" width="6" height="6" fill="#C300FF"/><rect x="7" y="7" width="6" height="6" fill="#00E000"/><rect x="14" y="7" width="6" height="6" fill="#FFEE00"/><rect x="21" y="7" width="6" height="6" fill="#FF1493"/></svg>By 444Video</small></span></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Menu">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -43,7 +39,7 @@
       <div class="col-lg-6">
         <h1 class="hero-title">We built this to watch our own kit. Now it can watch yours.</h1>
         <p class="hero-description mt-4">Vistigo is the monitoring 444Video runs on Starlink-equipped vehicles, live DTT
-        transmission and the lab rack in our office. It reads the numbers straight from the equipment - the dish, the
+        transmission and the lab rack in our office. It reads the numbers straight from the equipment - the router, the
         probe, the power supply - and puts them on dashboards your team will actually open.</p>
         <div class="btn-list"><a class="btn btn-primary btn-lg" href="#products">Pick your industry</a>
         <a class="btn btn-ghost-secondary btn-lg" href="#how">How it works</a></div>
@@ -81,7 +77,7 @@
 </div>
     <span class="who">For yachts</span>
     <h3 class="f-maritime">Vistigo Maritime</h3>
-    <p class="text-secondary">Reads the Starlink dish, the Peplink router and every Wi-Fi network on board. You see which link the yacht is on, who's using it and what the cellular data is costing.</p>
+    <p class="text-secondary">Reads the yacht's Peplink routers and Starlink through InControl2, with nothing to install on board. You see which link the yacht is on, who's using it and what the cellular data is costing.</p>
     <span class="go mt-auto">See how it works</span>
   </div>
 </a></div><div class="col-lg-4"><a class="card card-link pillar-card" href="broadcast/" style="--pc:#FFB54D">
@@ -132,7 +128,7 @@
 <section class="section" id="how">
   <div class="container-xl">
     <div class="section-header"><h2 class="section-title">From the kit to your screen</h2><p class="section-description">No black box. It's Zabbix, Prometheus, VictoriaMetrics and Grafana, which half the internet already trusts, plus our own collectors for the equipment that only speaks its own language.</p></div>
-    <ul class="steps steps-counter steps-primary my-4"><li class="step-item">Read it where it lives</li><li class="step-item">Send it out safely</li><li class="step-item">Keep the history</li><li class="step-item">Show it, and shout</li></ul><div class="row g-3"><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Read it where it lives</h3><ul><li><strong>On the ship</strong>: a small collector asks the Starlink dish directly</li><li><strong>In the building</strong>: Zabbix agents, SNMP and iDRAC</li><li><strong>In the cloud</strong>: Peplink InControl2, the SIM provider, Zixi</li></ul></div></div></div><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Send it out safely</h3><ul><li><strong>Outbound only</strong>: nothing on a ship or customer network accepts connections</li><li><strong>HTTPS, one login per site</strong>: checked at our proxy before it's written</li><li><strong>Buffered</strong>: if the link drops, readings queue on disk and catch up</li></ul></div></div></div><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Keep the history</h3><ul><li><strong>VictoriaMetrics</strong>: most numbers, for months</li><li><strong>Zabbix</strong>: up/down, alarms and device logs</li><li><strong>Elasticsearch</strong>: the firehose from broadcast probes</li></ul></div></div></div><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Show it, and shout</h3><ul><li><strong>Grafana</strong>: a home page per customer, then one dashboard per job</li><li><strong>Alerts</strong>: to Slack, email or your NOC, with the device and reading attached</li><li><strong>No data is purple</strong>: a dead feed never shows green</li></ul></div></div></div></div>
+    <ul class="steps steps-counter steps-primary my-4"><li class="step-item">Read it where it lives</li><li class="step-item">Send it out safely</li><li class="step-item">Keep the history</li><li class="step-item">Show it, and shout</li></ul><div class="row g-3"><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Read it where it lives</h3><ul><li><strong>On the yacht</strong>: nothing to install - the Peplink routers and Starlink report through InControl2</li><li><strong>In the building</strong>: Zabbix agents, SNMP and iDRAC</li><li><strong>In the cloud</strong>: Peplink InControl2, the SIM provider, Zixi</li></ul></div></div></div><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Send it out safely</h3><ul><li><strong>Outbound only</strong>: nothing on a ship or customer network accepts connections</li><li><strong>HTTPS, one login per site</strong>: checked at our proxy before it's written</li><li><strong>Buffered</strong>: where a collector runs on site, readings queue on disk if the link drops, then catch up</li></ul></div></div></div><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Keep the history</h3><ul><li><strong>VictoriaMetrics</strong>: most numbers, for months</li><li><strong>Zabbix</strong>: up/down, alarms and device logs</li><li><strong>Elasticsearch</strong>: the firehose from broadcast probes</li></ul></div></div></div><div class="col-md-6 col-lg-3 stage"><div class="card"><div class="card-body"><h3 class="mb-2">Show it, and shout</h3><ul><li><strong>Grafana</strong>: a home page per customer, then one dashboard per job</li><li><strong>Alerts</strong>: to Slack, email or your NOC, with the device and reading attached</li><li><strong>No data is purple</strong>: a dead feed never shows green</li></ul></div></div></div></div>
   </div>
 </section>
 
