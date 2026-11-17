@@ -571,7 +571,7 @@ def maritime():
     <li><strong>Route-aware cost.</strong> Crew traffic is only priced while it's going over cellular.</li>
     <li><strong>Bandwidth handed back.</strong> See the crew's average speed returned to owner and guests.</li>
     <li><strong>A record of the switch.</strong> Every on and off is marked on the timeline.</li>
-    <li><strong>Confirmed by the router.</strong> The switch goes through InControl2, so it needs the yacht to be online and takes a few minutes. The dashboard shows when the router has confirmed the change, and alerts the bridge if it hasn't.</li>
+    <li><strong>Confirmed by the router.</strong> The switch goes through InControl2, so it needs the yacht to be online and takes a few minutes. The dashboard shows when the router has confirmed the change, and alerts the bridge if it hasn't. Usage and cost per network update about once an hour, so the saving shows there within the hour.</li>
   </ul></div>
 </div>""", alt=True)}
 
