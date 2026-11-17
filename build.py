@@ -443,7 +443,7 @@ def hub():
 def _yacht():
     """Illustration of a motor yacht under way, with its Starlink and cellular links."""
     return """<div class="voyage voyage-img">
-<img src="../assets/img/yacht-links.webp" width="1600" height="782" loading="lazy" decoding="async"
+<img src="../assets/img/yacht-links.webp" width="1600" height="700" loading="lazy" decoding="async"
      alt="Illustration of a motor yacht at sea, linked to a satellite overhead and a cell mast on the coast.">
 </div>"""
 
@@ -540,7 +540,7 @@ def maritime():
 </div>""", alt=True)}
 
 {section("A screen for everyone on board", "One home page for the yacht, then a dashboard for each job. The owner gets a yes or no, the purser gets the bill, and the engineer gets every reading from the dish and the modems.",
-         f"""<div class="mb-4">{shot('dash-yacht-home.png', 'Vistigo Maritime home page for a demo yacht, with cards for the yacht overview, Wi-Fi by network, crew Wi-Fi, links, cellular, Starlink, router health and three simple views.',
+         f"""<div class="mb-4">{shot('dash-yacht-home.png', 'Vistigo Maritime home page for a demo yacht, with cards for the yacht overview, live alerts, Wi-Fi by network, crew Wi-Fi, links, cellular, Starlink, Starlink data and cost, router health and three simple views.',
                                     'The home page for a yacht: on board, engineering and simple views.', rel, '/maritime')}</div>
 <div class="row g-4">
   <div class="col-lg-6">{shot('dash-yacht-status.png', 'Is the internet OK? The internet is working, connected via wired internet, with Wi-Fi WAN and wired internet ready as back-up and 100 percent online today.',
