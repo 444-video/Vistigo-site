@@ -12,6 +12,7 @@ dark theme, with assets/css/site.css on top for type, the industry palettes
 and the diagram. Writing: UK English, hyphens rather than em dashes, client
 figures attributed to "a UK multiplex operator".
 """
+import math
 from html import escape
 from pathlib import Path
 
@@ -441,10 +442,31 @@ def hub():
 
 # ------------------------------------------------------------------ maritime
 def _yacht():
-    """Illustration of a motor yacht under way, with its Starlink and cellular links."""
-    return """<div class="voyage voyage-img">
-<img src="../assets/img/yacht-links.webp" width="1600" height="700" loading="lazy" decoding="async"
-     alt="Illustration of a motor yacht at sea, linked to a satellite overhead and a cell mast on the coast.">
+    """Illustration of a motor yacht under way, with its Starlink and cellular links.
+
+    The layers share one 1600x700 canvas. Everything above the water (coast, satellite, boat) sits in a
+    group clipped by the water surface, so the hull dips into the sea and more of it shows as it lifts.
+    The surface is a sine with the same 200px period as the drawn waves. It sways, and the clipped group
+    counter-sways (see site.css) so the boat and coast stay put while the waterline laps along the hull.
+    """
+    curve = " ".join(f"{x},{570 + 3.5 * math.sin(math.tau * (x + 30) / 200):.1f}" for x in range(-120, 1721, 20))
+
+    def img(name):
+        return f'<img class="ys-{name}" src="../assets/img/yacht-{name}.webp" width="1600" height="700" decoding="async" alt="">'
+
+    return f"""<div class="voyage voyage-img">
+<div class="yacht-scene" role="img" aria-label="Illustration of a motor yacht at sea, linked to a satellite overhead and a cell mast on the coast.">
+<div class="ys-above" style="clip-path:url(#ys-air)"><div class="ys-still">{img('scene')}{img('boat')}</div></div>
+<svg class="ys-sea" viewBox="0 0 1600 700" preserveAspectRatio="none" aria-hidden="true">
+<defs>
+<clipPath id="ys-air" clipPathUnits="objectBoundingBox"><path transform="scale(.000625 .00142857)" d="M{curve} L1720,-300 L-120,-300Z"/></clipPath>
+<linearGradient id="ys-depth" gradientUnits="userSpaceOnUse" x1="0" y1="566" x2="0" y2="628"><stop offset="0" stop-color="#47d6e8" stop-opacity=".16"/><stop offset="1" stop-color="#47d6e8" stop-opacity="0"/></linearGradient>
+</defs>
+<path d="M{curve} L1720,628 L-120,628Z" fill="url(#ys-depth)"/>
+<path d="M{curve}" fill="none" stroke="#73e2ea" stroke-opacity=".62" stroke-width="2"/>
+</svg>
+{img('water')}{img('wave-2')}{img('wave-1')}
+</div>
 </div>"""
 
 

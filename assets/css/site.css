@@ -471,5 +471,21 @@ p{max-width:68ch}
 .p-maritime .hero-description{font-size:1.125rem}
 .p-maritime .voyage{height:clamp(110px,11.875vw,240px);margin-top:0}
 .voyage-img{height:auto;background:none;overflow:visible;padding:0 1rem}
-.voyage-img img{display:block;width:auto;max-width:100%;height:auto;max-height:clamp(200px,28vh,360px);margin:0 auto;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+/* the illustration is stacked layers on one 1600x700 canvas: the boat rocks, the waves sway, and the water
+   surface clips everything above it (.ys-above) so the hull sits in the sea. The surface and its clip sway
+   together; .ys-still sways the opposite way by the same amount, so the boat and coast do not drift. */
+.yacht-scene{position:relative;width:min(100%,calc(clamp(200px,28vh,360px)*16/7));aspect-ratio:16/7;margin:0 auto;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.yacht-scene img,.ys-above,.ys-still,.ys-sea{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:none}
+.ys-sea{overflow:visible}
+.ys-sea,.ys-above{animation:ys-surf 6.4s ease-in-out infinite alternate}
+.ys-still{animation:ys-surf-back 6.4s ease-in-out infinite alternate}
+.ys-boat{transform-origin:42.5% 80.8%;animation:ys-rock 5.6s ease-in-out infinite alternate,ys-bob 3.7s ease-in-out infinite alternate}
+.ys-wave-1,.ys-wave-2{scale:1.06 1;animation:ys-sway 7s ease-in-out infinite alternate}
+.ys-wave-2{animation-duration:9s;animation-direction:alternate-reverse}
+@keyframes ys-surf{from{translate:-1.4% .2%}to{translate:1.4% -.2%}}
+@keyframes ys-surf-back{from{translate:1.4% -.2%}to{translate:-1.4% .2%}}
+@keyframes ys-rock{from{rotate:-1.1deg}to{rotate:1.1deg}}
+@keyframes ys-bob{from{translate:0 .5%}to{translate:0 -.5%}}
+@keyframes ys-sway{from{translate:-2.2% .3%}to{translate:2.2% -.3%}}
+@media (prefers-reduced-motion:reduce){.yacht-scene *{animation:none}}
 .p-maritime .voyage-img{height:auto}
