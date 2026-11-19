@@ -536,7 +536,7 @@ def maritime():
         carrying the traffic, who is using it and what the cellular data is costing. Switch crew Wi-Fi off from the
         bridge, and see the month's spend against budget before anyone signs the invoice.</p>
         <div class="btn-list"><a class="btn btn-primary btn-lg" href="#money">How it saves money</a>
-        <a class="btn btn-ghost-secondary btn-lg" href="#metstrade">See it at Metstrade</a></div>
+        <a class="btn btn-ghost-secondary btn-lg" href="#contact">Talk to us</a></div>
       </div>
       <div class="col-lg-7">
         {shot('dash-yacht-bill.png', "This month's internet bill: 9 euros spent, 31 expected by the end of the month, on track against a 500 euro budget, 4 percent of a 100 GB allowance used, daily spend and who used the data.",
@@ -587,24 +587,10 @@ def maritime():
 {section("Where the numbers come from", "Nothing is installed on board. The yacht's Peplink routers report to Peplink's InControl2 cloud service, including what the Starlink dish tells the router, and Vistigo collects from there. The routers need to be registered in InControl2 with an active subscription, and the owner or management company gives Vistigo API access. If the yacht loses internet altogether, readings for that time are missing; an on-board collector that keeps them flowing is an option.",
          flow(rows, out), id_="data", alt=True)}
 
-<section class="section metstrade" id="metstrade">
-  <div class="container-xl">
-    <div class="row g-4 align-items-center">
-      <div class="col-lg-7">
-        <p class="kicker">Wednesday 18 November 2026 &middot; RAI Amsterdam</p>
-        <h2 class="section-title mb-3">See it live at Metstrade</h2>
-        <p class="section-description mb-0">Find us walking the floor at Metstrade with a live demo on an iPad - a real
-        router, real data. Email hello@vistigo.cloud to arrange a time.</p>
-      </div>
-      <div class="col-lg-5 text-lg-end"><a class="btn btn-primary btn-lg" href="mailto:hello@vistigo.cloud?subject=Vistigo%20Maritime%20at%20Metstrade">Arrange a time at Metstrade</a></div>
-    </div>
-  </div>
-</section>
-
 {others(rel, 'maritime')}
 {contact("Tell us about the yacht: the links on board, the networks and what the data bill looks like. We'll show you it in Vistigo.", "Vistigo%20Maritime")}"""
     return page(rel=rel, title="Vistigo Maritime: yacht connectivity and data cost",
-                description="Starlink, 4G/5G, owner, guest and crew Wi-Fi, and what the cellular data is costing, for every yacht. See it at Metstrade 2026.",
+                description="Starlink, 4G/5G, owner, guest and crew Wi-Fi, and what the cellular data is costing, for every yacht.",
                 product="maritime", body=body)
 
 
